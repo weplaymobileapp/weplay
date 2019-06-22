@@ -15,4 +15,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/weplay', router);
 
 // Verifies and sets port on where server is listening at
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`We Play Mobile listening on port ${port}!`));
