@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default function App() {
+export default function Login() {
   return (
     <View style={styles.container}>
       <Text style={styles.signUp}>Sign Up</Text>
