@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
-import Calendar from 'react-native-day-picker';
+
+
 
 export default class Find extends Component {
   constructor(props) {
@@ -13,12 +14,10 @@ export default class Find extends Component {
   render() {
     return (
       <View style={styles.outer}>
-        
-        <View style={[styles.body1,{flex: .7}]}>
-          <Text style={{ fontSize: 50, top: 20 }}>Find an Event</Text>
+        <View style={styles.body1}>
+          <Text style={{ fontSize: 50, top: 40 }}>Find an Event</Text>
         </View>
-
-        <View style={[styles.body2, styles.columns, {flex: 1.7}]}>
+        <View style={[styles.body2, styles.columns]}>
           <View style={styles.column}>
             <Text style={{ top: 20, fontSize: 20 }}>Sport</Text>
             <Picker selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
@@ -34,7 +33,7 @@ export default class Find extends Component {
             </Picker>
           </View>
           <View style={styles.column}>
-            <Text style={{ top: 10, fontSize: 20 }}>Radius (Miles)</Text>
+            <Text style={{ top: 20, fontSize: 20 }}>Radius (Miles)</Text>
             <Picker selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
               this.setState({ radius: itemValue })
             }>
@@ -48,20 +47,22 @@ export default class Find extends Component {
             </Picker>
           </View>
         </View>
-
         <View style={[styles.body3, styles.rows]}>
-          <View style={[styles.row, { flex: 2.6 }]}>
-            
-          </View>
-          <View style={[styles.row, { flex: 1 }]}>
+          <View style={[styles.row, {flex: 2}]}>
             <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity>
           </View>
+          <View style={[styles.row,{flex: 3}]}>
+            <Text>Or</Text>
+            <TouchableOpacity style={styles.buttonSmall}>
+              <Text style={{ fontSize: 25 }}>Create an Event</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
         <View style={styles.footer}>
+          <Text>Logged in as: Billy Bob Joe</Text>
         </View>
       </View>
     );
@@ -74,24 +75,25 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
-    borderWidth: 5,
+    // borderWidth: 5,
+    // borderColor: 'black'
     // justifyContent: 'space-between',
   },
   body1: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
     alignItems: 'center'
   },
   body2: {
     flex: 2,
-    borderWidth: 2,
-    borderColor: 'blue'
+    // borderWidth: 2,
+    // borderColor: 'blue'
   },
   body3: {
     flex: 3,
-    borderWidth: 2,
-    borderColor: 'green',
+    // borderWidth: 2,
+    // borderColor: 'green',
     // flexDirection: 'column',
     // justifyContent: 'space-around',
     alignItems: 'center'
@@ -114,21 +116,21 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   input: {
     height: 40,
     width: 100,
     fontSize: 28,
-    top: -10,
+    // top: 30,
     margin: 20
   },
   button: {
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
     borderColor: 'darkgreen',
     borderWidth: 2,
     borderRadius: 5,
+    top: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2AC062',
@@ -152,6 +155,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 200,
     borderRadius: 5,
+    top: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'blue',
