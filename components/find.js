@@ -1,30 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker } from 'react-native';
+
+export default function Find() {
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.find}>Find a Game</Text>
+      <TextInput style={styles.input} placeholder="Type here to translate!">
+      
+      </TextInput>
+    </View>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'space-between',
   },
-  signUp: {
-    fontSize: 30
+  find: {
+    fontSize: 50,
+    top: 50,
+  },
+  input: {
+    height: 40,
+    fontSize: 28,
+    top: 70
   }
 });
+//  let pic = { uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg' };
+//<Image source={pic} style={{ width: 193, height: 110 }} />
 
-export default function Find() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.signUp}>Sign Up</Text>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="User Name"/>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="Password"
-        secureTextEntry={true}/>
-    </View>
-  );
-}
 
