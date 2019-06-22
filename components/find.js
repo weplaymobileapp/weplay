@@ -33,3 +33,4 @@ const styles = StyleSheet.create({
 //  let pic = { uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg' };
 //<Image source={pic} style={{ width: 193, height: 110 }} />
 
+
