@@ -7,21 +7,28 @@ export default class Find extends Component {
     super(props);
     this.state = {
       sport: 'Ping Pong',
-      radius: '1'
+      radius: '1',
+      month: '1',
+      day: '1'
     }
   }
   render() {
+    var from = new Date();
+    var to = new Date();
+    to.setDate(to.getDate() + 9);
+    var startDate = new Date();
+    startDate.setMonth(startDate.getMonth() + 1);
     return (
       <View style={styles.outer}>
-        
-        <View style={[styles.body1,{flex: .7}]}>
-          <Text style={{ fontSize: 50, top: 20 }}>Find an Event</Text>
+
+        <View style={[styles.body1, { flex: .5 }]}>
+          <Text style={{ fontSize: 40, top: 15 }}>Find an Event</Text>
         </View>
 
-        <View style={[styles.body2, styles.columns, {flex: 1.7}]}>
+        <View style={[styles.body2, styles.columns, { flex: 1.2 }]}>
           <View style={styles.column}>
             <Text style={{ top: 20, fontSize: 20 }}>Sport</Text>
-            <Picker selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
+            <Picker itemStyle={{height: 144}} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
               this.setState({ sport: itemValue })
             }>
               <Picker.Item label="Ping Pong" value="Ping Pong" />
@@ -35,7 +42,7 @@ export default class Find extends Component {
           </View>
           <View style={styles.column}>
             <Text style={{ top: 10, fontSize: 20 }}>Radius (Miles)</Text>
-            <Picker selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
+            <Picker itemStyle={{height: 144}} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
               this.setState({ radius: itemValue })
             }>
               <Picker.Item label="1" value={1} />
@@ -50,11 +57,23 @@ export default class Find extends Component {
         </View>
 
         <View style={[styles.body3, styles.rows]}>
-          <View style={[styles.row, { flex: 2.6 }]}>
-            
+          <View style={[styles.row, { flex: 2.4 }]}>
+            <Calendar
+              monthsCount={1}
+              startFormMonday={true}
+              startDate={startDate}
+              rangeSelect={false}
+              isFutureDate={true}
+              width={290}
+              onSelectionChange={(current, previous) => {
+                this.setState({month: current.getMonth(), day: current.getDate()})
+                console.log(current.getMonth(), current.getDate());
+              }}
+            />
           </View>
-          <View style={[styles.row, { flex: 1 }]}>
+          <View style={[styles.row, { flex: 1.2 }]}>
             <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
+            <Text style={{ top: 10, fontSize: 15 }}>On {this.state.month}/{this.state.day}</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity>
