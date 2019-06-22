@@ -1,30 +1,42 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { AppRegistry } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import Login from './components/login.js';
+import Find from './components/find.js';
+import Create from './components/create.js';
+import Profile from './components/profile.js';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.signUp}>Sign Up</Text>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="User Name"/>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="Password"
-        secureTextEntry={true}/>
-    </View>
-  );
+class App extends React.Component {
+  render() {
+    return Login;
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const AppNavigator = createStackNavigator(
+  {
+    Login: {
+      screen: Login,
+      navigationOptions: { header: null, gesturesEnabled: false }
+    },
+    Find: {
+      screen: Find,
+      navigationOptions: { header: null, gesturesEnabled: false }
+    },
+    Create: {
+      screen: Create,
+      navigationOptions: { header: null }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: { header: null }
+    }
   },
-  signUp: {
-    fontSize: 30
+  {
+    initialRouteName: 'Login',
+    headerMode: 'screen'
   }
-});
+);
 
+AppRegistry.registerComponent('WePlay', () => App);
+
+export default createAppContainer(AppNavigator);
