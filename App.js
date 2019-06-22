@@ -6,11 +6,11 @@ import Find from './components/find.js';
 import Create from './components/create.js';
 import Profile from './components/profile.js';
 
-class App extends React.Component {
-  render() {
-    return Login;
-  }
-}
+// class App extends React.Component {
+//   // render() {
+//   //   // return Find;
+//   // }
+// }
 
 const AppNavigator = createStackNavigator(
   {
@@ -32,7 +32,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'Find',
     headerMode: 'screen'
   }
 );

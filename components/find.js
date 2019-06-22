@@ -1,16 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker } from 'react-native';
 
-export default function Find() {
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.find}>Find a Game</Text>
-      <TextInput style={styles.input} placeholder="Type here to translate!">
-      
-      </TextInput>
-    </View>
-  );
+
+export default class Find extends Component {
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     sport: ''
+  //   }
+  // }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.find}>Find a Game</Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
