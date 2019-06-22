@@ -1,17 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
+import Find from './components/find.js'
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.signUp}>Sign Up</Text>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="User Name"/>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="Password"
-        secureTextEntry={true}/>
+      <Find />
     </View>
   );
 }
