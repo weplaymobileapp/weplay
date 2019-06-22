@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// need to insert mongoDB Atlus URL here
+// need to insert mongoDB Atlas URL here
 let DB_URL = 'INSERT URL HERE'
 
 // Connecting our storage db to our application
