@@ -1,0 +1,12 @@
+[
+  {
+    "sport": "Ping Pong",
+    "description": "Just a friendly Pong sesh! Anyone is welcome! Don't forget your own stuff! We got balls tho ;)",
+    "date": "",
+    "time": "",
+    "address": "",
+    "maxPlayers": 0,
+    "minPlayers": 2,
+    "evenOnly": false
+  }
+]
