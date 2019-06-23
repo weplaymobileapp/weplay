@@ -27,8 +27,8 @@ export default class Find extends Component {
 
         <View style={[styles.body2, styles.columns, { flex: 1.2 }]}>
           <View style={styles.column}>
-            <Text style={{ top: 20, fontSize: 20 }}>Sport</Text>
-            <Picker itemStyle={{height: 144}} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
+            <Text style={{ top: 0, fontSize: 20,left: 30 }}>Sport</Text>
+            <Picker itemStyle={{height: 140, width: 180}} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
               this.setState({ sport: itemValue })
             }>
               <Picker.Item label="Ping Pong" value="Ping Pong" />
@@ -41,8 +41,8 @@ export default class Find extends Component {
             </Picker>
           </View>
           <View style={styles.column}>
-            <Text style={{ top: 10, fontSize: 20 }}>Radius (Miles)</Text>
-            <Picker itemStyle={{height: 144}} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
+            <Text style={{ top: 0, fontSize: 20 }}>Radius (Miles)</Text>
+            <Picker itemStyle={{height: 140, width: 100}} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
               this.setState({ radius: itemValue })
             }>
               <Picker.Item label="1" value={1} />
@@ -74,7 +74,8 @@ export default class Find extends Component {
           <View style={[styles.row, { flex: 1.2 }]}>
             <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
             <Text style={{ top: 10, fontSize: 15 }}>On {this.state.month}/{this.state.day}</Text>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() =>{ 
+              this.props.navigation.navigate('Find2', { sport: this.state.sport, radius: this.state.radius, month: this.state.month, day: this.state.day })}}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity>
           </View>
@@ -93,32 +94,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
-    borderWidth: 5,
+    // borderWidth: 5,
     // justifyContent: 'space-between',
   },
   body1: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
     alignItems: 'center'
   },
   body2: {
     flex: 2,
-    borderWidth: 2,
-    borderColor: 'blue'
+    // borderWidth: 2,
+    // borderColor: 'blue'
   },
   body3: {
     flex: 3,
-    borderWidth: 2,
-    borderColor: 'green',
+    // borderWidth: 2,
+    // borderColor: 'green',
     // flexDirection: 'column',
     // justifyContent: 'space-around',
     alignItems: 'center'
   },
   footer: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'yellow'
+    // borderWidth: 2,
+    // borderColor: 'yellow'
   },
   columns: {
     flexDirection: 'row',
@@ -133,14 +134,14 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   input: {
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowOffset: { height: 10, width: 0 },
     shadowRadius: 20,
-    margin: 15
+    margin: 35
   },
   buttonSmall: {
     display: 'flex',

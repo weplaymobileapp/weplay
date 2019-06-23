@@ -1,68 +1,55 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
 
-
-
 export default class Find extends Component {
   constructor(props) {
     super(props);
     this.state = {
       sport: 'Ping Pong',
-      radius: '1'
+      radius: '1',
+      month: '',
+      day: ''
     }
   }
   render() {
+    let { sport, radius, month, day} = this.props.navigation.state.params;
     return (
       <View style={styles.outer}>
-        <View style={styles.body1}>
-          <Text style={{ fontSize: 50, top: 40 }}>Find an Event</Text>
+        <View style={[styles.body1, {flex: .5}]}>
+          <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
         </View>
-        <View style={[styles.body2, styles.columns]}>
-          <View style={styles.column}>
-            <Text style={{ top: 20, fontSize: 20 }}>Sport</Text>
-            <Picker selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
-              this.setState({ sport: itemValue })
-            }>
-              <Picker.Item label="Ping Pong" value="Ping Pong" />
-              <Picker.Item label="Pickle Ball" value="Pickle Ball" />
-              <Picker.Item label="Basketball" value="Basketball" />
-              <Picker.Item label="Volleyball" value="Volleyball" />
-              <Picker.Item label="Hacky Sack" value="Hacky Sack" />
-              <Picker.Item label="Laser Tag" value="Laser Tag" />
-              <Picker.Item label="Mini Golf" value="Mini Golf" />
-            </Picker>
-          </View>
-          <View style={styles.column}>
-            <Text style={{ top: 20, fontSize: 20 }}>Radius (Miles)</Text>
-            <Picker selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
-              this.setState({ radius: itemValue })
-            }>
-              <Picker.Item label="1" value={1} />
-              <Picker.Item label="5" value={5} />
-              <Picker.Item label="10" value={10} />
-              <Picker.Item label="20" value={20} />
-              <Picker.Item label="30" value={30} />
-              <Picker.Item label="40" value={40} />
-              <Picker.Item label="50" value={50} />
-            </Picker>
-          </View>
+        <View style={[styles.body1, {flex: .3, marginBottom: 20}]}>
+          <Text style={{fontSize: 13, top: 20}}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
         </View>
-        <View style={[styles.body3, styles.rows]}>
-          <View style={[styles.row, {flex: 2}]}>
-            <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
-            <TouchableOpacity style={styles.button}>
-              <Text style={{ fontSize: 25 }}>Search</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={[styles.row,{flex: 3}]}>
-            <Text>Or</Text>
-            <TouchableOpacity style={styles.buttonSmall}>
-              <Text style={{ fontSize: 25 }}>Create an Event</Text>
-            </TouchableOpacity>
-          </View>
+        <View style={[styles.body3, styles.rows, {flex: 5}]}>
+          <TouchableOpacity style={styles.event}>
+            <Text style={{fontSize: 20, margin: 5}}>Matt's Lame {sport} Sesh</Text>
+            <Text style={{fontSize: 14}}>4/12 Players</Text>
+            <Text style={{fontSize: 10, margin: 10}}>Just a friendly {sport} sesh! Anyone is welcome! Don't forget your own stuff! We got balls tho ;)</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.event}>
+            <Text style={{fontSize: 20, margin: 5}}>Dustin's Trainee {sport} Tourney</Text>
+            <Text style={{fontSize: 14}}>9/12 Players</Text>
+            <Text style={{fontSize: 10, margin: 10}}>Hardcore {sport} tournament for friggin mega nubs</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.event}>
+            <Text style={{fontSize: 20, margin: 5}}>Ramin's {sport} with friends</Text>
+            <Text style={{fontSize: 14}}>1/12 Players</Text>
+            <Text style={{fontSize: 10, margin: 10}}>Me and all my friends like to play {sport} together!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.event}>
+            <Text style={{fontSize: 20, margin: 5}}>Just some games</Text>
+            <Text style={{fontSize: 14}}>12/12 Players</Text>
+            <Text style={{fontSize: 10, margin: 10}}>This isn't even a {sport} event. Pull up anyways tho</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.event}>
+            <Text style={{fontSize: 20, margin: 5}}>Smoke Sesh disguised as a {sport} sesh</Text>
+            <Text style={{fontSize: 14}}>4/20 Players</Text>
+            <Text style={{fontSize: 10, margin: 10}}>Stoners unite. Come thruuuuu</Text>
+          </TouchableOpacity>
         </View>
         <View style={styles.footer}>
-          <Text>Logged in as: Billy Bob Joe</Text>
+          <Text></Text>
         </View>
       </View>
     );
@@ -75,20 +62,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
-    // borderWidth: 5,
-    // borderColor: 'black'
+    borderWidth: 5,
+    borderColor: 'black'
     // justifyContent: 'space-between',
   },
   body1: {
     flex: 1,
     // borderWidth: 2,
-    // borderColor: 'red',
     alignItems: 'center'
   },
   body2: {
     flex: 2,
-    // borderWidth: 2,
-    // borderColor: 'blue'
+    borderWidth: 2,
+    borderColor: 'blue'
   },
   body3: {
     flex: 3,
@@ -109,21 +95,28 @@ const styles = StyleSheet.create({
   },
   rows: {
     flexDirection: 'column',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
     alignItems: 'stretch'
+  },
+  event: {
+    height: 100,
+    borderWidth: 2,
+    borderColor: 'black',
+    alignItems: 'center',
+    margin: 3
   },
 
 
   column: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
+    borderWidth: 2,
+    borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
+    borderWidth: 2,
+    borderColor: 'black',
     alignItems: 'center'
   },
   input: {

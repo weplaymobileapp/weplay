@@ -3,6 +3,7 @@ import { AppRegistry } from 'react-native';
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './components/login.js';
 import Find from './components/find.js';
+import Find2 from './components/find2.js';
 import Create from './components/create.js';
 import Profile from './components/profile.js';
 
@@ -20,6 +21,10 @@ const AppNavigator = createStackNavigator(
     },
     Find: {
       screen: Find,
+      navigationOptions: { header: null, gesturesEnabled: false }
+    },
+    Find2: {
+      screen: Find2,
       navigationOptions: { header: null, gesturesEnabled: false }
     },
     Create: {
