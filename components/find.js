@@ -21,11 +21,11 @@ export default class Find extends Component {
     return (
       <View style={styles.outer}>
 
-        <View style={[styles.body1, { flex: .5 }]}>
+        <View style={[styles.body, { flex: .5 }]}>
           <Text style={{ fontSize: 40, top: 15 }}>Find an Event</Text>
         </View>
 
-        <View style={[styles.body2, styles.columns, { flex: 1.2 }]}>
+        <View style={[styles.body, styles.columns, { flex: 1.2 }]}>
           <View style={styles.column}>
             <Text style={{ top: 0, fontSize: 20,left: 30 }}>Sport</Text>
             <Picker itemStyle={{height: 140, width: 180}} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
@@ -56,7 +56,7 @@ export default class Find extends Component {
           </View>
         </View>
 
-        <View style={[styles.body3, styles.rows]}>
+        <View style={[styles.body, styles.rows, {flex: 3}]}>
           <View style={[styles.row, { flex: 2.4 }]}>
             <Calendar
               monthsCount={1}
@@ -97,23 +97,10 @@ const styles = StyleSheet.create({
     // borderWidth: 5,
     // justifyContent: 'space-between',
   },
-  body1: {
+  body: {
     flex: 1,
     // borderWidth: 2,
     // borderColor: 'red',
-    alignItems: 'center'
-  },
-  body2: {
-    flex: 2,
-    // borderWidth: 2,
-    // borderColor: 'blue'
-  },
-  body3: {
-    flex: 3,
-    // borderWidth: 2,
-    // borderColor: 'green',
-    // flexDirection: 'column',
-    // justifyContent: 'space-around',
     alignItems: 'center'
   },
   footer: {

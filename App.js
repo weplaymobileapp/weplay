@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './components/login.js';
 import Find from './components/find.js';
 import Find2 from './components/find2.js';
+import Find3 from './components/find3.js';
 import Create from './components/create.js';
 import Profile from './components/profile.js';
 
@@ -25,6 +26,10 @@ const AppNavigator = createStackNavigator(
     },
     Find2: {
       screen: Find2,
+      navigationOptions: { header: null, gesturesEnabled: false }
+    },
+    Find3: {
+      screen: Find3,
       navigationOptions: { header: null, gesturesEnabled: false }
     },
     Create: {
