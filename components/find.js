@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
 import Calendar from 'react-native-day-picker';
+import data from '../data/eventsExample.json';
 
 export default class Find extends Component {
   constructor(props) {
@@ -8,10 +9,31 @@ export default class Find extends Component {
     this.state = {
       sport: 'Ping Pong',
       radius: '1',
-      month: '1',
-      day: '1'
+      month: '01',
+      day: '01',
+      querys: []
     }
   }
+
+  updateQuery() {
+    let { day, month } = this.state
+    if(day.length === 1) {
+      day = '0' + day;
+    }
+    if(month.length === 1) {
+      month = '0' + month;
+    }
+    let YYMMDD = '2019-' + month + '-' + day;
+    let newQueries = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].date === YYMMDD && data[i].sport === this.state.sport) {
+        newQueries.push(data[i]);
+      }
+    }
+    console.log(YYMMDD, this.state.sport)
+    this.setState({querys: newQueries});
+  }
+
   render() {
     var from = new Date();
     var to = new Date();
@@ -27,9 +49,10 @@ export default class Find extends Component {
 
         <View style={[styles.body, styles.columns, { flex: 1.2 }]}>
           <View style={styles.column}>
-            <Text style={{ top: 0, fontSize: 20,left: 30 }}>Sport</Text>
-            <Picker itemStyle={{height: 140, width: 180}} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) =>
-              this.setState({ sport: itemValue })
+            <Text style={{ top: 0, fontSize: 20, left: 30 }}>Sport</Text>
+            <Picker itemStyle={{ height: 140, width: 180 }} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) => {
+              this.setState({ sport: itemValue }, () => this.updateQuery())
+            }
             }>
               <Picker.Item label="Ping Pong" value="Ping Pong" />
               <Picker.Item label="Pickle Ball" value="Pickle Ball" />
@@ -42,8 +65,9 @@ export default class Find extends Component {
           </View>
           <View style={styles.column}>
             <Text style={{ top: 0, fontSize: 20 }}>Radius (Miles)</Text>
-            <Picker itemStyle={{height: 140, width: 100}} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) =>
+            <Picker itemStyle={{ height: 140, width: 100 }} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) => {
               this.setState({ radius: itemValue })
+            }
             }>
               <Picker.Item label="1" value={1} />
               <Picker.Item label="5" value={5} />
@@ -56,7 +80,7 @@ export default class Find extends Component {
           </View>
         </View>
 
-        <View style={[styles.body, styles.rows, {flex: 3}]}>
+        <View style={[styles.body, styles.rows, { flex: 3 }]}>
           <View style={[styles.row, { flex: 2.4 }]}>
             <Calendar
               monthsCount={1}
@@ -66,16 +90,17 @@ export default class Find extends Component {
               isFutureDate={true}
               width={290}
               onSelectionChange={(current, previous) => {
-                this.setState({month: current.getMonth(), day: current.getDate()})
-                console.log(current.getMonth(), current.getDate());
+                this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) }, () => this.updateQuery())
               }}
             />
           </View>
           <View style={[styles.row, { flex: 1.2 }]}>
             <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
             <Text style={{ top: 10, fontSize: 15 }}>On {this.state.month}/{this.state.day}</Text>
-            <TouchableOpacity style={styles.button} onPress={() =>{ 
-              this.props.navigation.navigate('Find2', { sport: this.state.sport, radius: this.state.radius, month: this.state.month, day: this.state.day })}}>
+            <TouchableOpacity style={styles.button} onPress={() => {
+              console.log(this.state.querys.length, ' items found');
+              this.props.navigation.navigate('Find2', { sport: this.state.sport, radius: this.state.radius, month: this.state.month, day: this.state.day, query: this.state.querys })
+            }}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity>
           </View>

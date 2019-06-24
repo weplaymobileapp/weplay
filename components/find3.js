@@ -9,8 +9,8 @@ export default class Find3 extends Component {
     }
   }
   render() {
-    let { sport, radius, month, day} = this.props.navigation.state.params;
-    console.log(sport, radius, month, day);
+    let { sport, radius, month, day, item} = this.props.navigation.state.params;
+    // console.log(sport, radius, month, day, item);
     return (
       <View style={styles.outer}>
         <View style={[styles.body, {flex: .5}]}>
@@ -26,8 +26,20 @@ export default class Find3 extends Component {
           <View></View>
           <View></View>
         </View>
-        <View style={[styles.body, { flex: 4.7 }]}>
-
+        <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
+          <Text style={{fontSize: 25}}>{item.name}</Text>
+          <Text>{sport}</Text>
+          <Text>{item.time} on {item.date}</Text>
+          <Text>In Area code: {item.address}</Text>
+          <Text>{item.currentPlayers}/{item.maxPlayers} players</Text>
+          <Text>Minimum players: {item.minPlayers}</Text>
+          <Text>{item.description}</Text>
+          <TouchableOpacity style={styles.button} onPress={() => {
+              console.log('Game added');
+              this.props.navigation.navigate('Find');
+            }}>
+              <Text style={{ fontSize: 25 }}>Join Game</Text>
+            </TouchableOpacity>
         </View>
         <View style={styles.footer}>
           <Text></Text>
@@ -48,8 +60,8 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'red',
+    // borderWidth: 2,
+    // borderColor: 'red',
     alignItems: 'center'
   },
   footer: {
