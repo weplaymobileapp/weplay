@@ -8,7 +8,8 @@ import Profile from './components/profile.js';
 
 class App extends React.Component {
   render() {
-    return Login;
+    // return Login;
+    return Create;
   }
 }
 
@@ -32,7 +33,8 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: 'Login',
+    // initialRouteName: 'Login',
+    initialRouteName: 'Create',
     headerMode: 'screen'
   }
 );
