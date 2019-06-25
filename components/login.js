@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { AuthSession } from 'expo';
+import { FB_APP_ID } from '../config.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,21 +20,39 @@ export default class Login extends Component {
     super(props)
     this.state = {
       userName: '',
-      password: ''
+      password: '',
+      result: null,
+      emptyInputFields: false
     }
   }
 
-  //create a sign up function that just sends a post
-
-  //create a sign in function that authenticates user
+  _handlePressAsync = async () => {
+    if(!this.state.userName || !this.state.password){
+      this.setState({ emptyInputFields: true })
+    } else {
+      let redirectUrl = AuthSession.getRedirectUrl();
+      let result = await AuthSession.startAsync({
+        authUrl:
+          `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
+          `&client_id=${FB_APP_ID}` +
+          `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
+      });
+      this.setState({ result }, () => {
+        this.props.navigation.navigate('Profile')
+      });
+    }
+  };
   
   render() {
     return (
       <View style={styles.container}>
         <Text>We Play</Text>
+        {this.state.emptyInputFields ? (
+          <Text style={{color: 'red'}}>Please enter a Username and Password</Text>
+        ) : null}
         <TextInput
           style={{height: 32, fontSize: 30}}
-          placeholder="User Name"
+          placeholder="Username"
           onChangeText={(userName) => this.setState({userName})}
           />
         <TextInput
@@ -41,32 +61,7 @@ export default class Login extends Component {
           secureTextEntry={true}
           onChangeText={(password) => this.setState({password})}
           />
-        <Button
-          title={'Login'}
-          onPress={() => this.props.navigation.navigate('Profile')}
-          buttonStyle={{
-            backgroundColor: '#000',
-            borderWidth: 1,
-            borderColor: '#d3d3d3',
-            borderRadius: 10,
-            width: 300,
-            marginTop: 20
-          }}
-          titleStyle={{ fontWeight: '500', color: '#7ed957' }}
-        />
-        <Button
-          title={'Sign Up'}
-          onPress={() => this.props.navigation.navigate('Profile')}
-          buttonStyle={{
-            backgroundColor: '#000',
-            borderWidth: 1,
-            borderColor: '#d3d3d3',
-            borderRadius: 10,
-            width: 300,
-            marginTop: 20
-          }}
-          titleStyle={{ fontWeight: '500', color: '#7ed957' }}
-        />
+        <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
       </View>
     );
   }
