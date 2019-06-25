@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Find2 extends Component {
   constructor(props) {
@@ -21,8 +22,15 @@ export default class Find2 extends Component {
         <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
           <Text style={{ fontSize: 13, top: 20 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
         </View>
-        <View style={[styles.body, styles.rows, { flex: 5 }]}>
-
+        <View style={[styles.body, styles.columns, { flex: .3 }]}>
+          <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
+          <View></View>
+          <View style={{flex: 2}}><Text></Text></View>
+          <View></View>
+          <View></View>
+        </View>
+        <View style={[styles.body, styles.rows, { flex: 4.7 }]}>
+          <ScrollView>
           {query.map(item => {
             return (
               <TouchableOpacity style={styles.event} onPress={() => {
@@ -35,6 +43,7 @@ export default class Find2 extends Component {
               </TouchableOpacity>
             )
           })}
+          </ScrollView>
 
         </View>
         <View style={styles.footer}>

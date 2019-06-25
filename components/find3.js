@@ -33,7 +33,8 @@ export default class Find3 extends Component {
           <Text>In Area code: {item.address}</Text>
           <Text>{item.currentPlayers}/{item.maxPlayers} players</Text>
           <Text>Minimum players: {item.minPlayers}</Text>
-          <Text>{item.description}</Text>
+          {item.evenOnly ? <Text>Even Number Players Only</Text>: null }
+          <Text style={{margin: 20}}>{item.description}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {
               console.log('Game added');
               this.props.navigation.navigate('Find');
