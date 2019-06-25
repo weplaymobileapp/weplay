@@ -19,16 +19,16 @@ export default class Find2 extends Component {
         <View style={[styles.body, { flex: .5 }]}>
           <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
         </View>
-        <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
-          <Text style={{ fontSize: 13, top: 20 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
+        <View style={[styles.body, { flex: .5, marginBottom: 20 }]}>
+          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
         </View>
-        <View style={[styles.body, styles.columns, { flex: .3 }]}>
+        {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
           <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
           <View></View>
           <View style={{flex: 2}}><Text></Text></View>
           <View></View>
           <View></View>
-        </View>
+        </View> */}
         <View style={[styles.body, styles.rows, { flex: 4.7 }]}>
           <ScrollView>
           {query.map(item => {
@@ -60,8 +60,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
-    borderWidth: 5,
-    borderColor: 'black'
+    // borderWidth: 5,
+    // borderColor: 'black'
     // justifyContent: 'space-between',
   },
   body: {
@@ -71,8 +71,8 @@ const styles = StyleSheet.create({
   },
   footer: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'yellow'
+    // borderWidth: 2,
+    // borderColor: 'yellow'
   },
   columns: {
     flexDirection: 'row',
@@ -94,14 +94,14 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center'
   },
   input: {

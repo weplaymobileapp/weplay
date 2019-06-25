@@ -42,7 +42,7 @@ export default class Find extends Component {
     var startDate = new Date();
     startDate.setMonth(startDate.getMonth() + 1);
     let sports = [{ value: 'Ping Pong' }, { value: 'Pickle Ball' }, { value: 'Basketball' }, { value: 'Volleyball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' }, { value: 'Mini Golf' }];
-    let miles = [{ value: 1 }, { value: 5 }, { value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }, { value: 50 }]
+    let miles = [{ value: 1 }, { value: 5 }, { value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }, { value: 50 }];
     return (
       <View style={styles.outer}>
 
@@ -50,13 +50,13 @@ export default class Find extends Component {
           <Text style={{ fontSize: 40, top: 15 }}>Find an Event</Text>
         </View>
 
-        <View style={[styles.body, styles.rows, { flex: 1.2 }]}>
-          <View style={[styles.row, { margin: 30 }]}>
+        <View style={[styles.body, styles.rows, { flex: 1.2, top: 0 }]}>
+          <View style={[styles.row, { marginLeft: 30, marginRight: 30 }]}>
             <Dropdown label='Sport' data={sports} onChangeText={(itemValue, itemIndex) => {
               this.setState({ sport: itemValue }, () => this.updateQuery())
             }}/>
           </View>
-          <View style={[styles.row, { margin: 30 }]}>
+          <View style={[styles.row, { marginLeft: 30, marginRight: 30 }]}>
             <Dropdown label='Radius (Miles)' data={miles} onChangeText={(itemValue, itemIndex) => {
               this.setState({ radius: itemValue })
             }}/>
@@ -77,11 +77,12 @@ export default class Find extends Component {
               }}
             />
           </View>
-          <View style={[styles.row, { flex: 1.2, alignItems: 'center' }]}>
+          <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center'  }}>On {this.state.month}/{this.state.day}</Text>
             <TouchableOpacity style={styles.button} onPress={() => {
               console.log(this.state.querys.length, ' items found');
+              //GET REQUEST AND THEN SEND TO FIND
               this.props.navigation.navigate('Find2', { sport: this.state.sport, radius: this.state.radius, month: this.state.month, day: this.state.day, query: this.state.querys })
             }}>
               <Text style={{ fontSize: 25 }}>Search</Text>
