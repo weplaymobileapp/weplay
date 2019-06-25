@@ -24,7 +24,8 @@ const createEvent = () => {
   let description = faker.lorem.paragraph();
   let startDate = new Date();
   let endDate = new Date();
-  endDate.setDate(endDate.getDate() + 7);
+  startDate.setDate(startDate.getDate() + 1)
+  endDate.setDate(endDate.getDate() + 8);
   let date = JSON.stringify(faker.date.between(startDate, endDate)).substring(1, 11);
   let time = JSON.stringify(getRandomInt(1,12)) + ':' + numberEnds[getRandomInt(0,numberEnds.length-1)];
   let address = faker.address.zipCode();

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
 import Calendar from 'react-native-day-picker';
 import data from '../data/eventsExample.json';
+import { Dropdown } from 'react-native-material-dropdown';
 
 export default class Find extends Component {
   constructor(props) {
@@ -17,10 +18,10 @@ export default class Find extends Component {
 
   updateQuery() {
     let { day, month } = this.state
-    if(day.length === 1) {
+    if (day.length === 1) {
       day = '0' + day;
     }
-    if(month.length === 1) {
+    if (month.length === 1) {
       month = '0' + month;
     }
     let YYMMDD = '2019-' + month + '-' + day;
@@ -31,7 +32,7 @@ export default class Find extends Component {
       }
     }
     console.log(YYMMDD, this.state.sport)
-    this.setState({querys: newQueries});
+    this.setState({ querys: newQueries });
   }
 
   render() {
@@ -40,6 +41,8 @@ export default class Find extends Component {
     to.setDate(to.getDate() + 9);
     var startDate = new Date();
     startDate.setMonth(startDate.getMonth() + 1);
+    let sports = [{ value: 'Ping Pong' }, { value: 'Pickle Ball' }, { value: 'Basketball' }, { value: 'Volleyball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' }, { value: 'Mini Golf' }];
+    let miles = [{ value: 1 }, { value: 5 }, { value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }, { value: 50 }]
     return (
       <View style={styles.outer}>
 
@@ -47,36 +50,16 @@ export default class Find extends Component {
           <Text style={{ fontSize: 40, top: 15 }}>Find an Event</Text>
         </View>
 
-        <View style={[styles.body, styles.columns, { flex: 1.2 }]}>
-          <View style={styles.column}>
-            <Text style={{ top: 0, fontSize: 20, left: 30 }}>Sport</Text>
-            <Picker itemStyle={{ height: 140, width: 180 }} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) => {
+        <View style={[styles.body, styles.rows, { flex: 1.2 }]}>
+          <View style={[styles.row, { margin: 30 }]}>
+            <Dropdown label='Sport' data={sports} onChangeText={(itemValue, itemIndex) => {
               this.setState({ sport: itemValue }, () => this.updateQuery())
-            }
-            }>
-              <Picker.Item label="Ping Pong" value="Ping Pong" />
-              <Picker.Item label="Pickle Ball" value="Pickle Ball" />
-              <Picker.Item label="Basketball" value="Basketball" />
-              <Picker.Item label="Volleyball" value="Volleyball" />
-              <Picker.Item label="Hacky Sack" value="Hacky Sack" />
-              <Picker.Item label="Laser Tag" value="Laser Tag" />
-              <Picker.Item label="Mini Golf" value="Mini Golf" />
-            </Picker>
+            }}/>
           </View>
-          <View style={styles.column}>
-            <Text style={{ top: 0, fontSize: 20 }}>Radius (Miles)</Text>
-            <Picker itemStyle={{ height: 140, width: 100 }} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) => {
+          <View style={[styles.row, { margin: 30 }]}>
+            <Dropdown label='Radius (Miles)' data={miles} onChangeText={(itemValue, itemIndex) => {
               this.setState({ radius: itemValue })
-            }
-            }>
-              <Picker.Item label="1" value={1} />
-              <Picker.Item label="5" value={5} />
-              <Picker.Item label="10" value={10} />
-              <Picker.Item label="20" value={20} />
-              <Picker.Item label="30" value={30} />
-              <Picker.Item label="40" value={40} />
-              <Picker.Item label="50" value={50} />
-            </Picker>
+            }}/>
           </View>
         </View>
 
@@ -94,9 +77,9 @@ export default class Find extends Component {
               }}
             />
           </View>
-          <View style={[styles.row, { flex: 1.2 }]}>
-            <Text style={{ top: 10, fontSize: 15 }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
-            <Text style={{ top: 10, fontSize: 15 }}>On {this.state.month}/{this.state.day}</Text>
+          <View style={[styles.row, { flex: 1.2, alignItems: 'center' }]}>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center'  }}>On {this.state.month}/{this.state.day}</Text>
             <TouchableOpacity style={styles.button} onPress={() => {
               console.log(this.state.querys.length, ' items found');
               this.props.navigation.navigate('Find2', { sport: this.state.sport, radius: this.state.radius, month: this.state.month, day: this.state.day, query: this.state.querys })
@@ -135,7 +118,7 @@ const styles = StyleSheet.create({
   },
   columns: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
   },
   rows: {
     flexDirection: 'column',
@@ -148,13 +131,13 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderWidth: 2,
     // borderColor: 'black',
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   row: {
     flex: 1,
     // borderWidth: 2,
     // borderColor: 'black',
-    alignItems: 'center'
+    // alignItems: 'center'
   },
   input: {
     height: 40,
@@ -197,3 +180,34 @@ const styles = StyleSheet.create({
 //<Image source={pic} style={{ width: 193, height: 110 }} />
 
 
+/*
+
+            <Text style={{ top: 0, fontSize: 20 }}>Sport</Text>
+            <Picker itemStyle={{ height: 140, width: 180 }} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) => {
+              this.setState({ sport: itemValue }, () => this.updateQuery())
+            }
+            }>
+              <Picker.Item label="Ping Pong" value="Ping Pong" />
+              <Picker.Item label="Pickle Ball" value="Pickle Ball" />
+              <Picker.Item label="Basketball" value="Basketball" />
+              <Picker.Item label="Volleyball" value="Volleyball" />
+              <Picker.Item label="Hacky Sack" value="Hacky Sack" />
+              <Picker.Item label="Laser Tag" value="Laser Tag" />
+              <Picker.Item label="Mini Golf" value="Mini Golf" />
+            </Picker>
+
+            <Text style={{ top: 0, fontSize: 20 }}>Radius (Miles)</Text>
+                        <Picker itemStyle={{ height: 140, width: 100 }} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) => {
+              this.setState({ radius: itemValue })
+            }
+            }>
+              <Picker.Item label="1" value={1} />
+              <Picker.Item label="5" value={5} />
+              <Picker.Item label="10" value={10} />
+              <Picker.Item label="20" value={20} />
+              <Picker.Item label="30" value={30} />
+              <Picker.Item label="40" value={40} />
+              <Picker.Item label="50" value={50} />
+            </Picker>
+
+            */
