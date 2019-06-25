@@ -4,11 +4,13 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './components/login.js';
 import Find from './components/find.js';
 import Create from './components/create.js';
-import Profile from './components/profile.js';
+import Account from './components/account.js';
+import EditAccount from './components/editAccount.js';
+
 
 class App extends React.Component {
   render() {
-    return Login;
+    return Account;
   }
 }
 
@@ -26,13 +28,17 @@ const AppNavigator = createStackNavigator(
       screen: Create,
       navigationOptions: { header: null }
     },
-    Profile: {
-      screen: Profile,
+    Account: {
+      screen: Account,
+      navigationOptions: { header: null }
+    },
+    EditAccount: {
+      screen: EditAccount,
       navigationOptions: { header: null }
     }
   },
   {
-    initialRouteName: 'Login',
+    initialRouteName: 'EditAccount',
     headerMode: 'screen'
   }
 );
