@@ -21,8 +21,10 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 32,
+    // width: 200,
     fontSize: 26,
     marginTop: 15,
+    // borderBottomWidth: 1,
   },
   dropdown: {
     height: 70, 
@@ -197,7 +199,9 @@ export default class Create extends React.Component {
           onPress={(value) => {this.setState({evenOnly: value})}}
         />
         <TextInput
-          style={{height: 32, fontSize: 26, marginTop: 15}}
+          style={{minHeight: 150, height: 'auto', fontSize: 26, marginTop: 15, marginRight: 15, borderWidth: 1}}
+          multiline={true}
+          numberOfLines={4}
           placeholder="Details"
           onChangeText={(details) => this.setState({details})}
         />
