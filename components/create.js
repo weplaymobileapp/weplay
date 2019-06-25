@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, ScrollView, Button, Alert, Picker } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Button, Alert, Picker, Slider } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -43,6 +43,8 @@ export default class Create extends React.Component {
       city: '',
       state: '',
       zip: '',
+      maxPlayersEnabled: false,
+      minPlayersEnabled: false,
       maxPlayers: 0,
       minPlayers: 0,
       evenOnly: false,
@@ -53,11 +55,11 @@ export default class Create extends React.Component {
   render() {
 
     let sports = [{value: 'Basketball'}, {value: 'Football'}, {value: 'Baseball'},
-    {value: 'Soccer'},{value: 'Hockey'},{value: 'Water Polo'},
+    {value: 'Soccer'},{value: 'Hockey'},{value: 'Tennis'},{value: 'Water Polo'},
     {value: 'Volleyball'},{value: 'Ultimate Frisbee'},{value: 'Softball'},
     {value: 'Dodgeball'},{value: 'Lacrosse'},{value: 'Ping Pong'},
     {value: 'Pickle Ball'},{value: 'Hacky Sack'},{value: 'Laser Tag'},
-    {value: 'Golf'},{value: 'Mini Golf'},];
+    {value: 'Golf'},{value: 'Mini Golf'},{value: 'Rugby'},{value: 'Badminton'}];
 
     let months = [{value: 'January'}, {value: 'February'}, {value: 'March'},
     {value: 'April'},{value: 'May'},{value: 'June'},
@@ -137,15 +139,51 @@ export default class Create extends React.Component {
           placeholder="Zip Code"
           onChangeText={(zip) => this.setState({zip})}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Max Players"
-          onChangeText={(maxPlayers) => this.setState({maxPlayers})}
+        <Text style={styles.input}>
+        Set Minimum # of Players?
+        </Text>
+        <RadioForm
+          radio_props={[
+            {label: 'No', value: false },
+            {label: 'Yes', value: true }
+          ]}
+          initial={0}
+          onPress={(value) => {this.setState({minPlayersEnabled: !!value})}}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Min Players"
-          onChangeText={(minPlayers) => this.setState({minPlayers})}
+        <Text>{this.state.minPlayers}</Text>
+        <Slider
+          disabled={this.state.minPlayersEnabled ? false : true}
+          style={{ width: 200, height: 40 }}
+          minimumValue={2}
+          maximumValue={20}
+          step={1}
+          value={2}
+          minimumTrackTintColor="#000000"
+          maximumTrackTintColor="#000000"
+          onValueChange={value => this.setState({minPlayers: value})}
+        />
+        <Text style={styles.input}>
+        Set Maximum # of Players?
+        </Text>
+        <RadioForm
+          radio_props={[
+            {label: 'No', value: false },
+            {label: 'Yes', value: true }
+          ]}
+          initial={0}
+          onPress={(value) => {this.setState({maxPlayersEnabled: !!value})}}
+        />
+        <Text>{this.state.maxPlayers}</Text>
+        <Slider
+          disabled={this.state.maxPlayersEnabled ? false : true}
+          style={{ width: 200, height: 40 }}
+          minimumValue={2}
+          maximumValue={20}
+          step={1}
+          value={2}
+          minimumTrackTintColor="#000000"
+          maximumTrackTintColor="#000000"
+          onValueChange={value => this.setState({maxPlayers: value})}
         />
         <Text style={styles.input}>
         Even # of Players Only?
