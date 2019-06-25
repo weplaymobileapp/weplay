@@ -17,15 +17,15 @@ export default class Find3 extends Component {
           <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
         </View>
         <View style={[styles.body, {flex: .3, marginBottom: 20}]}>
-          <Text style={{ fontSize: 13, top: 20 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
+          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
         </View>
-        <View style={[styles.body, styles.columns, { flex: .3 }]}>
+        {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
           <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
           <View></View>
           <View style={{flex: 2}}><Text></Text></View>
           <View></View>
           <View></View>
-        </View>
+        </View> */}
         <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
           <Text style={{fontSize: 25}}>{item.name}</Text>
           <Text>{sport}</Text>
@@ -37,7 +37,8 @@ export default class Find3 extends Component {
           <Text style={{margin: 20}}>{item.description}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {
               console.log('Game added');
-              this.props.navigation.navigate('Find');
+              //POST REQUEST TO PROFILE DB 
+              this.props.navigation.navigate('Profile');
             }}>
               <Text style={{ fontSize: 25 }}>Join Game</Text>
             </TouchableOpacity>
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
-    borderWidth: 5,
+    // borderWidth: 5,
     // justifyContent: 'space-between',
   },
   body: {
