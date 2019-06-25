@@ -13,17 +13,14 @@ const styles = StyleSheet.create({
   }
 });
 
+_handleLogoutAsync = async = () => {
+  
+}
+
 export default function Profile() {
   return (
     <View style={styles.container}>
-      <Text style={styles.signUp}>Sign Up</Text>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="User Name"/>
-      <TextInput
-        style={{height: 32, fontSize: 30}}
-        placeholder="Password"
-        secureTextEntry={true}/>
+      <Text style={styles.signUp}>This is the Profile Page</Text>
     </View>
   );
 }
