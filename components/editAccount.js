@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, ScrollView } from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import { Input, Button } from 'react-native-elements'
 import { Dropdown } from 'react-native-material-dropdown';
 import axios from 'axios';
 
-export default class Account extends Component {
+export default class EditAccount extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -12,13 +12,13 @@ export default class Account extends Component {
   }
 
   handleEditSubmit() {
-    this.props.navigation.navigate('EditAccount');
+    this.props.navigation.navigate('Account');
   }
 
   render() {
     const {
       name,
-      email,
+      username,
       phone,
       heightFeet,
       heightInches,
@@ -57,24 +57,39 @@ export default class Account extends Component {
     return (
       <ScrollView style={styles.mainContainer}>
         <Text style={styles.title}>Edit Account Info</Text>
-        <Text style={styles.attribute}>Name: </Text>
-        <Input onChangeText={(text) => handleChange(text, 'name')}>
-          <Text style={styles.attribute}>{name}</Text>
-        </Input>
+        <Text style={{...styles.attribute, ...styles.topContainer}}>Name: </Text>
+        <View style={styles.attributeContainer}>
+          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'name')}>{name}</Input>
+        </View>
+        <View style={styles.attributeContainer}>
+          <Text style={styles.attribute}>Username: </Text>
+        </View>
+        <View style={styles.attributeContainer}>
+          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'username')}>{username}</Input>
+        </View>
         <Text style={styles.attribute}>Phone: </Text>
-        <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'phone')}>{phone}</Input>
+        <View style={styles.attributeContainer}>
+          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'phone')}>{phone}</Input>
+        </View>
         <Text style={styles.attribute}>Height: </Text>
-        <Dropdown label={JSON.stringify(heightFeet)} data={feet} onChangeText={(text) => handleChange(text, 'heightFeet')}></Dropdown>
-        <Dropdown label={JSON.stringify(heightInches)} data={inches} onChangeText={(text) => handleChange(text, 'heightInches')}></Dropdown>
+        
+        <View style={styles.attributeContainer}>
+          <Dropdown label={JSON.stringify(heightFeet)} data={feet} onChangeText={(text) => handleChange(text, 'heightFeet')}></Dropdown>
+          <Dropdown label={JSON.stringify(heightInches)} data={inches} onChangeText={(text) => handleChange(text, 'heightInches')}></Dropdown>
+        </View>
         <Text style={styles.attribute}>Weight In Pounds: </Text>
-        <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'weight')}>{weight}</Input>
+        <View style={styles.attributeContainer}>
+          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'weight')}>{weight}</Input>
+        </View>
         <Text style={styles.attribute}>Age: </Text>
-        <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'age')}>{age}</Input>
+        <View style={styles.attributeContainer}>
+          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'age')}>{age}</Input>
+        </View>
         <Text style={styles.attribute}>Favorite Sports: </Text>
         {[favoriteSports1, favoriteSports2, favoriteSports3].map((sport, index) => (
           <Dropdown style={{flex: 1}} key={index} data={allSports} label={`${index + 1}. ${sport}`} onChangeText={(text) => handleChange(text, `favoriteSports${index + 1}`)}></Dropdown>
         ))}
-        <Button title="Confirm Edit" onPress={this.handleEditSubmit}/>
+        <Button title="Confirm Edit" style={styles.button}onPress={this.handleEditSubmit}/>
       </ScrollView>
     )
   }
@@ -82,12 +97,23 @@ export default class Account extends Component {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
+    marginRight: 20,
+    marginLeft: 20
   },
   title: {
     fontSize: 50,
   },
+  attributeContainer: {
+    marginTop: 8,
+    marginBottom: 5,
+  },
+  topContainer: {
+    marginTop: 30
+  },
   attribute: {
     fontSize: 20,
+  },
+  button: {
+    marginTop: 15
   }
 });

@@ -1,9 +1,17 @@
-const mongoose = require('mongoose');
+const Sequelize = require('sequelize');
 
-// need to insert mongoDB Atlas URL here
-// let DB_URL = 'INSERT URL HERE'
+const sequelize = new Sequelize('weplay', 'root', 'password', {
+  host: 'localhost',
+  dialect: 'postgres'
+});
 
-// // Connecting our storage db to our application
-// const db = mongoose.connect(DB_URL, {useNewUrlParser: true});
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
 
-// module.exports = db;
+  module.exports = sequelize;
