@@ -7,7 +7,9 @@ import axios from 'axios';
 export default class Account extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userName: ''
+    };
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
@@ -46,7 +48,7 @@ export default class Account extends Component {
         <Text style={styles.title}>Edit Account Info</Text>
         <Text style={styles.attribute}>Name: </Text>
         <Input onChangeText={(text) => handleChange(text, 'name')}>
-          <Text style={styles.attribute}>{name}</Text>
+          <Text style={styles.attribute}>{this.state.userName}</Text>
         </Input>
         <Text style={styles.attribute}>Email: </Text>
         <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'email')}>{email}</Input>
