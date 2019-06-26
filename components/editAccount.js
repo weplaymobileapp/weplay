@@ -16,7 +16,20 @@ export default class Account extends Component {
   }
 
   render() {
-    const { name, email, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, allSports, handleChange } = this.props.navigation.state.params;
+    const {
+      name,
+      email,
+      phone,
+      heightFeet,
+      heightInches,
+      weight,
+      age,
+      favoriteSports1,
+      favoriteSports2,
+      favoriteSports3,
+      allSports,
+      handleChange 
+    } = this.props.navigation.state.params;
 
     const feet = [
       { value: 3 }, 
@@ -48,8 +61,6 @@ export default class Account extends Component {
         <Input onChangeText={(text) => handleChange(text, 'name')}>
           <Text style={styles.attribute}>{name}</Text>
         </Input>
-        <Text style={styles.attribute}>Email: </Text>
-        <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'email')}>{email}</Input>
         <Text style={styles.attribute}>Phone: </Text>
         <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'phone')}>{phone}</Input>
         <Text style={styles.attribute}>Height: </Text>

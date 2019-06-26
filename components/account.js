@@ -7,7 +7,6 @@ export default class Account extends Component {
     super(props);
     this.state = {
       name: 'Matthew Mata',
-      email: 'matthewmata1030@gmail.com',
       phone: '(310) 617-7308',
       heightFeet: 5,
       heightInches: 4,

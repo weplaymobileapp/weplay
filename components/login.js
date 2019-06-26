@@ -50,7 +50,7 @@ export default class Login extends Component {
       //console.log(result);
       //this.saveItem('id_token', result.params.access_token);
       AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('Profile')
+        this.props.navigation.navigate('Account')
       });
     }
   };
