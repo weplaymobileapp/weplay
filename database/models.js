@@ -84,10 +84,6 @@ Event.init({
 class Profile extends Sequelize.Model {};
 Profile.init({
   // attributes
-  name: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   username: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -141,7 +137,7 @@ Profile.init({
   timestamps: false
 });
 
-const Sports = sequelize.define('sports', {
+const Sport = sequelize.define('sports', {
   // attributes
   name: {
     type: Sequelize.JSON,
