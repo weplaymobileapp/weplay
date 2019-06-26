@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button, AsyncStorage } from 'react-native';
 import { AuthSession } from 'expo';
 import { FB_APP_ID } from '../config.js';
 
@@ -24,6 +24,16 @@ export default class Login extends Component {
       result: null,
       emptyInputFields: false
     }
+    this._handlePressAsync = this._handlePressAsync.bind(this);
+    this.saveItem = this.saveItem.bind(this);
+  }
+
+  async saveItem(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.error('AsyncStorage error: ' + error.message);
+    }
   }
 
   _handlePressAsync = async () => {
@@ -37,7 +47,9 @@ export default class Login extends Component {
           `&client_id=${FB_APP_ID}` +
           `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
       });
-      this.setState({ result }, () => {
+      //console.log(result);
+      //this.saveItem('id_token', result.params.access_token);
+      AsyncStorage.setItem('id_token', result.params.access_token, () => {
         this.props.navigation.navigate('Profile')
       });
     }
@@ -46,7 +58,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>We Play</Text>
+        <Text style={{fontSize: 50}}>We Play</Text>
         {this.state.emptyInputFields ? (
           <Text style={{color: 'red'}}>Please enter a Username and Password</Text>
         ) : null}
