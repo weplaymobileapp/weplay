@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./index.js');
 
-const Event = sequelize.define('events', {
+
+class Event extends Sequelize.Model {};
+Event.init({
   // attributes
   name: {
     type: Sequelize.STRING,
@@ -67,26 +69,27 @@ const Event = sequelize.define('events', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  owner: { //FOREIGN KEY
-    type: Sequelize.INTEGER,
-    allowNull: false
-  }
+  // owner: { //FOREIGN KEY
+  //   type: Sequelize.STRING,
+  //   allowNull: false
+  // }
 }, {
   // options
+  sequelize,
+  modelName: 'event',
   timestamps: false
 });
 
-const Profile = sequelize.define('profiles', {
+//================================================================================================================================================//
+class Profile extends Sequelize.Model {};
+Profile.init({
   // attributes
-  name: {
+  username: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  email: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -122,15 +125,19 @@ const Profile = sequelize.define('profiles', {
     type: Sequelize.JSON,
     allowNull: false
   },
-  events: {
+  events: { //a bunch of IDs to events
     type: Sequelize.ARRAY(Sequelize.INTEGER),
-    allowNull: false
+    allowNull: true,
+    defaultValue: []
   }
 }, {
   // options
+  sequelize,
+  modelName: 'profile',
+  timestamps: false
 });
 
-const Sports = sequelize.define('sports', {
+const Sport = sequelize.define('sports', {
   // attributes
   name: {
     type: Sequelize.JSON,
@@ -140,4 +147,10 @@ const Sports = sequelize.define('sports', {
   // options
 });
 
-sequelize.sync();
+Event.belongsTo(Profile, { as: 'owner', foreignKey: 'ownerID', constraints: false });
+// Event.belongsToMany(Profile, { as: 'events' });
+Profile.hasMany(Event, { as: 'inEvents', foreignKey: 'id', constraints: false })
+
+// sequelize.sync({ force: true });
+
+module.exports = { Profile, Event, Sports }

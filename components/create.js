@@ -1,7 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, ScrollView, Button, Alert, Picker, Slider } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Alert, Picker, Slider } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { Dropdown } from 'react-native-material-dropdown';
+import { Input, Button, CheckBox } from 'react-native-elements';
+import axios from 'axios';
 
 const styles = StyleSheet.create({
   container: {
@@ -21,14 +23,18 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 32,
-    // width: 200,
     fontSize: 26,
     marginTop: 15,
-    // borderBottomWidth: 1,
+    marginRight: 20,
+    marginLeft: 8,
   },
   dropdown: {
-    height: 70, 
-    width: 180,
+    marginRight: 20,
+    marginLeft: 20
+  },
+  button: {
+    marginBottom: 15,
+    marginRight: 15,
   }
 });
 
@@ -36,7 +42,7 @@ export default class Create extends React.Component {
   constructor(props) {
     super(props);
     this.state = { 
-      eventName: '',
+      name: '',
       sport: '',
       month: '',
       day: '',
@@ -85,145 +91,156 @@ export default class Create extends React.Component {
     {value: '10:00PM'},{value: '10:30PM'},{value: '11:00PM'},]
 
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.create}>Create New Event:</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Event Name"
-          onChangeText={(eventName) => this.setState({eventName})}
-        />
-        <Dropdown
-          label='Sport'
-          data={sports}
-          fontSize={20}
-          containerStyle={styles.dropdown}
-          onChangeText={(itemValue, itemIndex) => this.setState({ sport: itemValue })}
-        />
-        <Dropdown
-          label='Month'
-          data={months}
-          fontSize={20}
-          containerStyle={styles.dropdown}
-          onChangeText={(itemValue, itemIndex) => this.setState({ month: itemValue })}
-        />
-        <Dropdown
-          label='Day'
-          data={days}
-          fontSize={20}
-          containerStyle={styles.dropdown}
-          onChangeText={(itemValue, itemIndex) => this.setState({ day: itemValue })}
-        />
-        <Dropdown
-          label='Start Time'
-          data={times}
-          fontSize={20}
-          containerStyle={styles.dropdown}
-          onChangeText={(itemValue, itemIndex) => this.setState({ time: itemValue })}
-        />
+      <View style={styles.container}>
+        <ScrollView>
+          <Text style={styles.create}>Create New Event</Text>
+          <View style={styles.input}>
+            <Input
+              placeholder="Event Name"
+              onChangeText={(name) => this.setState({ name })}
+            />
+          </View>
+          <Dropdown
+            label='Sport'
+            data={sports}
+            fontSize={20}
+            containerStyle={styles.dropdown}
+            onChangeText={(itemValue, itemIndex) => this.setState({ sport: itemValue })}
+          />
+          <Dropdown
+            label='Month'
+            data={months}
+            fontSize={20}
+            containerStyle={styles.dropdown}
+            onChangeText={(itemValue, itemIndex) => this.setState({ month: itemValue })}
+          />
+          <Dropdown
+            label='Day'
+            data={days}
+            fontSize={20}
+            containerStyle={styles.dropdown}
+            onChangeText={(itemValue, itemIndex) => this.setState({ day: itemValue })}
+          />
+          <Dropdown
+            label='Start Time'
+            data={times}
+            fontSize={20}
+            containerStyle={styles.dropdown}
+            onChangeText={(itemValue, itemIndex) => this.setState({ time: itemValue })}
+          />
+          <View style={styles.input}>
+          <Input
+            placeholder="Street Address"
+            onChangeText={(street) => this.setState({ street })}
+          />
+          </View>
+          <View style={styles.input}>
+          <Input
+            placeholder="City"
+            onChangeText={(city) => this.setState({ city })}
+          />
+          </View>
+          <View style={styles.input}>
+          <Input
+            placeholder="State"
+            onChangeText={(state) => this.setState({ state })}
+          />
+          </View>
+          <View style={styles.input}>
+          <Input
+            placeholder="Zip Code"
+            onChangeText={(zip) => this.setState({ zip })}
+          />
+          </View>
+          <View style={{ marginRight: 100, marginTop: 30 }}>
+            <CheckBox
+              title='Set Minimum # of Players'
+              left
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={this.state.minPlayersEnabled}
+              onPress={() => this.setState({ minPlayersEnabled: !this.state.minPlayersEnabled })}
+            />
+          </View>
+          <Text style={{marginLeft: 20, marginTop: 10, marginBottom:10, fontSize:16}}>
+          {this.state.minPlayersEnabled? this.state.minPlayers + ' minimum' : 'No minimum players'}
+          </Text>
+          <Slider
+            disabled={this.state.minPlayersEnabled ? false : true}
+            style={{ width: 200, height: 40, marginLeft: 10 }}
+            minimumValue={2}
+            maximumValue={50}
+            step={1}
+            value={2}
+            minimumTrackTintColor="#000000"
+            maximumTrackTintColor="#000000"
+            onValueChange={value => this.setState({ minPlayers: value })}
+          />
+          <View style={{ marginRight: 100 }}>
+            <CheckBox
+              title='Set Maximum # of Players'
+              left
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={this.state.maxPlayersEnabled}
+              onPress={() => this.setState({ maxPlayersEnabled: !this.state.maxPlayersEnabled })}
+            />
+          </View>
+          <Text style={{marginLeft: 20, marginTop: 10, marginBottom:10, fontSize:16}}>
+          {this.state.maxPlayersEnabled? this.state.maxPlayers + ' maximum' : 'No maximum players'}
+          </Text>
+          <Slider
+            disabled={this.state.maxPlayersEnabled ? false : true}
+            style={{ width: 200, height: 40, marginLeft: 10 }}
+            minimumValue={2}
+            maximumValue={50}
+            step={1}
+            value={2}
+            minimumTrackTintColor="#000000"
+            maximumTrackTintColor="#000000"
+            onValueChange={value => this.setState({ maxPlayers: value })}
+          />
+          <View style={{marginRight: 100}}>
+            <CheckBox
+              title='Allow even # of Players Only'
+              left
+              checkedIcon='dot-circle-o'
+              uncheckedIcon='circle-o'
+              checked={this.state.evenOnly}
+              onPress={() => this.setState({ evenOnly: !this.state.evenOnly })}
+            />
+          </View>
+          <TextInput
+            style={{ minHeight: 150, height: 'auto', fontSize: 26, marginTop: 15, marginBottom: 15, marginRight: 15, borderWidth: 1 }}
+            multiline={true}
+            numberOfLines={4}
+            placeholder="Details"
+            onChangeText={(details) => this.setState({ details })}
+          />
+          <Button
+            style={styles.button}
+            onPress={() => {
+              //TODO: fix endpoint
+              // axios.post('/', this.state)
+              //   .then(() => console.log('Success posting event to database!'))
+              //   .catch(err => console.log(err));
 
-        <TextInput
-          style={styles.input}
-          placeholder="Street Address"
-          onChangeText={(street) => this.setState({street})}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="City"
-          onChangeText={(city) => this.setState({city})}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="State"
-          onChangeText={(state) => this.setState({state})}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Zip Code"
-          onChangeText={(zip) => this.setState({zip})}
-        />
-        <Text style={styles.input}>
-        Set Minimum # of Players?
-        </Text>
-        <RadioForm
-          radio_props={[
-            {label: 'No', value: false },
-            {label: 'Yes', value: true }
-          ]}
-          initial={0}
-          onPress={(value) => {this.setState({minPlayersEnabled: !!value})}}
-        />
-        <Text>{this.state.minPlayers}</Text>
-        <Slider
-          disabled={this.state.minPlayersEnabled ? false : true}
-          style={{ width: 200, height: 40 }}
-          minimumValue={2}
-          maximumValue={20}
-          step={1}
-          value={2}
-          minimumTrackTintColor="#000000"
-          maximumTrackTintColor="#000000"
-          onValueChange={value => this.setState({minPlayers: value})}
-        />
-        <Text style={styles.input}>
-        Set Maximum # of Players?
-        </Text>
-        <RadioForm
-          radio_props={[
-            {label: 'No', value: false },
-            {label: 'Yes', value: true }
-          ]}
-          initial={0}
-          onPress={(value) => {this.setState({maxPlayersEnabled: !!value})}}
-        />
-        <Text>{this.state.maxPlayers}</Text>
-        <Slider
-          disabled={this.state.maxPlayersEnabled ? false : true}
-          style={{ width: 200, height: 40 }}
-          minimumValue={2}
-          maximumValue={20}
-          step={1}
-          value={2}
-          minimumTrackTintColor="#000000"
-          maximumTrackTintColor="#000000"
-          onValueChange={value => this.setState({maxPlayers: value})}
-        />
-        <Text style={styles.input}>
-        Even # of Players Only?
-        </Text>
-        <RadioForm
-          radio_props={[
-            {label: 'No', value: false },
-            {label: 'Yes', value: true }
-          ]}
-          initial={0}
-          onPress={(value) => {
-            this.setState({evenOnly: value})
-          }}
-        />
-        <TextInput
-          style={{minHeight: 150, height: 'auto', fontSize: 26, marginTop: 15, marginRight: 15, borderWidth: 1}}
-          multiline={true}
-          numberOfLines={4}
-          placeholder="Details"
-          onChangeText={(details) => this.setState({details})}
-        />
-        <Button
-          onPress={() => {
-            //TODO: send a post request
-
-
-            Alert.alert('You pressed submit!');
-          }}
-          title="Post Event"
-        />
-        <Button
-          onPress={() => {
-            Alert.alert(this.state);
-          }}
-          title="VIEW STATE"
-        />
-      </ScrollView>
+              Alert.alert('Event successfully posted!');
+            }}
+            title="Post Event"
+          />
+        </ScrollView>
+      </View>
     );
   }
 }
 
+//button for viewing state:
+
+// <Button
+//             style={styles.button}
+//             onPress={() => {
+//               Alert.alert(this.state);
+//             }}
+//             title="VIEW STATE"
+//           />
