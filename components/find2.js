@@ -31,11 +31,11 @@ export default class Find2 extends Component {
         </View> */}
         <View style={[styles.body, styles.rows, { flex: 4.7 }]}>
           <ScrollView>
-          {query.map(item => {
+          {query.map((item, index) => {
             return (
-              <TouchableOpacity style={styles.event} onPress={() => {
+              <TouchableOpacity key={index} style={styles.event} onPress={() => {
                 this.props.navigation.navigate('Find3',
-                  { sport, radius, month, day, item: item })
+                  { sport, radius, month, day, item })
               }}>
                 <Text style={{ fontSize: 20, margin: 5 }}>{item.name}</Text>
                 <Text style={{ fontSize: 14 }}>{item.currentPlayers}/{item.maxPlayers} Players</Text>
