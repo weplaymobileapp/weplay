@@ -50,7 +50,7 @@ export default class Login extends Component {
       //console.log(result);
       //this.saveItem('id_token', result.params.access_token);
       AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('Profile')
+        this.props.navigation.navigate('EditAccount', {userName: this.state.userName})
       });
     }
   };
@@ -58,7 +58,7 @@ export default class Login extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 50}}>We Play</Text>
+        <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
         {this.state.emptyInputFields ? (
           <Text style={{color: 'red'}}>Please enter a Username and Password</Text>
         ) : null}
