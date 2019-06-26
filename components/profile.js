@@ -1,5 +1,6 @@
-import React from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, TextInput, View, AsyncStorage, Button } from 'react-native';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -13,15 +14,59 @@ const styles = StyleSheet.create({
   }
 });
 
-_handleLogoutAsync = async = () => {
-  
-}
+export default class Profile extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      hasToken: false,
+      isLoaded: false
+    }
+    this.refreshToken = this.refreshToken.bind(this);
+    this.userLogout = this.userLogout.bind(this);
+  }
 
-export default function Profile() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.signUp}>This is the Profile Page</Text>
-    </View>
-  );
+  componentDidMount() {
+    // AsyncStorage.getItem('id_token').then((token) => {
+    //   this.setState({ hasToken: token !== null },
+    //     () => console.log(token, this.state.isLoaded))
+    // });
+    AsyncStorage.getItem('id_token', (err, token) => {
+      if(err){
+        console.log('error getting token', err)
+      } else {
+        this.setState({ hasToken: token !== null }, () => {
+          console.log(token)
+        })
+      }
+    })
+  }
+
+  async userLogout() {
+    try {
+      await AsyncStorage.removeItem('id_token');
+      this.setState({ hasToken: false });
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
+
+  refreshToken(){
+    AsyncStorage.getItem('id_token').then((token) => {
+      this.setState({ hasToken: token !== null, isLoaded: true },
+        () => console.log(token, this.state.isLoaded))
+    });
+  }
+
+  render(){
+    return (
+      <View style={styles.container}>
+        {this.state.hasToken ? 
+        (<Text>User is logged in</Text>) :
+        (<Text>User is not logged in</Text>)}
+      <Button title="Logout" onPress={this.userLogout}></Button>
+      <Button title="refresh" onPress={this.refreshToken}></Button>
+      </View>
+    );
+  }
 }
 
