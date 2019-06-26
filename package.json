@@ -5,9 +5,11 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "server": "nodemon ./server/index.js"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "expo": "^33.0.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
@@ -20,6 +22,9 @@
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+
+    "react-native-elements": "^1.1.0",
+
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-day-picker": "^1.2.1",
     "react-native-material-bottom-navigation": "^1.0.4",

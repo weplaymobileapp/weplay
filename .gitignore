@@ -2,7 +2,7 @@ node_modules/**/*
 npm-debug.*
 config/keys.js
 .DS_Store
-.expo/*
+.expo*
 *.jks
 *.p12
 *.key

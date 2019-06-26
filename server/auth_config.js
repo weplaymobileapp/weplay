@@ -1,17 +1,25 @@
 //const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const { CLIENT_ID, CLIENT_SECRET } = require('../config');
 
-
-var localStrategy = new LocalStrategy(
-  function(username, password, done) {
-    User.findOne({ username: username }, function (err, user) {
-      if (err) { return done(err); }
-      if (!user) { return done(null, false); }
-      if (!user.verifyPassword(password)) { return done(null, false); }
-      return done(null, user);
+module.exports = (passport) => {
+    passport.serializeUser((user, done) => {
+        done(null, user);
     });
-  }
-);
+    passport.deserializeUser((user, done) => {
+        done(null, user);
+    });
+    passport.use(new GoogleStrategy({
+            clientID: CLIENT_ID,
+            clientSecret: CLIENT_SECRET,
+            callbackURL: 'http://localhost:19000/auth/google/callback'
+        },
+        (token, refreshToken, profile, done) => {
+            return done(null, {
+                profile: profile,
+                token: token
+            });
+        }));
+};
 
-module.exports = localStrategy;
 
