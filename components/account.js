@@ -16,14 +16,12 @@ export default class Account extends Component {
       favoriteSports1: 'Ping Pong',
       favoriteSports2: 'Basketball',
       favoriteSports3: 'n/a',
-      allSports: [
-        { value: 'Hockey'}, 
-        { value: 'BaseBall' }, 
-        { value: 'Football' }, 
-        { value: 'Soccer' }, 
-        { value: 'Ping Pong' }, 
-        { value: 'Basketball' }
-      ]
+      allSports: [{value: '--'},{value: 'Basketball'}, {value: 'Football'}, {value: 'Baseball'},
+      {value: 'Soccer'},{value: 'Hockey'},{value: 'Tennis'},{value: 'Water Polo'},
+      {value: 'Volleyball'},{value: 'Ultimate Frisbee'},{value: 'Softball'},
+      {value: 'Dodgeball'},{value: 'Lacrosse'},{value: 'Ping Pong'},
+      {value: 'Pickle Ball'},{value: 'Hacky Sack'},{value: 'Laser Tag'},
+      {value: 'Golf'},{value: 'Mini Golf'},{value: 'Rugby'},{value: 'Badminton'}]
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleEditSwitch = this.handleEditSwitch.bind(this);

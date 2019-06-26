@@ -19,7 +19,7 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      userName: '',
+      username: '',
       password: '',
       result: null,
       emptyInputFields: false
@@ -37,34 +37,39 @@ export default class Login extends Component {
   }
 
   _handlePressAsync = async () => {
-    if(!this.state.userName || !this.state.password){
+    if(!this.state.username || !this.state.password){
       this.setState({ emptyInputFields: true })
     } else {
       let redirectUrl = AuthSession.getRedirectUrl();
+      console.log(redirectUrl)
       let result = await AuthSession.startAsync({
         authUrl:
           `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
           `&client_id=${FB_APP_ID}` +
           `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
       });
+
       //console.log(result);
       //this.saveItem('id_token', result.params.access_token);
       AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('Account')
-      })
-  }};
+
+        this.props.navigation.navigate('EditAccount', {username: this.state.username})
+
+      });
+    }
+  };
   
   render() {
     return (
       <View style={styles.container}>
-        <Text style={{fontSize: 50}}>We Play</Text>
+        <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
         {this.state.emptyInputFields ? (
           <Text style={{color: 'red'}}>Please enter a Username and Password</Text>
         ) : null}
         <TextInput
           style={{height: 32, fontSize: 30}}
           placeholder="Username"
-          onChangeText={(userName) => this.setState({userName})}
+          onChangeText={(username) => this.setState({username})}
           />
         <TextInput
           style={{height: 32, fontSize: 30}}

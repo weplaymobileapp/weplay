@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('./index.js');
 
-const Event = sequelize.define('events', {
+
+class Event extends Sequelize.Model {};
+Event.init({
   // attributes
   name: {
     type: Sequelize.STRING,
@@ -52,42 +54,42 @@ const Event = sequelize.define('events', {
     allowNull: false
   },
   maxPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   minPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   currentPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   evenOnly: {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  owner: { //FOREIGN KEY
-    type: Sequelize.NUMBER,
-    allowNull: false
-  }
+  // owner: { //FOREIGN KEY
+  //   type: Sequelize.STRING,
+  //   allowNull: false
+  // }
 }, {
   // options
+  sequelize,
+  modelName: 'event',
   timestamps: false
 });
 
-const Profile = sequelize.define('profiles', {
+//================================================================================================================================================//
+class Profile extends Sequelize.Model {};
+Profile.init({
   // attributes
   username: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: false
+    allowNull: false,
+    unique: true
   },
   password: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  name: {
     type: Sequelize.STRING,
     allowNull: false
   },
@@ -108,7 +110,7 @@ const Profile = sequelize.define('profiles', {
     allowNull: false
   },
   age: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   favoriteSports1: {
@@ -123,11 +125,16 @@ const Profile = sequelize.define('profiles', {
     type: Sequelize.JSON,
     allowNull: false
   },
-  events: {
-    type: Sequelize.ARRAY,
+  events: { //a bunch of IDs to events
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    allowNull: true,
+    defaultValue: []
   }
 }, {
   // options
+  sequelize,
+  modelName: 'profile',
+  timestamps: false
 });
 
 const Sport = sequelize.define('sports', {
@@ -140,10 +147,10 @@ const Sport = sequelize.define('sports', {
   // options
 });
 
-Sequelize.sync()
+Event.belongsTo(Profile, { as: 'owner', foreignKey: 'ownerID', constraints: false });
+// Event.belongsToMany(Profile, { as: 'events' });
+Profile.hasMany(Event, { as: 'inEvents', foreignKey: 'id', constraints: false })
 
-module.exports = {
-  Sport,
-  Profile,
-  Event
-}
+// sequelize.sync({ force: true });
+
+module.exports = { Profile, Event, Sports }
