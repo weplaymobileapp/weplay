@@ -12,7 +12,7 @@ export default class Account extends Component {
   }
 
   handleEditSubmit() {
-    this.props.navigation.navigate('EditAccount');
+    this.props.navigation.navigate('Account');
   }
 
   render() {

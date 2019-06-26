@@ -41,6 +41,7 @@ export default class Login extends Component {
       this.setState({ emptyInputFields: true })
     } else {
       let redirectUrl = AuthSession.getRedirectUrl();
+      console.log(redirectUrl)
       let result = await AuthSession.startAsync({
         authUrl:
           `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
@@ -50,7 +51,7 @@ export default class Login extends Component {
       //console.log(result);
       //this.saveItem('id_token', result.params.access_token);
       AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('Profile')
+        this.props.navigation.navigate('Account')
       });
     }
   };
