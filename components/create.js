@@ -196,7 +196,9 @@ export default class Create extends React.Component {
             {label: 'Yes', value: true }
           ]}
           initial={0}
-          onPress={(value) => {this.setState({evenOnly: value})}}
+          onPress={(value) => {
+            this.setState({evenOnly: value})
+          }}
         />
         <TextInput
           style={{minHeight: 150, height: 'auto', fontSize: 26, marginTop: 15, marginRight: 15, borderWidth: 1}}
