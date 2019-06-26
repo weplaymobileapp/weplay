@@ -9,5 +9,11 @@ module.exports = {
   createAccount: (object, callback) => {
     Profile.create(object);
     callback()
+  },
+  findEvents: (sport, location, day, callback) => {
+    Event.findAll({where: { sport, location, month, day }})
+    .then(items => {
+      
+    })
   }
 }

@@ -10,6 +10,9 @@ const names = ["Angela", "Calvin", "Dustin", "Gaby", "James'", "Wendy", "Ufuk", 
   "Viv", "Semira", "Eva", "Eti", "Billy"];
 const numberEnds = ['00', '15', '30', '45'];
 const booleans = [true, false];
+let zips = ['12345', '23456', '34567', '45678', '56789', '67890']
+
+let createdIDs = [];
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -17,9 +20,12 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 const makeOneProfileWithSomeEvents = () => {
   let id = getRandomInt(0,1000);
+  createdIDs.push(id);
   let name = names[getRandomInt(0, names.length - 1)];
+  let facebookID = JSON.stringify(getRandomInt(0,10000));
   let username = name + JSON.stringify(getRandomInt(0,100));
   let password = 'password';
   let phone = '1234567890';
@@ -30,7 +36,7 @@ const makeOneProfileWithSomeEvents = () => {
   let favoriteSports1 = { value: sports[getRandomInt(0, sports.length - 1)]}
   let favoriteSports2 = { value: sports[getRandomInt(0, sports.length - 1)]}
   let favoriteSports3 = { value: sports[getRandomInt(0, sports.length - 1)]}
-  let account = { id, name, username, password, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events: [] };
+  let account = { id, facebookID, name, username, password, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events: [] };
   helper.createAccount(account, () => {
     for(var i = 0; i < getRandomInt(2,4); i++) {
       createEvent(id);
@@ -56,17 +62,24 @@ const createEvent = (id) => {
   let street = faker.address.streetAddress();
   let city = faker.address.city();
   let state = faker.address.state();
-  let zip = faker.address.zipCode();
+  let zip = zips[getRandomInt(0, zips.length)]
   let maxPlayers = getRandomInt(2, 16);
   let minPlayers = getRandomInt(1, 2);
   let maxPlayersEnabled = booleans[getRandomInt(0,1)];
   let minPlayersEnabled = booleans[getRandomInt(0,1)];
   let currentPlayers = getRandomInt(minPlayers, maxPlayers);
   let evenOnly = booleans[getRandomInt(0,1)];
-  let ownerID = id;
-  let members = [1,2,3,4,5];
+  let owner = id;
+  let members = [id];
+  for(var i = 0; i < currentPlayers; i++) {
+    let randomID = createdIDs[getRandomInt(0, createdIDs.length - 1)];
+    if(!members.includes(randomID)) {
+      members.push(randomID);
+    }
+  }
+  currentPlayers = members.length;
   
-  let insert = { name, sport, details, month, day, time, street, city, state, zip, maxPlayers, minPlayers, maxPlayersEnabled, minPlayersEnabled, currentPlayers, evenOnly, ownerID, members };
+  let insert = { name, sport, details, month, day, time, street, city, state, zip, maxPlayers, minPlayers, maxPlayersEnabled, minPlayersEnabled, currentPlayers, evenOnly, owner, members  };
   helper.createEvent(insert,() => {})
 }
 

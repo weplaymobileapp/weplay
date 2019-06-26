@@ -166,6 +166,6 @@ Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', con
 Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
 //, { as: 'members', foreignKey: 'id', constraints: false }
 
-sequelize.sync({ force: true });
+// sequelize.sync({ force: true });
 
 module.exports = { Profile, Event, Sports }
