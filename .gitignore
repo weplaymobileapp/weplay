@@ -7,3 +7,4 @@ config/keys.js
 *.p12
 *.key
 config.js
+package-lock.json
