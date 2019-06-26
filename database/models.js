@@ -150,7 +150,7 @@ Profile.init({
   timestamps: false
 });
 
-const Sports = sequelize.define('sports', {
+const Sport = sequelize.define('sports', {
   // attributes
   name: {
     type: Sequelize.JSON,
