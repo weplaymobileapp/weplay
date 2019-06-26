@@ -1,12 +1,12 @@
 const express = require('express');
 const morgan = require('morgan');
 const router = require('./router');
+require('../database/models');
 
 
 // Creating server and port number
 const app = express();
 const port = 3000;
-
 
 // Middleware
 app.use(morgan('dev'));
