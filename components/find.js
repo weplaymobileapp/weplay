@@ -41,7 +41,12 @@ export default class Find extends Component {
     to.setDate(to.getDate() + 9);
     var startDate = new Date();
     startDate.setMonth(startDate.getMonth() + 1);
-    let sports = [{ value: 'Ping Pong' }, { value: 'Pickle Ball' }, { value: 'Basketball' }, { value: 'Volleyball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' }, { value: 'Mini Golf' }];
+    let sports = [{value: 'Basketball'}, {value: 'Football'}, {value: 'Baseball'},
+    {value: 'Soccer'},{value: 'Hockey'},{value: 'Tennis'},{value: 'Water Polo'},
+    {value: 'Volleyball'},{value: 'Ultimate Frisbee'},{value: 'Softball'},
+    {value: 'Dodgeball'},{value: 'Lacrosse'},{value: 'Ping Pong'},
+    {value: 'Pickle Ball'},{value: 'Hacky Sack'},{value: 'Laser Tag'},
+    {value: 'Golf'},{value: 'Mini Golf'},{value: 'Rugby'},{value: 'Badminton'}];
     let miles = [{ value: 1 }, { value: 5 }, { value: 10 }, { value: 20 }, { value: 30 }, { value: 40 }, { value: 50 }];
     return (
       <View style={styles.outer}>
