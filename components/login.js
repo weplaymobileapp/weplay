@@ -24,7 +24,8 @@ export default class Login extends Component {
       password: '',
       result: null,
       emptyInputFields: false,
-      name: ''
+      name: '',
+      isSignedIn: false
     }
     this._handlePressAsync = this._handlePressAsync.bind(this);
     this.saveItem = this.saveItem.bind(this);
@@ -47,7 +48,7 @@ export default class Login extends Component {
     var responseJSON = JSON.stringify(await response.json());
     var obj = JSON.parse(responseJSON)
     var name = obj.name
-    this.setState({ name }, () => {
+    this.setState({ name, isSignedIn: true }, () => {
       this.props.navigation.navigate('EditAccount', {userName: this.state.name})
     });
   };
@@ -63,9 +64,14 @@ export default class Login extends Component {
     this.callGraph(result.params.access_token);
   }
 
-  signOut(){
-    this.setState({ name : '' })
-  }
+  // signOut = async () => {
+  //   let redirectUrl = AuthSession.getRedirectUrl();
+  //   AsyncStorage.getItem('')
+  //   const response = await fetch(`https://www.facebook.com/logout.php?next=${encodedURIComponent(redirectUrl)}&access_token=USER_ACCESS_TOKEN`)
+  //   this.setState({ name : '', isSignedIn: false }, () => {
+    
+  //   })
+  // }
   
   render() {
     return (

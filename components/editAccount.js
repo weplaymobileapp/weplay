@@ -4,6 +4,7 @@ import { Input, Button } from 'react-native-elements'
 import { Dropdown } from 'react-native-material-dropdown';
 import axios from 'axios';
 
+
 export default class Account extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +12,11 @@ export default class Account extends Component {
       userName: ''
     };
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    console.log(this.props.navigation.state.params.userName, 'component did mount')
+    this.setState({ userName: this.props.navigation.state.params.userName })
   }
 
   handleEditSubmit() {
