@@ -38,7 +38,7 @@ export default class Login extends Component {
           `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
       });
       this.setState({ result }, () => {
-        this.props.navigation.navigate('Profile')
+        this.props.navigation.navigate('Account')
       });
     }
   };
