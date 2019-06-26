@@ -47,10 +47,10 @@ export default class Login extends Component {
           `&client_id=${FB_APP_ID}` +
           `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
       });
-      //console.log(result);
-      //this.saveItem('id_token', result.params.access_token);
-      AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('Profile')
+
+      this.setState({ result }, () => {
+        this.props.navigation.navigate('Account')
+
       });
     }
   };
