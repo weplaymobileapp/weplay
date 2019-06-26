@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Button, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
 import { AuthSession } from 'expo';
 import { FB_APP_ID } from '../config.js';
+import { Button } from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {
@@ -22,10 +23,13 @@ export default class Login extends Component {
       userName: '',
       password: '',
       result: null,
-      emptyInputFields: false
+      emptyInputFields: false,
+      name: ''
     }
     this._handlePressAsync = this._handlePressAsync.bind(this);
     this.saveItem = this.saveItem.bind(this);
+    this.callGraph = this.callGraph.bind(this);
+    this.signOut = this.signOut.bind(this);
   }
 
   async saveItem(item, selectedValue) {
@@ -36,46 +40,45 @@ export default class Login extends Component {
     }
   }
 
-  _handlePressAsync = async () => {
-    if(!this.state.userName || !this.state.password){
-      this.setState({ emptyInputFields: true })
-    } else {
-      let redirectUrl = AuthSession.getRedirectUrl();
-      let result = await AuthSession.startAsync({
-        authUrl:
-          `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
-          `&client_id=${FB_APP_ID}` +
-          `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
-      });
-
-      //console.log(result);
-      //this.saveItem('id_token', result.params.access_token);
-      AsyncStorage.setItem('id_token', result.params.access_token, () => {
-        this.props.navigation.navigate('EditAccount', {userName: this.state.userName})
-
-      });
-    }
+  callGraph = async (token) => {
+    const response = await fetch(
+      `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,about,picture`
+    );
+    var responseJSON = JSON.stringify(await response.json());
+    var obj = JSON.parse(responseJSON)
+    var name = obj.name
+    this.setState({ name }, () => {
+      this.props.navigation.navigate('EditAccount', {userName: this.state.name})
+    });
   };
+
+  _handlePressAsync = async () => {
+    let redirectUrl = AuthSession.getRedirectUrl();
+    let result = await AuthSession.startAsync({
+      authUrl:
+        `https://www.facebook.com/v2.8/dialog/oauth?response_type=token` +
+        `&client_id=${FB_APP_ID}` +
+        `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
+    });
+    this.callGraph(result.params.access_token);
+  }
+
+  signOut(){
+    this.setState({ name : '' })
+  }
   
   render() {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
-        {this.state.emptyInputFields ? (
-          <Text style={{color: 'red'}}>Please enter a Username and Password</Text>
-        ) : null}
-        <TextInput
-          style={{height: 32, fontSize: 30}}
-          placeholder="Username"
-          onChangeText={(userName) => this.setState({userName})}
-          />
-        <TextInput
-          style={{height: 32, fontSize: 30}}
-          placeholder="Password"
-          secureTextEntry={true}
-          onChangeText={(password) => this.setState({password})}
-          />
-        <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
+        {this.state.name ? 
+        (<View style={{marginTop: 20}}>
+          <Button title="Sign Out" onPress={this.signOut}></Button>
+        </View>) :
+        (<View style={{marginTop: 20}}>
+          <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
+        </View>)
+        }
       </View>
     );
   }

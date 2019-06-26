@@ -52,15 +52,15 @@ const Event = sequelize.define('events', {
     allowNull: false
   },
   maxPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   minPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   currentPlayers: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   evenOnly: {
@@ -68,7 +68,7 @@ const Event = sequelize.define('events', {
     allowNull: false
   },
   owner: { //FOREIGN KEY
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   }
 }, {
@@ -107,7 +107,7 @@ const Profile = sequelize.define('profiles', {
     allowNull: false
   },
   age: {
-    type: Sequelize.NUMBER,
+    type: Sequelize.INTEGER,
     allowNull: false
   },
   favoriteSports1: {
@@ -123,7 +123,7 @@ const Profile = sequelize.define('profiles', {
     allowNull: false
   },
   events: {
-    type: Sequelize.ARRAY,
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
     allowNull: false
   }
 }, {
@@ -139,3 +139,5 @@ const Sports = sequelize.define('sports', {
 }, {
   // options
 });
+
+sequelize.sync();
