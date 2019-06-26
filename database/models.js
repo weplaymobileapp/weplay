@@ -1,10 +1,17 @@
 const mongoose = require('mongoose');
 const db = require('./index');
 
-// // Profile Schema
-// const profileSchema = new mongoose.Schema({
-//   name: String
-// });
+// Profile Schema
+const profileSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  phone: String,
+  email: String,
+  height: String,
+  weight: Number,
+  favoriteSports: Array,
+  events: Array
+});
 
 // // Connecting the Profile Schema to the database
 // const Profile = mongoose.model('profiles', profileSchema);
