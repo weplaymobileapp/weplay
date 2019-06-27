@@ -22,11 +22,11 @@ function getRandomInt(min, max) {
 
 
 const makeOneProfileWithSomeEvents = () => {
-  let id = getRandomInt(0,1000);
+  let id = getRandomInt(0,100000);
   createdIDs.push(id);
   let name = names[getRandomInt(0, names.length - 1)];
   let facebookID = JSON.stringify(getRandomInt(0,10000));
-  let username = name + JSON.stringify(getRandomInt(0,100));
+  let username = name + JSON.stringify(getRandomInt(0,1000));
   let password = 'password';
   let phone = '1234567890';
   let heightFeet = JSON.stringify(getRandomInt(4,6));
@@ -55,7 +55,8 @@ const createEvent = (id) => {
   startDate.setDate(startDate.getDate() + 1)
   endDate.setDate(endDate.getDate() + 8);
   let date = faker.date.between(startDate, endDate);
-  let month = JSON.stringify(date.getMonth());
+  console.log(date)
+  let month = JSON.stringify(date.getMonth() + 1);
   let day = JSON.stringify(date.getDate());
   let time = JSON.stringify(getRandomInt(1,12)) + ':' + numberEnds[getRandomInt(0,numberEnds.length-1)];
   // let address = faker.address.zipCode();
@@ -78,11 +79,14 @@ const createEvent = (id) => {
     }
   }
   currentPlayers = members.length;
+  if(currentPlayers > maxPlayers) {
+    maxPlayers = currentPlayers;
+  }
   
   let insert = { name, sport, details, month, day, time, street, city, state, zip, maxPlayers, minPlayers, maxPlayersEnabled, minPlayersEnabled, currentPlayers, evenOnly, owner, members  };
   helper.createEvent(insert,() => {})
 }
 
-for(var i = 0;i < 300; i++) {
+for(var i = 0;i < 3000; i++) {
   makeOneProfileWithSomeEvents();
 }

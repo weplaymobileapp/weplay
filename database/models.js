@@ -55,11 +55,13 @@ Event.init({
   },
   maxPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 0
   },
   minPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 0
   },
   currentPlayers: {
     type: Sequelize.INTEGER,
@@ -150,7 +152,7 @@ Profile.init({
   timestamps: false
 });
 
-const Sport = sequelize.define('sports', {
+const Sports = sequelize.define('sports', {
   // attributes
   name: {
     type: Sequelize.JSON,

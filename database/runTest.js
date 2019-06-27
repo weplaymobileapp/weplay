@@ -3,15 +3,18 @@ const model = require('./models.js')
 const helper = require('./helpers.js');
 
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
+// sequelize
+//   .authenticate()
+//   .then(() => {
+//     console.log('Connection has been established successfully.');
+//     helper.findEvents('Water Polo', '67890', '5', '30', (items) => {
+//       console.log(items);
+//     })
 
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+//   })
+//   .catch(err => {
+//     console.error('Unable to connect to the database:', err);
+//   });
 
 
     // //        // helper.createEvent();

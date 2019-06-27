@@ -7,8 +7,8 @@ const controller = require('./controller');
 //   .post(controller.profilePostOne)
 //   .delete(controller.profileDeleteAll);
 
-//   router.route('/event')
-//   .get(controller.eventFindAll)
+  router.route('/event')
+  .get(controller.eventFindAll)
 //   .post(controller.eventPostOne)
 //   .delete(controller.eventDeleteAll);
 

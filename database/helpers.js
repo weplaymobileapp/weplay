@@ -10,10 +10,10 @@ module.exports = {
     Profile.create(object);
     callback()
   },
-  findEvents: (sport, location, day, callback) => {
-    Event.findAll({where: { sport, location, month, day }})
-    .then(items => {
-      
+  findEvents: (sport, zip, month, day, callback) => {
+    Event.findAll({where: { sport, zip, month, day }})
+    .then((items) => {
+      callback(items);
     })
   }
 }
