@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, AsyncStorage, Input } from 'react-native';
 import { AuthSession } from 'expo';
 import { FB_APP_ID } from '../config.js';
 import { Button } from 'react-native-elements';
@@ -21,13 +21,14 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
+      userName: '',
+      password: '',
       isSignedIn: false
     }
     this._handlePressAsync = this._handlePressAsync.bind(this);
     this.saveItem = this.saveItem.bind(this);
     this.callGraph = this.callGraph.bind(this);
-    //this.signOut = this.signOut.bind(this);
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
   async saveItem(item, selectedValue) {
@@ -52,8 +53,8 @@ export default class Login extends Component {
       }
     })
     .then(({ data }) => {
-      data = JSON.stringify(data[0]);
-      this.saveItem('userData', data);
+      var dataStr = JSON.stringify(data[0]);
+      this.saveItem('userData', dataStr);
       this.setState({ isSignedIn: true }, () => {
         this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
       }) 
@@ -72,27 +73,55 @@ export default class Login extends Component {
     this.callGraph(result.params.access_token);
   }
 
-  // signOut = async () => {
-  //   var iParams = token;
-  //   fetch(
-  //     `https://graph.facebook.com/User_id/permissions`,{
-  //     method : 'DELETE',
-  //     body: iParams
-  //   })
-  // }
+  handleSignIn(){
+    Axios.get('http://localhost:3000/weplay/profile', {
+      params: {
+        facebookID: this.state.password,
+        name: this.state.userName
+      }
+    })
+    .then(({ data }) => {
+      var dataStr = JSON.stringify(data[0]);
+      this.saveItem('userData', dataStr);
+      this.setState({ isSignedIn: true }, () => {
+        this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
+      })  
+    })
+    .catch(err => console.log(err, 'error in get'))
+  }
   
   render() {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
-        {this.state.isSignedIn ? 
-        (<View style={{marginTop: 20}}>
-          <Button title="Sign Out" onPress={this.signOut}></Button>
-        </View>) :
-        (<View style={{marginTop: 20}}>
+        <TextInput placeholder="Username"
+          style={{fontSize: 40}}
+          onChangeText={(userName) => this.setState({ userName })}
+          inputContainerStyle={{
+            //width: 300,
+            marginBottom: 10,
+            left: 45,
+            bottom: 0,
+            fontSize: 40
+          }}/>
+        <TextInput placeholder="Password"
+          style={{fontSize: 40}}
+          secureTextEntry={true}
+          onChangeText={(password) => this.setState({ password })}
+          inputContainerStyle={{
+            //width: 300,
+            lineHeight: 40,
+            marginBottom: 10,
+            left: 45,
+            bottom: 0,
+            fontSize: 40
+          }}/>
+        <View style={{marginTop: 20}}>
+          <Button title="Sign In" onPress={this.handleSignIn} />
+        </View>
+        <View style={{marginTop: 20}}>
           <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
-        </View>)
-        }
+        </View>
       </View>
     );
   }

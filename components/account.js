@@ -18,6 +18,7 @@ export default class Account extends Component {
       favoriteSports2: '--',
       favoriteSports3: '--',
       facebookID: '0',
+      events: [],
       allSports: [{value: '--'},{value: 'Basketball'}, {value: 'Football'}, {value: 'Baseball'},
       {value: 'Soccer'},{value: 'Hockey'},{value: 'Tennis'},{value: 'Water Polo'},
       {value: 'Volleyball'},{value: 'Ultimate Frisbee'},{value: 'Softball'},
@@ -77,6 +78,7 @@ export default class Account extends Component {
       favoriteSports1: this.state.favoriteSports1 === '--' ? null : this.state.favoriteSports1, 
       favoriteSports2: this.state.favoriteSports2 === '--' ? null : this.state.favoriteSports2, 
       favoriteSports3: this.state.favoriteSports3 === '--' ? null : this.state.favoriteSports3,
+      events: this.state.events,
       facebookID: this.state.facebookID
     })
     .catch(err => console.log('Error in update :', err))

@@ -18,7 +18,7 @@ module.exports = {
   },
   profileUpdateOne: (req, res) => {
     const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     models.Profile.update({ name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events }, { where: { facebookID } }) 
       .then(() => res.status(201).send('successful update'))
       .catch(err => res.status(404).send(err));
