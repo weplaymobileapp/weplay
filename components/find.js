@@ -73,11 +73,11 @@ export default class Find extends Component {
               onSelectionChange={(current, previous) => {
                 console.log('date start: ', previous, 'date end: ', current)
                 if(!previous) {
-                  this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) })
+                  this.setState({ month: JSON.stringify(current.getMonth()+1), day: JSON.stringify(current.getDate()) })
                 } else {
                   this.setState({
-                    month: JSON.stringify(previous.getMonth()), day: JSON.stringify(previous.getDate()),
-                    monthEnd: JSON.stringify(current.getMonth()), dayEnd: JSON.stringify(current.getDate())
+                    month: JSON.stringify(previous.getMonth()+1), day: JSON.stringify(previous.getDate()),
+                    monthEnd: JSON.stringify(current.getMonth()+1), dayEnd: JSON.stringify(current.getDate())
                   })
                 }
               }}
@@ -94,11 +94,12 @@ export default class Find extends Component {
             
             <Button title="Search" onPress={() => {
               let { sport, zip, month, day, monthEnd, dayEnd } = this.state;
+              console.log('Start date: ', month, day, '\n', 'End date: ', monthEnd, dayEnd);
               sport === 'All Sports' ?
                 axios.get('http://localhost:3000/weplay/event', { params: { zip, month, day, monthEnd, dayEnd } })
                   .then(output => {
                     this.setState({ querys: output.data }, () => {
-                      this.props.navigation.navigate('Find2', { zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
+                      this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
                     })
                   })
                 :
