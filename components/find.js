@@ -15,15 +15,17 @@ export default class Find extends Component {
       zip: '45678',
       month: '5',
       day: '30',
+      monthEnd: '',
+      dayEnd: '',
       query: {},
       querys: []
     }
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     AsyncStorage.getItem('userData')
-    .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
-    .catch(err => console.log('error getting data from async storage'))
+      .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
+      .catch(err => console.log('error getting data from async storage'))
   }
 
   render() {
@@ -31,7 +33,6 @@ export default class Find extends Component {
     var to = new Date();
     to.setDate(to.getDate() + 9);
     var startDate = new Date();
-    // startDate.setMonth(startDate.getMonth() + 1);
     let sports = [{ value: 'All Sports' }, { value: 'Basketball' }, { value: 'Football' }, { value: 'Baseball' },
     { value: 'Soccer' }, { value: 'Hockey' }, { value: 'Tennis' }, { value: 'Water Polo' },
     { value: 'Volleyball' }, { value: 'Ultimate Frisbee' }, { value: 'Softball' },
@@ -66,35 +67,45 @@ export default class Find extends Component {
               monthsCount={2}
               startFormMonday={true}
               startDate={startDate}
-              rangeSelect={false}
+              // rangeSelect={false}
               isFutureDate={true}
               width={290}
               onSelectionChange={(current, previous) => {
-                this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) })
+                console.log('date start: ', previous, 'date end: ', current)
+                if(!previous) {
+                  this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) })
+                } else {
+                  this.setState({
+                    month: JSON.stringify(previous.getMonth()), day: JSON.stringify(previous.getDate()),
+                    monthEnd: JSON.stringify(current.getMonth()), dayEnd: JSON.stringify(current.getDate())
+                  })
+                }
               }}
             />
           </View>
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in area code: {this.state.zip}</Text>
+
+            {this.state.monthEnd ? 
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>Between {this.state.month}/{this.state.day} and {this.state.monthEnd}/{this.state.dayEnd}</Text>
+            :
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
+            }
+            
             <Button title="Search" onPress={() => {
-              let { sport, zip, month, day } = this.state;
+              let { sport, zip, month, day, monthEnd, dayEnd } = this.state;
               sport === 'All Sports' ?
-                axios.get('http://localhost:3000/weplay/event', { params: { zip, month, day } })
+                axios.get('http://localhost:3000/weplay/event', { params: { zip, month, day, monthEnd, dayEnd } })
                   .then(output => {
-                    console.log(output.data);
                     this.setState({ querys: output.data }, () => {
-                      this.props.navigation.navigate('Find2', { zip, month, day, query: this.state.querys });
-                      console.log(month, day)
+                      this.props.navigation.navigate('Find2', { zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
                     })
-                  }) :
-                // console.log(sport, zip, month, day)
-                axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day } })
+                  })
+                :
+                axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day, monthEnd, dayEnd  } })
                   .then(output => {
-                    console.log(output.data);
                     this.setState({ querys: output.data }, () => {
-                      this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys });
-                      console.log(month, day)
+                      this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
                     })
                   })
             }} />

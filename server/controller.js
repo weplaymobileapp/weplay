@@ -1,5 +1,7 @@
+const Sequelize = require('sequelize');
 const models = require('../database/models');
 const helper = require('../database/helpers.js');
+const Op = Sequelize.Op
 
 module.exports = {
   profileFindOrCreate: (req, res) => {
@@ -27,17 +29,56 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   eventFindAll: (req, res) => {
-    let { sport, zip, month, day } = req.query;
-    if(sport) {
-      models.Event.findAll({where: { sport, zip, month, day}})
-      .then(data => {
-        res.status(200).send(data)
+    let { sport, zip, month, day, monthEnd, dayEnd  } = req.query;
+    if(monthEnd) {
+      if(sport) {
+        models.Event.findAll({ where: { sport, zip, month: {
+          [Op.between]: [month, monthEnd]
+        }, day: {
+          [Op.between]: [day, dayEnd]
+        }}, 
+        order: [
+          ['month', 'ASC'],
+          ['day', 'ASC']
+        ]
       })
+        .then(data => {
+          res.status(200).send(data)
+        })
+      } else {
+        models.Event.findAll({where: { zip, month: {
+          [Op.between]: [month, monthEnd]
+        }, day: {
+          [Op.between]: [day, dayEnd]
+        }}, 
+        order: [
+          ['month', 'ASC'],
+          ['day', 'ASC']
+        ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      }
     } else {
-      models.Event.findAll({where: { zip, month, day}})
-      .then(data => {
-        res.status(200).send(data)
-      })
+      if(sport) {
+        models.Event.findAll({where: { sport, zip, month, day}, 
+          order: [
+            ['month', 'ASC'],
+            ['day', 'ASC']
+          ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      } else {
+        models.Event.findAll({where: { zip, month, day}, 
+          order: [
+            ['month', 'ASC'],
+            ['day', 'ASC']
+          ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      }
     }
   },
   findMembers: (req, res) => {
