@@ -38,7 +38,7 @@ const TabNavigator = createBottomTabNavigator({
       fontWeight: 'bold',
     },
     style: {
-      backgroundColor: '#6ae324',
+      backgroundColor: 'lightgray',
     },
   },
 }
