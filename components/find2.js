@@ -22,27 +22,18 @@ export default class Find2 extends Component {
           <Text style={{ fontSize: 40, top: 0 }}>Find an Event</Text>
         </View>
         <View style={[styles.body, { flex: .2, marginBottom: 20 }]}>
-
-
           {monthEnd ?
             <View style={{ alignItems: 'center' }}>
               <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
               <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
             </View>
             :
-            <Text style={{ fontSize: 15, textAlign: 'center' }}>Searching for {sport} Events On {month}/{day} in area code: {zip}</Text>
+            <View style={{ alignItems: 'center' }}>
+            <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
+            <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
+          </View>
           }
-
-
-
         </View>
-        {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
-          <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
-          <View></View>
-          <View style={{flex: 2}}><Text></Text></View>
-          <View></View>
-          <View></View>
-        </View> */}
         <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
           {query.length === 0 ? <Text>No Results Found</Text> : null}
           <ScrollView>
@@ -60,7 +51,6 @@ export default class Find2 extends Component {
                     <Text style={{ fontSize: 10, margin: 10, color: 'white' }}>{item.details.split('.')[0] + '.'}</Text>
                   </ImageBackground>
                 </TouchableOpacity>
-
               )
             })}
           </ScrollView>

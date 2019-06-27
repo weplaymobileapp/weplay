@@ -98,7 +98,7 @@ export default class Find extends Component {
                 axios.get('http://localhost:3000/weplay/event', { params: { zip, month, day, monthEnd, dayEnd } })
                   .then(output => {
                     this.setState({ querys: output.data }, () => {
-                      this.props.navigation.navigate('Find2', { zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
+                      this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys, monthEnd, dayEnd  });
                     })
                   })
                 :
