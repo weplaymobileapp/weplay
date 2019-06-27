@@ -9,7 +9,7 @@ const names = ["Angela", "Calvin", "Dustin", "Gaby", "James'", "Wendy", "Ufuk", 
   "Wayne", "Mark", "Matt", "Matthew", "Victor", "Morgan", "Adam", "Anthony", "Uttej", "Nate",
   "Charlie", "Albert", "Tracy", "Liezel", "Jesse", "Daniel", "Fred", "Tommy", "Brian", "Paul", "Snoopy",
   "Viv", "Semira", "Eva", "Eti", "Billy"];
-const numberEnds = ['00', '15', '30', '45'];
+const numberEnds = ['00 AM', '15 AM', '30 AM', '45 AM','00 PM', '15 PM', '30 PM', '45 PM'];
 const booleans = [true, false];
 let zips = ['12345', '23456', '34567', '45678', '56789', '67890']
 
@@ -56,7 +56,7 @@ const createEvent = (id) => {
   startDate.setDate(startDate.getDate() + 1)
   endDate.setDate(endDate.getDate() + 8);
   let date = faker.date.between(startDate, endDate);
-  let month = JSON.stringify(date.getMonth());
+  let month = JSON.stringify(date.getMonth() + 1);
   let day = JSON.stringify(date.getDate());
   let time = JSON.stringify(getRandomInt(1,12)) + ':' + numberEnds[getRandomInt(0,numberEnds.length-1)];
   // let address = faker.address.zipCode();
