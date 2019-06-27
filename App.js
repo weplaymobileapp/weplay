@@ -26,9 +26,21 @@ const TabNavigator = createBottomTabNavigator({
   //Logout: Logout
 },
 {
-  initialRouteName: 'Find',
-  headerMode: 'screen'
-});
+
+  initialRouteName: 'Account',
+  headerMode: 'screen',
+  tabBarOptions: {
+    activeTintColor: '#e91e63',
+    inactiveTintColor: 'gray',
+    labelStyle: {
+      fontSize: 20,
+    },
+    style: {
+      backgroundColor: 'yellow',
+    },
+  },
+}
+);
 
 const AuthStack = createSwitchNavigator({
   Login: Login,

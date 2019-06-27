@@ -65,7 +65,8 @@ Event.init({
   },
   currentPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 1
   },
   evenOnly: {
     type: Sequelize.BOOLEAN,
@@ -73,7 +74,8 @@ Event.init({
   },
   owner: { //FOREIGN KEY
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 'Mark Hayford'
   },
   members: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
@@ -95,11 +97,13 @@ Profile.init({
     type: Sequelize.STRING,
     allowNull: false
   },
+
   // username: {
   //   type: Sequelize.STRING,
   //   allowNull: false,
   //   //unique: true
   // },
+
   facebookID: {
     type: Sequelize.STRING,
     allowNull: false
@@ -167,4 +171,6 @@ const resetDB = () => {
   sequelize.sync({ force: true });
 }
 
+
 module.exports = { Profile, Event, Sports, resetDB }
+
