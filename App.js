@@ -27,17 +27,17 @@ const TabNavigator = createBottomTabNavigator({
 },
 {
 
-  initialRouteName: 'Account',
+  initialRouteName: 'Find',
   headerMode: 'screen',
   tabBarOptions: {
     activeTintColor: 'black',
-    inactiveTintColor: 'gray',
+    inactiveTintColor: 'white',
     labelStyle: {
       fontSize: 20,
       fontWeight: 'bold',
     },
     style: {
-      backgroundColor: '#6ae324',
+      backgroundColor: '#9ea2a8',
     },
   },
 }
@@ -48,7 +48,7 @@ const AuthStack = createSwitchNavigator({
   Tab: TabNavigator
 },
 {
-  initialRouteName: 'Login'
+  initialRouteName: 'Tab'
 })
 
 export default createAppContainer(

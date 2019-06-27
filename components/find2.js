@@ -27,10 +27,10 @@ export default class Find2 extends Component {
           {monthEnd ?
             <View style={{ alignItems: 'center' }}>
               <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
-              <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
+              <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
             </View>
             :
-            <Text style={{ fontSize: 15, textAlign: 'center' }}>Searching for {sport} Events On {month}/{day} in area code: {zip}</Text>
+            <Text style={{ fontSize: 15, textAlign: 'center' }}>Searching for {sport} Events On {month}/{day} in zip code: {zip}</Text>
           }
 
 
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
 
