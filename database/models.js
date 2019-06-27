@@ -97,11 +97,6 @@ Profile.init({
     type: Sequelize.STRING,
     allowNull: false
   },
-  username: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    //unique: true
-  },
   facebookID: {
     type: Sequelize.STRING,
     allowNull: false
@@ -169,4 +164,6 @@ const resetDB = () => {
   sequelize.sync({ force: true });
 }
 
+
 module.exports = { Profile, Event, Sports, resetDB }
+
