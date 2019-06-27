@@ -1,5 +1,6 @@
 import {  createBottomTabNavigator, createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Login from './components/login.js';
+import Logout from './components/logout.js';
 import Find1 from './components/find.js';
 import Find2 from './components/find2.js';
 import Find3 from './components/find3.js';
@@ -23,7 +24,7 @@ const TabNavigator = createBottomTabNavigator({
   Find: FindStack,
   Create: Create,
   Account: AccountStack,
-  //Logout: Logout
+  Logout: Logout
 },
 {
 
