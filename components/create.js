@@ -8,24 +8,23 @@ import axios from 'axios';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
     marginTop: 75,
     marginBottom: 100,
-    marginLeft: 20,
-    marginRight: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    // backgroundColor: '#c5d2e8'
     // alignItems: 'center',
     // justifyContent: 'center',
   },
   create: {
-    fontSize: 30,
-    textDecorationLine: 'underline',
+    fontSize: 50,
     marginBottom: 5,
   },
   input: {
     height: 32,
     fontSize: 26,
     marginTop: 15,
-    marginRight: 20,
+    marginRight: 10,
     marginLeft: 8,
   },
   dropdown: {
@@ -35,6 +34,7 @@ const styles = StyleSheet.create({
   button: {
     marginBottom: 15,
     marginRight: 15,
+    marginLeft: 10
   }
 });
 
@@ -163,7 +163,7 @@ export default class Create extends React.Component {
             />
           </View>
           <Text style={{marginLeft: 20, marginTop: 10, marginBottom:10, fontSize:16}}>
-          {this.state.minPlayersEnabled? this.state.minPlayers + ' minimum' : 'No minimum players'}
+          {this.state.minPlayersEnabled? this.state.minPlayers + ' players minimum' : 'No minimum players'}
           </Text>
           <Slider
             disabled={this.state.minPlayersEnabled ? false : true}
@@ -187,7 +187,7 @@ export default class Create extends React.Component {
             />
           </View>
           <Text style={{marginLeft: 20, marginTop: 10, marginBottom:10, fontSize:16}}>
-          {this.state.maxPlayersEnabled? this.state.maxPlayers + ' maximum' : 'No maximum players'}
+          {this.state.maxPlayersEnabled? this.state.maxPlayers + ' players maximum' : 'No maximum players'}
           </Text>
           <Slider
             disabled={this.state.maxPlayersEnabled ? false : true}
@@ -211,7 +211,8 @@ export default class Create extends React.Component {
             />
           </View>
           <TextInput
-            style={{ minHeight: 150, height: 'auto', fontSize: 26, marginTop: 15, marginBottom: 15, marginRight: 15, borderWidth: 1 }}
+            style={{ minHeight: 150, height: 'auto', fontSize: 26, padding: 10,
+             marginTop: 15, marginBottom: 15, marginRight: 15, marginLeft: 10, borderWidth: 1 }}
             multiline={true}
             numberOfLines={4}
             placeholder="Details"
@@ -220,12 +221,47 @@ export default class Create extends React.Component {
           <Button
             style={styles.button}
             onPress={() => {
-              //TODO: fix endpoint
-              // axios.post('/', this.state)
-              //   .then(() => console.log('Success posting event to database!'))
-              //   .catch(err => console.log(err));
 
-              Alert.alert('Event successfully posted!');
+              //Make sure inputs are present/valid
+              if (this.state.name === '') {
+                Alert.alert('Please enter an event name');
+              }
+              else if (this.state.sport === '') {
+                Alert.alert('Please choose a sport');
+              }
+              else if (this.state.month === '') {
+                Alert.alert('Please choose a month');
+              }
+              else if (this.state.day === '') {
+                Alert.alert('Please choose a day');
+              }
+              else if (this.state.time === '') {
+                Alert.alert('Please choose a start time');
+              }
+              else if (this.state.street === '') {
+                Alert.alert('Please enter a street address');
+              }
+              else if (this.state.city === '') {
+                Alert.alert('Please enter a city');
+              }
+              else if (this.state.state === '') {
+                Alert.alert('Please enter a state');
+              }
+              else if (this.state.zip === '') {
+                Alert.alert('Please enter a zip');
+              }
+              else if (this.state.maxPlayersEnabled && this.state.maxPlayersEnabled && this.state.minPlayers > this.state.maxPlayers) {
+                Alert.alert('Maximum number of players cannot exceed minimum number of players');
+              }
+              
+              else {
+                //TODO: fix endpoint
+                // axios.post('/', this.state)
+                //   .then(() => console.log('Success posting event to database!'))
+                //   .catch(err => console.log(err));
+  
+                Alert.alert('Event successfully posted!');
+              }
             }}
             title="Post Event"
           />
