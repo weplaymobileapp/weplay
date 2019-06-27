@@ -65,7 +65,8 @@ Event.init({
   },
   currentPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 1
   },
   evenOnly: {
     type: Sequelize.BOOLEAN,
@@ -73,7 +74,8 @@ Event.init({
   },
   owner: { //FOREIGN KEY
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 'Mark Hayford'
   },
   members: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),

@@ -253,10 +253,9 @@ export default class Create extends React.Component {
               }
               
               else {
-                //TODO: fix endpoint
-                // axios.post('/', this.state)
-                //   .then(() => console.log('Success posting event to database!'))
-                //   .catch(err => console.log(err));
+                axios.post('http://localhost:3000/weplay/event', this.state)
+                  .then(() => console.log('Success posting event to database!'))
+                  .catch(err => console.log(err));
   
                 Alert.alert('Event successfully posted!');
               }
