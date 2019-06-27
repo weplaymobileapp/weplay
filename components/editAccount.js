@@ -14,8 +14,8 @@ export default class EditAccount extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.navigation.state.params.userName, 'component did mount')
-    this.setState({ userName: this.props.navigation.state.params.userName })
+    console.log(this.props.navigation.state.params.data, 'component did mount')
+    this.setState({ userName: this.props.navigation.state.params.data })
   }
 
   handleEditSubmit() {
