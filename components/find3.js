@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
 
+const months = {  1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December' }
+
 export default class Find3 extends Component {
   constructor(props) {
     super(props);
@@ -29,10 +31,11 @@ export default class Find3 extends Component {
         <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
           <Text style={{fontSize: 25}}>{item.name}</Text>
           <Text>{sport}</Text>
-          <Text>{item.time} on {item.date}</Text>
-          <Text>In Area code: {item.address}</Text>
-          <Text>{item.currentPlayers}/{item.maxPlayers} players</Text>
-          <Text>Minimum players: {item.minPlayers}</Text>
+          <Text>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
+          {/* <Text>In Area code: {item.zip}</Text> */}
+          <Text>At {item.street} {item.city}, {item.state} {item.zip}</Text>
+          {item.maxPlayersEnabled ? <Text>{item.currentPlayers}/{item.maxPlayers} players</Text> : <Text>Current Players: {item.currentPlayers}</Text>}
+          {item.minPlayersEnabled ? <Text>Minimum players: {item.minPlayers}</Text> : null }
           {item.evenOnly ? <Text>Even Number Players Only</Text>: null }
           <Text style={{margin: 20}}>{item.description}</Text>
           <TouchableOpacity style={styles.button} onPress={() => {

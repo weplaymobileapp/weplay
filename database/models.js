@@ -55,11 +55,13 @@ Event.init({
   },
   maxPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 0
   },
   minPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 0
   },
   currentPlayers: {
     type: Sequelize.INTEGER,
@@ -69,10 +71,15 @@ Event.init({
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  // owner: { //FOREIGN KEY
-  //   type: Sequelize.STRING,
-  //   allowNull: false
-  // }
+  owner: { //FOREIGN KEY
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  members: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER),
+    allowNull: true,
+    defaultValue: []
+  }
 }, {
   // options
   sequelize,
@@ -85,6 +92,10 @@ class Profile extends Sequelize.Model {};
 Profile.init({
   // attributes
   name: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  username: {
     type: Sequelize.STRING,
     allowNull: false,
     //unique: true
@@ -137,7 +148,7 @@ Profile.init({
   timestamps: false
 });
 
-const Sport = sequelize.define('sports', {
+const Sports = sequelize.define('sports', {
   // attributes
   name: {
     type: Sequelize.JSON,
@@ -147,9 +158,11 @@ const Sport = sequelize.define('sports', {
   // options
 });
 
-Event.belongsTo(Profile, { as: 'owner', foreignKey: 'ownerID', constraints: false });
-// Event.belongsToMany(Profile, { as: 'events' });
-Profile.hasMany(Event, { as: 'inEvents', foreignKey: 'id', constraints: false })
+Event.belongsTo(Profile, { as: 'Owner', sourceKey:'owner', foreignKey: 'id', constraints: false });
+Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', constraints: false})
+//, { as: 'events', foreignKey: 'id', constraints: false }
+Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
+//, { as: 'members', foreignKey: 'id', constraints: false }
 
 sequelize.sync({ force: true });
 

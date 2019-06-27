@@ -39,7 +39,7 @@ export default class Find2 extends Component {
               }}>
                 <Text style={{ fontSize: 20, margin: 5 }}>{item.name}</Text>
                 <Text style={{ fontSize: 14 }}>{item.currentPlayers}/{item.maxPlayers} Players</Text>
-                <Text style={{ fontSize: 10, margin: 10 }}>{item.description.split('.')[0] + '.'}</Text>
+                <Text style={{ fontSize: 10, margin: 10 }}>{item.details.split('.')[0] + '.'}</Text>
               </TouchableOpacity>
             )
           })}

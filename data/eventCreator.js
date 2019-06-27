@@ -2,9 +2,11 @@ const fs = require('fs');
 const write = fs.createWriteStream('./eventsExample.json');
 const faker = require('faker');
 
+
 const sports = ['Basketball','Football', 'Baseball','Soccer', 'Hockey', 'Tennis', 'Water Polo',
   'Volleyball', 'Ultimate Frisbee', 'Softball','Dodgeball', 'Lacrosse', 'Ping Pong',
   'Pickle Ball', 'Hacky Sack', 'Laser Tag','Golf', 'Mini Golf', 'Rugby', 'Badminton',];
+
 const names = ["Angela's", "Calvin's", "Dustin's", "Gaby's", "James'", "Wendy's", "Ufuk's", "Ramin's", "Kathleen's", "Jeff's",
   "Wayne's", "Mark's", "Matt's", "Matthew's", "Victor's", "Morgan's", "Adam's", "Anthony's", "Uttej's", "Nate's",
   "Charlie's", "Albert's", "Tracy's", "Liezel's", "Jesse's", "Daniel's", "Fred's", "Tommy's", "Brian's", "Paul's", "Snoopy's",
