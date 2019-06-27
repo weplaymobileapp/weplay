@@ -9,7 +9,10 @@ router.route('/profile')
 
   router.route('/event')
   .get(controller.eventFindAll)
-//   .post(controller.eventPostOne)
+  .post(controller.eventPostOne)
 //   .delete(controller.eventDeleteAll);
+
+  router.route('/members')
+  .get(controller.findMembers)
 
 module.exports = router;
