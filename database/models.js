@@ -95,50 +95,46 @@ Profile.init({
     type: Sequelize.STRING,
     allowNull: false
   },
-  facebookID: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
   username: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    //unique: true
   },
-  password: {
+  facebookID: {
     type: Sequelize.STRING,
     allowNull: false
   },
   phone: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   heightFeet: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   heightInches: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   weight: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   age: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports1: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports2: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports3: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   events: { //a bunch of IDs to events
     type: Sequelize.ARRAY(Sequelize.INTEGER),
@@ -168,6 +164,6 @@ Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', con
 Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
 //, { as: 'members', foreignKey: 'id', constraints: false }
 
-// sequelize.sync({ force: true });
+sequelize.sync({ force: true });
 
-module.exports = { Profile, Event, Sports }
+module.exports = { Profile, Event, Sport }

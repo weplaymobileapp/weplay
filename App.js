@@ -1,4 +1,4 @@
-import {  createBottomTabNavigator, createStackNavigator, createAppContainer } from 'react-navigation';
+import {  createBottomTabNavigator, createStackNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 import Login from './components/login.js';
 import Find1 from './components/find.js';
 import Find2 from './components/find2.js';
@@ -18,15 +18,26 @@ const AccountStack = createStackNavigator({
   EditAccount,
 })
 
+
 const TabNavigator = createBottomTabNavigator({
   Find: FindStack,
   Create: Create,
   Account: AccountStack,
-  Login: Login
+  //Logout: Logout
 },
 {
-  initialRouteName: 'Login',
+  initialRouteName: 'Account',
   headerMode: 'screen'
 });
 
-export default createAppContainer(TabNavigator);
+const AuthStack = createSwitchNavigator({
+  Login: Login,
+  Tab: TabNavigator
+},
+{
+  initialRouteName: 'Login'
+})
+
+export default createAppContainer(
+  AuthStack
+);

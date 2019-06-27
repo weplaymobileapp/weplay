@@ -13,6 +13,11 @@ export default class EditAccount extends Component {
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
+  componentDidMount(){
+    console.log(this.props.navigation.state.params.data, 'component did mount')
+    this.setState({ userName: this.props.navigation.state.params.data })
+  }
+
   handleEditSubmit() {
     this.props.navigation.navigate('Account');
   }
