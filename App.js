@@ -35,7 +35,7 @@ const AuthStack = createSwitchNavigator({
   Tab: TabNavigator
 },
 {
-  initialRouteName: 'Login'
+  initialRouteName: 'Tab'
 })
 
 export default createAppContainer(

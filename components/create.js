@@ -8,11 +8,9 @@ import axios from 'axios';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 75,
-    marginBottom: 100,
+    marginTop: 90,
     marginLeft: 15,
     marginRight: 15,
-    // backgroundColor: '#c5d2e8'
     // alignItems: 'center',
     // justifyContent: 'center',
   },
@@ -29,7 +27,7 @@ const styles = StyleSheet.create({
   },
   dropdown: {
     marginRight: 20,
-    marginLeft: 20
+    marginLeft: 18
   },
   button: {
     marginBottom: 15,
