@@ -65,7 +65,8 @@ Event.init({
   },
   currentPlayers: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 1
   },
   evenOnly: {
     type: Sequelize.BOOLEAN,
@@ -73,7 +74,8 @@ Event.init({
   },
   owner: { //FOREIGN KEY
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true,
+    defaultValue: 'Mark Hayford'
   },
   members: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),
@@ -158,7 +160,8 @@ Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', con
 //, { as: 'events', foreignKey: 'id', constraints: false }
 Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
 //, { as: 'members', foreignKey: 'id', constraints: false }
+const resetDB = () => {
+  sequelize.sync({ force: true });
+}
 
-// sequelize.sync({ force: true });
-
-module.exports = { Profile, Event, Sports }
+module.exports = { Profile, Event, Sports, resetDB }

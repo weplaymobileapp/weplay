@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 export default class Find2 extends Component {
   constructor(props) {
@@ -13,36 +14,45 @@ export default class Find2 extends Component {
     }
   }
   render() {
-    let { sport, radius, month, day, query } = this.props.navigation.state.params;
+    let { sport, zip, month, day, query, monthEnd, dayEnd } = this.props.navigation.state.params;
+    console.log('query length: ', query.length)
     return (
       <View style={styles.outer}>
-        <View style={[styles.body, { flex: .5 }]}>
-          <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
+        <View style={[styles.body, { flex: .4 }]}>
+          <Text style={{ fontSize: 40, top: 0 }}>Find an Event</Text>
         </View>
-        <View style={[styles.body, { flex: .5, marginBottom: 20 }]}>
-          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
+        <View style={[styles.body, { flex: .2, marginBottom: 20 }]}>
+          {monthEnd ?
+            <View style={{ alignItems: 'center' }}>
+              <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
+              <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
+            </View>
+            :
+            <View style={{ alignItems: 'center' }}>
+            <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
+            <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
+          </View>
+          }
         </View>
-        {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
-          <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
-          <View></View>
-          <View style={{flex: 2}}><Text></Text></View>
-          <View></View>
-          <View></View>
-        </View> */}
-        <View style={[styles.body, styles.rows, { flex: 4.7 }]}>
+        <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
+          {query.length === 0 ? <Text>No Results Found</Text> : null}
           <ScrollView>
-          {query.map((item, index) => {
-            return (
-              <TouchableOpacity key={index} style={styles.event} onPress={() => {
-                this.props.navigation.navigate('Find3',
-                  { sport, radius, month, day, item })
-              }}>
-                <Text style={{ fontSize: 20, margin: 5 }}>{item.name}</Text>
-                <Text style={{ fontSize: 14 }}>{item.currentPlayers}/{item.maxPlayers} Players</Text>
-                <Text style={{ fontSize: 10, margin: 10 }}>{item.details.split('.')[0] + '.'}</Text>
-              </TouchableOpacity>
-            )
-          })}
+            {query.map((item, index) => {
+              //gather members and add to list
+              return (
+
+                <TouchableOpacity key={index} style={styles.event} onPress={() => {
+                  this.props.navigation.navigate('Find3',
+                    { sport, zip, month, day, item })
+                }}>
+                  <ImageBackground source={require('./basketball.jpg')} style={styles.backgroundImage}>
+                    <Text style={{ fontSize: 20, margin: 5 }}>{item.name}</Text>
+                    <Text style={{ fontSize: 14 }}>{item.currentPlayers}/{item.maxPlayers} Players</Text>
+                    <Text style={{ fontSize: 10, margin: 10, color: 'white' }}>{item.details.split('.')[0] + '.'}</Text>
+                  </ImageBackground>
+                </TouchableOpacity>
+              )
+            })}
           </ScrollView>
 
         </View>
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   footer: {
-    flex: 1,
+    flex: .4,
     // borderWidth: 2,
     // borderColor: 'yellow'
   },
@@ -88,7 +98,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: 'black',
     alignItems: 'center',
-    margin: 3
+    margin: 3,
+    width: Dimensions.get('window').width - 10,
+    borderRadius: 5,
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+    alignItems: 'center'
   },
 
 
