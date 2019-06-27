@@ -163,7 +163,8 @@ Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', con
 //, { as: 'events', foreignKey: 'id', constraints: false }
 Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
 //, { as: 'members', foreignKey: 'id', constraints: false }
+const resetDB = () => {
+  sequelize.sync({ force: true });
+}
 
-sequelize.sync({ force: true });
-
-module.exports = { Profile, Event, Sport }
+module.exports = { Profile, Event, Sports, resetDB }
