@@ -30,13 +30,14 @@ const TabNavigator = createBottomTabNavigator({
   initialRouteName: 'Account',
   headerMode: 'screen',
   tabBarOptions: {
-    activeTintColor: '#e91e63',
+    activeTintColor: 'black',
     inactiveTintColor: 'gray',
     labelStyle: {
       fontSize: 20,
+      fontWeight: 'bold',
     },
     style: {
-      backgroundColor: 'yellow',
+      backgroundColor: '#6ae324',
     },
   },
 }

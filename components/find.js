@@ -91,7 +91,7 @@ export default class Find extends Component {
             :
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
             }
-
+            
             <Button title="Search" onPress={() => {
               let { sport, zip, month, day, monthEnd, dayEnd } = this.state;
               sport === 'All Sports' ?
