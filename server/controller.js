@@ -1,5 +1,7 @@
+const Sequelize = require('sequelize');
 const models = require('../database/models');
 const helper = require('../database/helpers.js');
+const Op = Sequelize.Op
 
 module.exports = {
   profileFindOrCreate: (req, res) => {
@@ -14,10 +16,11 @@ module.exports = {
     .then((data) => res.status(200).send(data))
     .catch(err => res.status(404).send(err))
   },
-  profilePostOne: (req, res) => {
-    const { name, facebookID } = req.query;
-    models.Profile.create({ name, facebookID }) 
-      .then(() => res.status(201).send('successful post'))
+  profileUpdateOne: (req, res) => {
+    const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = req.body;
+    console.log(req.body);
+    models.Profile.update({ name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events }, { where: { facebookID } }) 
+      .then(() => res.status(201).send('successful update'))
       .catch(err => res.status(404).send(err));
   },
   profileDeleteAll: (req, res) => {
@@ -26,14 +29,64 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   eventFindAll: (req, res) => {
-    let { sport, zip, month, day} = req.query;
-    console.log(req.params)
-    helper.findEvents(sport, zip, month, day, (data) => {
-      res.status(200).send(data);
+    let { sport, zip, month, day, monthEnd, dayEnd  } = req.query;
+    if(monthEnd) {
+      if(sport) {
+        models.Event.findAll({ where: { sport, zip, month: {
+          [Op.between]: [month, monthEnd]
+        }, day: {
+          [Op.between]: [day, dayEnd]
+        }}, 
+        order: [
+          ['month', 'ASC'],
+          ['day', 'ASC']
+        ]
+      })
+        .then(data => {
+          res.status(200).send(data)
+        })
+      } else {
+        models.Event.findAll({where: { zip, month: {
+          [Op.between]: [month, monthEnd]
+        }, day: {
+          [Op.between]: [day, dayEnd]
+        }}, 
+        order: [
+          ['month', 'ASC'],
+          ['day', 'ASC']
+        ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      }
+    } else {
+      if(sport) {
+        models.Event.findAll({where: { sport, zip, month, day}, 
+          order: [
+            ['month', 'ASC'],
+            ['day', 'ASC']
+          ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      } else {
+        models.Event.findAll({where: { zip, month, day}, 
+          order: [
+            ['month', 'ASC'],
+            ['day', 'ASC']
+          ]})
+        .then(data => {
+          res.status(200).send(data)
+        })
+      }
+    }
+  },
+  findMembers: (req, res) => {
+    let { id } = req.query;
+    models.Profile.findOne({where: { id }})
+    .then(profile => {
+      res.status(200).send(profile);
     })
-    // models.Event.find({}) 
-    //   .then(data => res.status(200).send(data))
-    //   .catch(err => res.status(404).send(err));
   },
   eventPostOne: (req, res) => {
     let { name, sport, month, day, time, street, 

@@ -164,6 +164,4 @@ const resetDB = () => {
   sequelize.sync({ force: true });
 }
 
-
 module.exports = { Profile, Event, Sports, resetDB }
-
