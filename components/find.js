@@ -84,7 +84,7 @@ export default class Find extends Component {
             />
           </View>
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
-            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in area code: {this.state.zip}</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in zip code: {this.state.zip}</Text>
 
             {this.state.monthEnd ? 
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>Between {this.state.month}/{this.state.day} and {this.state.monthEnd}/{this.state.dayEnd}</Text>

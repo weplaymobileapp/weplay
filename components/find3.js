@@ -44,7 +44,7 @@ export default class Find3 extends Component {
   }
 
   render() {
-    let { sport, zip, month, day, item } = this.props.navigation.state.params;
+    let { sport, radius, month, day, item, zip } = this.props.navigation.state.params;
     // console.log(sport, radius, month, day, item);
 
 
@@ -54,7 +54,7 @@ export default class Find3 extends Component {
           <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
         </View>
         <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
-          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} in area code {zip}</Text>
+          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} in zip code {zip}</Text>
         </View>
         {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
           <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
@@ -121,7 +121,7 @@ export default class Find3 extends Component {
                 <View style={{ top: 50 }}>
                   {this.state.members.map((item, index) => {
                     return (
-                      <Text>{item}</Text>
+                      <Text key={index}>{item}</Text>
                     )
                   })}
                 </View>
