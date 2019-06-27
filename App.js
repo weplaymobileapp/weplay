@@ -26,7 +26,7 @@ const TabNavigator = createBottomTabNavigator({
   //Logout: Logout
 },
 {
-  initialRouteName: 'Account',
+  initialRouteName: 'Find',
   headerMode: 'screen'
 });
 
@@ -35,7 +35,7 @@ const AuthStack = createSwitchNavigator({
   Tab: TabNavigator
 },
 {
-  initialRouteName: 'Login'
+  initialRouteName: 'Tab'
 })
 
 export default createAppContainer(

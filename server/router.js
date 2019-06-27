@@ -12,4 +12,7 @@ router.route('/profile')
 //   .post(controller.eventPostOne)
 //   .delete(controller.eventDeleteAll);
 
+  router.route('/members')
+  .get(controller.findMembers)
+
 module.exports = router;

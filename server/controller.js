@@ -26,14 +26,25 @@ module.exports = {
       .catch(err => res.status(404).send(err));
   },
   eventFindAll: (req, res) => {
-    let { sport, zip, month, day} = req.query;
-    console.log(req.params)
-    helper.findEvents(sport, zip, month, day, (data) => {
-      res.status(200).send(data);
+    let { sport, zip, month, day } = req.query;
+    if(sport) {
+      models.Event.findAll({where: { sport, zip, month, day}})
+      .then(data => {
+        res.status(200).send(data)
+      })
+    } else {
+      models.Event.findAll({where: { zip, month, day}})
+      .then(data => {
+        res.status(200).send(data)
+      })
+    }
+  },
+  findMembers: (req, res) => {
+    let { id } = req.query;
+    models.Profile.findOne({where: { id }})
+    .then(profile => {
+      res.status(200).send(profile);
     })
-    // models.Event.find({}) 
-    //   .then(data => res.status(200).send(data))
-    //   .catch(err => res.status(404).send(err));
   },
   eventPostOne: (req, res) => {
     const { name } = req.body;
