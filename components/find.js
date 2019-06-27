@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, AsyncStorage } from 'react-native';
 import Calendar from 'react-native-day-picker';
 import data from '../data/eventsExample.json';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -18,6 +18,12 @@ export default class Find extends Component {
       query: {},
       querys: []
     }
+  }
+
+  componentDidMount(){
+    AsyncStorage.getItem('userData')
+    .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
+    .catch(err => console.log('error getting data from async storage'))
   }
 
   updateQuery() {

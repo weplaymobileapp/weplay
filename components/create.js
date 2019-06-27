@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TextInput, View, ScrollView, Alert, Picker, Slider } from 'react-native';
+import { StyleSheet, Text, TextInput, View, ScrollView, Alert, Picker, Slider, AsyncStorage } from 'react-native';
 import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 import { Dropdown } from 'react-native-material-dropdown';
 import { Input, Button, CheckBox } from 'react-native-elements';
@@ -58,6 +58,12 @@ export default class Create extends React.Component {
       evenOnly: false,
       details: '',
     };
+  }
+
+  componentDidMount(){
+    AsyncStorage.getItem('userData')
+    .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
+    .catch(err => console.log('error getting data from async storage'))
   }
 
   render() {

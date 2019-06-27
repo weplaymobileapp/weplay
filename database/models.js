@@ -95,11 +95,6 @@ Profile.init({
     type: Sequelize.STRING,
     allowNull: false
   },
-  username: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    //unique: true
-  },
   facebookID: {
     type: Sequelize.STRING,
     allowNull: false
@@ -166,4 +161,4 @@ Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', c
 
 sequelize.sync({ force: true });
 
-module.exports = { Profile, Event, Sport }
+module.exports = { Profile, Event, Sports }

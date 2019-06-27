@@ -42,6 +42,7 @@ export default class Login extends Component {
     const response = await fetch(
       `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,about,picture`
     );
+    //console.log(response);
     var responseJSON = JSON.stringify(await response.json());
     var obj = JSON.parse(responseJSON)
     Axios.get('http://localhost:3000/weplay/profile', {
@@ -51,11 +52,13 @@ export default class Login extends Component {
       }
     })
     .then(({ data }) => {
+      data = JSON.stringify(data[0]);
+      this.saveItem('userData', data);
       this.setState({ isSignedIn: true }, () => {
         if(!data.phone){
-          this.props.navigation.navigate('EditAccount', {userData: data, isSignedIn: this.state.isSignedIn})
+          this.props.navigation.navigate('Tab', {userData: data, isSignedIn: this.state.isSignedIn})
         } else{
-          this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
+          this.props.navigation.navigate('Tab', {userData: data, isSignedIn: this.state.isSignedIn})
         }
       })
       //console.log(data.name, data.facebookID)
