@@ -52,13 +52,8 @@ export default class Login extends Component {
     })
     .then(({ data }) => {
       this.setState({ isSignedIn: true }, () => {
-        if(!data.phone){
-          this.props.navigation.navigate('EditAccount', {userData: data, isSignedIn: this.state.isSignedIn})
-        } else{
-          this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
-        }
-      })
-      //console.log(data.name, data.facebookID)
+        this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
+      }) 
     })
     .catch(err => console.log(err, 'error in get'))
   };

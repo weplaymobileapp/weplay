@@ -4,7 +4,7 @@ const controller = require('./controller');
 // Fetch or delete all data 
 router.route('/profile')
   .get(controller.profileFindOrCreate)
-  .post(controller.profilePostOne)
+  .put(controller.profileUpdateOne)
   .delete(controller.profileDeleteAll);
 
   router.route('/event')

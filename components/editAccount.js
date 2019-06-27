@@ -2,30 +2,23 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import { Input, Button } from 'react-native-elements'
 import { Dropdown } from 'react-native-material-dropdown';
-import axios from 'axios';
 
 export default class EditAccount extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      userName: ''
-    };
+    this.state = {};
     this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
-  componentDidMount(){
-    console.log(this.props.navigation.state.params.data, 'component did mount')
-    this.setState({ userName: this.props.navigation.state.params.data })
-  }
-
   handleEditSubmit() {
+    const { handleProfileUpdate } = this.props.navigation.state.params;
+    handleProfileUpdate();
     this.props.navigation.navigate('Account');
   }
 
   render() {
     const {
       name,
-      username,
       phone,
       heightFeet,
       heightInches,
@@ -35,7 +28,7 @@ export default class EditAccount extends Component {
       favoriteSports2,
       favoriteSports3,
       allSports,
-      handleChange 
+      handleChange
     } = this.props.navigation.state.params;
 
     const feet = [
@@ -68,19 +61,11 @@ export default class EditAccount extends Component {
         <View style={styles.attributeContainer}>
           <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'name')}>{name}</Input>
         </View>
-        <View style={styles.attributeContainer}>
-          <Text style={styles.attribute}>Username: </Text>
-        </View>
-        <View style={styles.attributeContainer}>
-          <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'username')}>{username}</Input>
-        </View>
-
         <Text style={styles.attribute}>Phone: </Text>
         <View style={styles.attributeContainer}>
           <Input style={styles.attribute} onChangeText={(text) => handleChange(text, 'phone')}>{phone}</Input>
         </View>
         <Text style={styles.attribute}>Height: </Text>
-        
         <View style={styles.attributeContainer}>
           <Dropdown label={JSON.stringify(heightFeet)} data={feet} onChangeText={(text) => handleChange(text, 'heightFeet')}></Dropdown>
           <Dropdown label={JSON.stringify(heightInches)} data={inches} onChangeText={(text) => handleChange(text, 'heightInches')}></Dropdown>

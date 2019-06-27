@@ -116,7 +116,7 @@ export default class Find extends Component {
             }}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity> */}
-            <Button title="Search" styles={styles.button} onPress={() => {
+            <Button title="Search" style={styles.button} onPress={() => {
               let { sport, zip, month, day } = this.state;
               console.log(sport, zip, month, day)
               axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day } })
