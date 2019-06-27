@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity, Modal } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity, Modal, AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December' }
@@ -7,12 +7,14 @@ const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 
 export default class Find3 extends Component {
   constructor(props) {
     super(props);
+    let { item } = this.props.navigation.state.params;
     this.state = {
       modalVisible: false,
       members: [],
-      owner: ''
+      owner: '',
+      profile: {},
+      event: item
     }
-    let { item } = this.props.navigation.state.params;
     let newMembers = [];
     axios.get('http://localhost:3000/weplay/members', { params: { id: item.owner } })
       .then(profile => {
@@ -20,19 +22,29 @@ export default class Find3 extends Component {
       })
     for (var i = 0; i < item.members.length; i++) {
       //fill members from item ids
-      console.log('Currently on: ', item.members[i]);
+      // console.log('Currently on: ', item.members[i]);
       axios.get('http://localhost:3000/weplay/members', { params: { id: item.members[i] } })
         .then(profile => {
           newMembers.push(profile.data.name);
           if (newMembers.length === item.members.length) {
             this.setState({ members: newMembers });
-            console.log('MEMBERS UPDATED')
+            // console.log('MEMBERS UPDATED')
           }
         })
     }
   }
+
+  componentDidMount() {
+    AsyncStorage.getItem('userData')
+      .then(data => {
+        // console.log('grabbed data from async storage', JSON.parse(data));
+        this.setState({profile: JSON.parse(data)})
+      })
+      .catch(err => console.log('error getting data from async storage'))
+  }
+
   render() {
-    let { sport, radius, month, day, item } = this.props.navigation.state.params;
+    let { sport, zip, month, day, item } = this.props.navigation.state.params;
     // console.log(sport, radius, month, day, item);
 
 
@@ -42,7 +54,7 @@ export default class Find3 extends Component {
           <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
         </View>
         <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
-          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} within {radius} miles</Text>
+          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} in area code {zip}</Text>
         </View>
         {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
           <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
@@ -71,8 +83,18 @@ export default class Find3 extends Component {
 
           <TouchableOpacity style={styles.button} onPress={() => {
             console.log('Game added');
-            //POST REQUEST TO PROFILE DB 
-            this.props.navigation.navigate('Account');
+            console.log(JSON.stringify(this.state.event))
+            //POST REQUEST TO PROFILE DB;
+            const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = this.state.profile;
+            events.push(this.state.event.id);
+            axios.put('http://localhost:3000/weplay/profile', { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID })
+            .then(() => {
+              this.props.navigation.navigate('Account');
+            })
+            .catch( err => {
+              console.log(err);
+            })
+
           }}>
             <Text style={{ fontSize: 25 }}>Join Game</Text>
           </TouchableOpacity>
