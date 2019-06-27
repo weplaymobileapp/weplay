@@ -166,4 +166,4 @@ Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', c
 
 sequelize.sync({ force: true });
 
-module.exports = { Profile, Event, Sport }
+module.exports = { Profile, Event, Sports }

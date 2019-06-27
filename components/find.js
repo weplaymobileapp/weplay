@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker } from 'react-native';
 import Calendar from 'react-native-day-picker';
 import data from '../data/eventsExample.json';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -116,7 +116,7 @@ export default class Find extends Component {
             }}>
               <Text style={{ fontSize: 25 }}>Search</Text>
             </TouchableOpacity> */}
-            <Button title="Search" styles={styles.button} onPress={() => {
+            <Button title="Search" onPress={() => {
               let { sport, zip, month, day } = this.state;
               console.log(sport, zip, month, day)
               axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day } })
