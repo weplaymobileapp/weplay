@@ -77,7 +77,6 @@ export default class Find extends Component {
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in area code: {this.state.zip}</Text>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
-
             <Button title="Search" onPress={() => {
               let { sport, zip, month, day } = this.state;
               sport === 'All Sports' ?

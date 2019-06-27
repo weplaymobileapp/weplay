@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, AsyncStorage } from 'react-native';
 import { Button } from 'react-native-elements'
+import axios from 'axios';
 
 
 export default class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: 'Matthew Mata',
-      username: 'xXxSlayerxXx',
-      phone: '(310) 617-7308',
-      heightFeet: 5,
-      heightInches: 4,
-      weight: 130,
-      age: 23,
-      favoriteSports1: 'Ping Pong',
-      favoriteSports2: 'Basketball',
-      favoriteSports3: 'n/a',
+      name: '',
+      phone: '',
+      heightFeet: 0,
+      heightInches: 0,
+      weight: 0,
+      age: 0,
+      favoriteSports1: '--',
+      favoriteSports2: '--',
+      favoriteSports3: '--',
+      facebookID: '0',
       allSports: [{value: '--'},{value: 'Basketball'}, {value: 'Football'}, {value: 'Baseball'},
       {value: 'Soccer'},{value: 'Hockey'},{value: 'Tennis'},{value: 'Water Polo'},
       {value: 'Volleyball'},{value: 'Ultimate Frisbee'},{value: 'Softball'},
@@ -24,8 +25,61 @@ export default class Account extends Component {
       {value: 'Pickle Ball'},{value: 'Hacky Sack'},{value: 'Laser Tag'},
       {value: 'Golf'},{value: 'Mini Golf'},{value: 'Rugby'},{value: 'Badminton'}]
     };
+    this.handleInitialState = this.handleInitialState.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleEditSwitch = this.handleEditSwitch.bind(this);
+    this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleInitialState()
+  }
+
+
+  handleInitialState() {
+    const {
+      name,
+      phone,
+      heightFeet,
+      heightInches,
+      weight,
+      age,
+      favoriteSports1,
+      favoriteSports2,
+      favoriteSports3,
+      events,
+      facebookID
+    } = this.props.navigation.state.params.userData[0];
+
+    this.setState({
+      name,
+      phone: phone || '--',
+      heightFeet: heightFeet || '--',
+      heightInches: heightInches || '--',
+      weight: weight || '--',
+      age: age || '--',
+      favoriteSports1: favoriteSports1 || '--',
+      favoriteSports2: favoriteSports2 || '--',
+      favoriteSports3: favoriteSports3 || '--',
+      facebookID,
+      events,
+    })
+  }
+
+  handleProfileUpdate() {
+    axios.put('http://localhost:3000/weplay/profile/', {
+      name: this.state.name, 
+      phone: this.state.phone === '--' ? null : this.state.phone, 
+      heightFeet: this.state.heightFeet === '--' ? null : this.state.heightFeet, 
+      heightInches: this.state.heightInches === '--' ? null : this.state.heightInches, 
+      weight: this.state.weight === '--' ? null : this.state.weight, 
+      age: this.state.age === '--' ? null : this.state.age, 
+      favoriteSports1: this.state.favoriteSports1 === '--' ? null : this.state.favoriteSports1, 
+      favoriteSports2: this.state.favoriteSports2 === '--' ? null : this.state.favoriteSports2, 
+      favoriteSports3: this.state.favoriteSports3 === '--' ? null : this.state.favoriteSports3,
+      facebookID: this.state.facebookID
+    })
+    .catch(err => console.log('Error in update :', err))
   }
 
   handleChange(text, key) {
@@ -35,7 +89,6 @@ export default class Account extends Component {
   handleEditSwitch() {
     this.props.navigation.navigate('EditAccount', { 
       name: this.state.name, 
-      username: this.state.username,
       phone: this.state.phone, 
       heightFeet: this.state.heightFeet, 
       heightInches: this.state.heightInches, 
@@ -45,7 +98,8 @@ export default class Account extends Component {
       favoriteSports2: this.state.favoriteSports2, 
       favoriteSports3: this.state.favoriteSports3,
       allSports: this.state.allSports,
-      handleChange: this.handleChange
+      handleChange: this.handleChange,
+      handleProfileUpdate: this.handleProfileUpdate
     })
   }
 
@@ -58,10 +112,6 @@ export default class Account extends Component {
         <Text style={{...styles.attribute, ...styles.topContainer}}>Name: </Text>
         <View style={styles.attributeContainer}>
           <Text style={styles.attribute}>{this.state.name}</Text>
-        </View>
-        <Text style={styles.attribute}>Username: </Text>
-        <View style={styles.attributeContainer}>
-          <Text style={styles.attribute}>{this.state.username}</Text>
         </View>
         <Text style={styles.attribute}>Phone: </Text>
         <View style={styles.attributeContainer}>
@@ -90,6 +140,7 @@ export default class Account extends Component {
     )
   }
 }
+
 
 const styles = StyleSheet.create({
   mainContainer: {

@@ -14,10 +14,11 @@ module.exports = {
     .then((data) => res.status(200).send(data))
     .catch(err => res.status(404).send(err))
   },
-  profilePostOne: (req, res) => {
-    const { name, facebookID } = req.query;
-    models.Profile.create({ name, facebookID }) 
-      .then(() => res.status(201).send('successful post'))
+  profileUpdateOne: (req, res) => {
+    const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = req.body;
+    console.log(req.body);
+    models.Profile.update({ name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events }, { where: { facebookID } }) 
+      .then(() => res.status(201).send('successful update'))
       .catch(err => res.status(404).send(err));
   },
   profileDeleteAll: (req, res) => {
