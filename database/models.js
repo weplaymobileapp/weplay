@@ -97,6 +97,13 @@ Profile.init({
     type: Sequelize.STRING,
     allowNull: false
   },
+
+  // username: {
+  //   type: Sequelize.STRING,
+  //   allowNull: false,
+  //   //unique: true
+  // },
+
   facebookID: {
     type: Sequelize.STRING,
     allowNull: false

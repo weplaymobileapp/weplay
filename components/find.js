@@ -10,48 +10,20 @@ export default class Find extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sport: 'Ping Pong',
+      sport: 'All Sports',
       radius: '1',
-      zip: '12345',
-      month: '01',
-      day: '01',
+      zip: '45678',
+      month: '5',
+      day: '30',
       query: {},
       querys: []
     }
   }
-
+  
   componentDidMount(){
     AsyncStorage.getItem('userData')
     .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
     .catch(err => console.log('error getting data from async storage'))
-  }
-
-  updateQuery() {
-    // let { sport, zip, month, day } = this.state;
-    // console.log(sport, zip, month, day)
-    // axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day }})
-    // .then(data => {
-    //   console.log(data);
-    //   this.setState({ querys: data })
-    // })
-
-    // OLD CODE USED TO FIND MATCHING QUERIES FROM A JSON FILE
-    // if (day.length === 1) {
-    //   day = '0' + day;
-    // }
-    // if (month.length === 1) {
-    //   month = '0' + month;
-    // }
-    // let YYMMDD = '2019-' + month + '-' + day;
-    // let newQueries = [];
-    // for (var i = 0; i < data.length; i++) {
-    //   if (data[i].date === YYMMDD && data[i].sport === this.state.sport) {
-    //     newQueries.push(data[i]);
-    //   }
-    // }
-    // console.log(YYMMDD, this.state.sport)
-    // this.setState({ querys: newQueries });
-
   }
 
   render() {
@@ -59,8 +31,8 @@ export default class Find extends Component {
     var to = new Date();
     to.setDate(to.getDate() + 9);
     var startDate = new Date();
-    startDate.setMonth(startDate.getMonth() + 1);
-    let sports = [{ value: 'Basketball' }, { value: 'Football' }, { value: 'Baseball' },
+    // startDate.setMonth(startDate.getMonth() + 1);
+    let sports = [{ value: 'All Sports' }, { value: 'Basketball' }, { value: 'Football' }, { value: 'Baseball' },
     { value: 'Soccer' }, { value: 'Hockey' }, { value: 'Tennis' }, { value: 'Water Polo' },
     { value: 'Volleyball' }, { value: 'Ultimate Frisbee' }, { value: 'Softball' },
     { value: 'Dodgeball' }, { value: 'Lacrosse' }, { value: 'Ping Pong' },
@@ -77,62 +49,55 @@ export default class Find extends Component {
         <View style={[styles.body, styles.rows, { flex: 1.2, top: 0 }]}>
           <View style={[styles.row, { marginLeft: 30, marginRight: 30 }]}>
             <Dropdown label='Sport' data={sports} onChangeText={(itemValue, itemIndex) => {
-              this.setState({ sport: itemValue }, () => this.updateQuery())
+              this.setState({ sport: itemValue })
             }} />
           </View>
-          <View style={[styles.row, { marginLeft: 30, marginRight: 30 }]}>
-            {/* <Dropdown label='Radius (Miles)' data={miles} onChangeText={(itemValue, itemIndex) => {
-              this.setState({ radius: itemValue })
-            }}/> */}
-            <Dropdown label='Zipcode' data={miles} onChangeText={(itemValue, itemIndex) => {
-              this.setState({ zip: itemValue })
-            }} />
+          <View style={[styles.row, { marginLeft: 17, marginRight: 17 }]}>
+            <Input
+              placeholder="Zipcode"
+              onChangeText={(zip) => this.setState({ zip })}
+            />
           </View>
         </View>
 
         <View style={[styles.body, styles.rows, { flex: 3 }]}>
           <View style={[styles.row, { flex: 2.4 }]}>
             <Calendar
-              monthsCount={1}
+              monthsCount={2}
               startFormMonday={true}
               startDate={startDate}
               rangeSelect={false}
               isFutureDate={true}
               width={290}
               onSelectionChange={(current, previous) => {
-                this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) }, () => this.updateQuery())
+                this.setState({ month: JSON.stringify(current.getMonth()), day: JSON.stringify(current.getDate()) })
               }}
             />
           </View>
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
-            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in a {this.state.radius} mile radius</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in area code: {this.state.zip}</Text>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
-            {/* <TouchableOpacity style={styles.button} onPress={() => {
-              // console.log(this.state.querys.length, ' items found');
-              let { sport, zip, month, day } = this.state;
-              console.log(sport, zip, month, day)
-              axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day }})
-              .then(output => {
-                console.log(output.data);
-                this.setState({ querys: output.data }, () => {
-                  this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys })
-                })
-              })
-              //GET REQUEST AND THEN SEND TO FIND
-            }}>
-              <Text style={{ fontSize: 25 }}>Search</Text>
-            </TouchableOpacity> */}
+
             <Button title="Search" onPress={() => {
               let { sport, zip, month, day } = this.state;
-              console.log(sport, zip, month, day)
-              axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day } })
-                .then(output => {
-                  console.log(output.data);
-                  this.setState({ querys: output.data }, () => {
-                    this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys });
-                    console.log(month, day)
+              sport === 'All Sports' ?
+                axios.get('http://localhost:3000/weplay/event', { params: { zip, month, day } })
+                  .then(output => {
+                    console.log(output.data);
+                    this.setState({ querys: output.data }, () => {
+                      this.props.navigation.navigate('Find2', { zip, month, day, query: this.state.querys });
+                      console.log(month, day)
+                    })
+                  }) :
+                // console.log(sport, zip, month, day)
+                axios.get('http://localhost:3000/weplay/event', { params: { sport, zip, month, day } })
+                  .then(output => {
+                    console.log(output.data);
+                    this.setState({ querys: output.data }, () => {
+                      this.props.navigation.navigate('Find2', { sport, zip, month, day, query: this.state.querys });
+                      console.log(month, day)
+                    })
                   })
-                })
             }} />
           </View>
         </View>

@@ -26,6 +26,7 @@ const TabNavigator = createBottomTabNavigator({
   //Logout: Logout
 },
 {
+
   initialRouteName: 'Account',
   headerMode: 'screen',
   tabBarOptions: {

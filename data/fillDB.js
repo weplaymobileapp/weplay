@@ -3,7 +3,8 @@ const write = fs.createWriteStream('./profiles.json');
 const faker = require('faker');
 const helper = require('../database/helpers.js')
 
-const sports = ['Basketball', 'Football', 'Baseball', 'Soccer', 'Hockey', 'Tennis', 'Water Polo', 'Volleyball', 'Ultimate Frisbee', 'Softball', 'Dodgeball', 'Lacrosse', 'Ping Pong', 'Pickle Ball', 'Hacky Sack', 'Laser Tag', 'Golf', 'Mini Golf', 'Rugby', 'Badminton']
+const sports = ['Basketball', 'Football', 'Baseball', 'Soccer', 'Hockey', 'Tennis', 'Water Polo', 'Volleyball', 'Ultimate Frisbee', 'Softball',
+ 'Dodgeball', 'Lacrosse', 'Ping Pong', 'Pickle Ball', 'Hacky Sack', 'Laser Tag', 'Golf', 'Mini Golf', 'Rugby', 'Badminton']
 const names = ["Angela", "Calvin", "Dustin", "Gaby", "James'", "Wendy", "Ufuk", "Ramin", "Kathleen", "Jeff",
   "Wayne", "Mark", "Matt", "Matthew", "Victor", "Morgan", "Adam", "Anthony", "Uttej", "Nate",
   "Charlie", "Albert", "Tracy", "Liezel", "Jesse", "Daniel", "Fred", "Tommy", "Brian", "Paul", "Snoopy",
@@ -48,15 +49,14 @@ const makeOneProfileWithSomeEvents = () => {
 const createEvent = (id) => {
   let justName = names[getRandomInt(0, names.length - 1)];
   let sport = sports[getRandomInt(0, sports.length - 1)];
-  let name = justName + ' ' + sport + ' Event';
+  let name = justName + "'s " + sport + ' Event';
   let details = faker.lorem.paragraph().substring(0,255);
   let startDate = new Date();
   let endDate = new Date();
   startDate.setDate(startDate.getDate() + 1)
   endDate.setDate(endDate.getDate() + 8);
   let date = faker.date.between(startDate, endDate);
-  console.log(date)
-  let month = JSON.stringify(date.getMonth() + 1);
+  let month = JSON.stringify(date.getMonth());
   let day = JSON.stringify(date.getDate());
   let time = JSON.stringify(getRandomInt(1,12)) + ':' + numberEnds[getRandomInt(0,numberEnds.length-1)];
   // let address = faker.address.zipCode();
