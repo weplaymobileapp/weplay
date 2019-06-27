@@ -1,15 +1,22 @@
 const models = require('../database/models');
 
 module.exports = {
-  profileFindAll: (req, res) => {
-    models.Profile.find({}) 
-      .then(data => res.status(200).send(data))
-      .catch(err => res.status(404).send(err));
+  profileFindOrCreate: (req, res) => {
+    models.Profile.findOrCreate({
+      where: {
+        facebookID: req.query.facebookID
+      },
+      defaults: {
+        name: req.query.name
+      }
+    }) 
+    .then((data) => res.status(200).send(data))
+    .catch(err => res.status(404).send(err))
   },
   profilePostOne: (req, res) => {
-    const { name } = req.body;
-    models.Profile.create({ name }) 
-      .then(data => res.status(201).send(data))
+    const { name, facebookID } = req.query;
+    models.Profile.create({ name, facebookID }) 
+      .then(() => res.status(201).send('successful post'))
       .catch(err => res.status(404).send(err));
   },
   profileDeleteAll: (req, res) => {

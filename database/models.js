@@ -84,46 +84,46 @@ Event.init({
 class Profile extends Sequelize.Model {};
 Profile.init({
   // attributes
-  username: {
+  name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true
+    //unique: true
   },
-  password: {
+  facebookID: {
     type: Sequelize.STRING,
     allowNull: false
   },
   phone: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   heightFeet: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   heightInches: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   weight: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   age: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports1: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports2: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   favoriteSports3: {
     type: Sequelize.JSON,
-    allowNull: false
+    allowNull: true
   },
   events: { //a bunch of IDs to events
     type: Sequelize.ARRAY(Sequelize.INTEGER),
@@ -151,6 +151,6 @@ Event.belongsTo(Profile, { as: 'owner', foreignKey: 'ownerID', constraints: fals
 // Event.belongsToMany(Profile, { as: 'events' });
 Profile.hasMany(Event, { as: 'inEvents', foreignKey: 'id', constraints: false })
 
-// sequelize.sync({ force: true });
+sequelize.sync({ force: true });
 
-module.exports = { Profile, Event, Sports }
+module.exports = { Profile, Event, Sport }

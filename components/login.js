@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
 import { AuthSession } from 'expo';
 import { FB_APP_ID } from '../config.js';
-import { Button } from 'react-native-elements'
+import { Button } from 'react-native-elements';
+import Axios from 'axios';
 
 const styles = StyleSheet.create({
   container: {
@@ -20,17 +21,13 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
-      password: '',
-      result: null,
-      emptyInputFields: false,
       name: '',
       isSignedIn: false
     }
     this._handlePressAsync = this._handlePressAsync.bind(this);
     this.saveItem = this.saveItem.bind(this);
     this.callGraph = this.callGraph.bind(this);
-    this.signOut = this.signOut.bind(this);
+    //this.signOut = this.signOut.bind(this);
   }
 
   async saveItem(item, selectedValue) {
@@ -47,10 +44,23 @@ export default class Login extends Component {
     );
     var responseJSON = JSON.stringify(await response.json());
     var obj = JSON.parse(responseJSON)
-    var name = obj.name
-    this.setState({ name, isSignedIn: true }, () => {
-      this.props.navigation.navigate('EditAccount', {userName: this.state.name})
-    });
+    Axios.get('http://localhost:3000/weplay/profile', {
+      params: {
+        facebookID: obj.id,
+        name: obj.name
+      }
+    })
+    .then(({ data }) => {
+      this.setState({ isSignedIn: true }, () => {
+        if(!data.phone){
+          this.props.navigation.navigate('EditAccount', {userData: data, isSignedIn: this.state.isSignedIn})
+        } else{
+          this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
+        }
+      })
+      //console.log(data.name, data.facebookID)
+    })
+    .catch(err => console.log(err, 'error in get'))
   };
 
   _handlePressAsync = async () => {
@@ -65,11 +75,11 @@ export default class Login extends Component {
   }
 
   // signOut = async () => {
-  //   let redirectUrl = AuthSession.getRedirectUrl();
-  //   AsyncStorage.getItem('')
-  //   const response = await fetch(`https://www.facebook.com/logout.php?next=${encodedURIComponent(redirectUrl)}&access_token=USER_ACCESS_TOKEN`)
-  //   this.setState({ name : '', isSignedIn: false }, () => {
-    
+  //   var iParams = token;
+  //   fetch(
+  //     `https://graph.facebook.com/User_id/permissions`,{
+  //     method : 'DELETE',
+  //     body: iParams
   //   })
   // }
   
@@ -77,7 +87,7 @@ export default class Login extends Component {
     return (
       <View style={styles.container}>
         <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
-        {this.state.name ? 
+        {this.state.isSignedIn ? 
         (<View style={{marginTop: 20}}>
           <Button title="Sign Out" onPress={this.signOut}></Button>
         </View>) :
