@@ -9,7 +9,7 @@ router.route('/profile')
 
   router.route('/event')
   .get(controller.eventFindAll)
-//   .post(controller.eventPostOne)
+  .post(controller.eventPostOne)
 //   .delete(controller.eventDeleteAll);
 
 module.exports = router;

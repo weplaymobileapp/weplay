@@ -36,9 +36,28 @@ module.exports = {
     //   .catch(err => res.status(404).send(err));
   },
   eventPostOne: (req, res) => {
-    const { name } = req.body;
-    models.Event.create({ name }) 
-      .then(data => res.status(201).send(data))
+    let { name, sport, month, day, time, street, 
+      city, state, zip, maxPlayersEnabled, minPlayersEnabled, 
+      maxPlayers, minPlayers, evenOnly, details } = req.body;
+
+    let months = ['January', 'February', 'March',
+    'April', 'May', 'June',
+    'July', 'August', 'September',
+    'October', 'November', 'December'];
+
+    month = months.indexOf(month) + 1;
+
+    if (day.length === 4) {
+      day = day.slice(0,2)
+    }
+    else {
+      day = day.slice(0,1)
+    }
+
+    models.Event.create({name, sport, month, day, time, street, 
+      city, state, zip, maxPlayersEnabled, minPlayersEnabled, 
+      maxPlayers, minPlayers, evenOnly, details})
+      .then( () => res.status(201).send('Success posting one event to database'))
       .catch(err => res.status(404).send(err));
   },
   eventDeleteAll: (req, res) => {
