@@ -32,12 +32,13 @@ const TabNavigator = createBottomTabNavigator({
   headerMode: 'screen',
   tabBarOptions: {
     activeTintColor: 'black',
-    inactiveTintColor: 'gray',
+    inactiveTintColor: 'white',
     labelStyle: {
       fontSize: 20,
       fontWeight: 'bold',
     },
     style: {
+
       backgroundColor: 'lightgray',
     },
   },

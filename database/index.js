@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 
-
-const sequelize = new Sequelize('weplay', 'dustintktran', 'password', {
-
+const sequelize = new Sequelize('weplay', 'postgres', 'hackreactortest', {
   host: 'localhost',
   dialect: 'postgres'
 });
