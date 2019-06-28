@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ImageBackground, StyleSheet, Text, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, AsyncStorage, ImageBackground } from 'react-native';
 import { AuthSession } from 'expo';
 import { Button } from 'react-native-elements';
 

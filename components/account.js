@@ -105,6 +105,7 @@ export default class Account extends Component {
 
   render() {
     return (
+
       <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' } }>
         <View style={styles.mainContainer}>
           <View style={styles.titleContainer}>
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginLeft: 20,
     marginRight: 20,
-    marginTop: 90,
   },
   titleContainer: {
     alignItems: 'center',

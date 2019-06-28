@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
     top: 40,
     // borderWidth: 5,
     // justifyContent: 'space-between',
+    overflow: 'visible'
   },
   body: {
     flex: 1,

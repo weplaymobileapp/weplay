@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, Modal, AsyncStorage, ImageBackground } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, Modal, AsyncStorage, ImageBackground, Alert } from 'react-native';
 import axios from 'axios';
 import { Input, Button } from 'react-native-elements';
 
@@ -35,7 +35,7 @@ export default class Find3 extends Component {
     this.state = {
       modalVisible: false,
       members: [],
-      owner: '',
+      owner: 0,
       profile: {},
       event: item
     }
@@ -92,8 +92,10 @@ export default class Find3 extends Component {
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
 
             {item.maxPlayersEnabled ? <Button style={{ borderRadius: 5, backgroundColor: 'rgba(0, 0, 0, .7)'}} type='outline' title={item.currentPlayers + '/' + item.maxPlayers + ' players'} onPress={() => {
+              console.log('owner: ', this.state.owner)
               this.setState({ modalVisible: !this.state.modalVisible })
             }}></Button> : <Button style={{ borderRadius: 5, backgroundColor: 'rgba(0, 0, 0, .7)'}} type='outline' title={'Current Players: ' + item.currentPlayers} onPress={() => {
+              console.log('owner: ', this.state.owner)
               this.setState({ modalVisible: !this.state.modalVisible })
             }}></Button>}
 
@@ -110,15 +112,25 @@ export default class Find3 extends Component {
               console.log('Game added');
               console.log(JSON.stringify(this.state.event))
               //POST REQUEST TO PROFILE DB;
-              const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = this.state.profile;
-              events.push(this.state.event.id);
-              axios.put('http://localhost:3000/weplay/profile', { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID })
+              const { id, name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = this.state.profile;
+              let newEvents = events;
+              newEvents.push(this.state.event.id);
+              console.log('Event ID: ', this.state.event.id, 'Profile ID: ', id);
+              Alert.alert('You have joined this event!');
+              axios.put('http://localhost:3000/weplay/profile', { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events: newEvents, facebookID })
+              .then(() => {
+                axios.put('http://localhost:3000/weplay/event', { eventID: this.state.event.id, profileID: id })
                 .then(() => {
                   this.props.navigation.navigate('Account');
                 })
                 .catch(err => {
                   console.log(err);
                 })
+              })
+              .catch(err => {
+                console.log(err);
+              })
+
 
             }}>
 

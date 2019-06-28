@@ -55,14 +55,19 @@ export default class Create extends React.Component {
       minPlayers: 0,
       evenOnly: false,
       details: '',
+      members: [],
+      owner: 99999
     };
   }
 
-  // componentDidMount(){
-  //   AsyncStorage.getItem('userData')
-  //   .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
-  //   .catch(err => console.log('error getting data from async storage'))
-  // }
+  componentDidMount(){
+    AsyncStorage.getItem('userData')
+    .then(data => {
+      console.log('grabbed data from async storage', JSON.parse(data).id);
+      this.setState({owner: JSON.parse(data).id, members: [JSON.parse(data).id]})
+    })
+    .catch(err => console.log('error getting data from async storage'))
+  }
 
   render() {
 
@@ -291,7 +296,7 @@ export default class Create extends React.Component {
 
                 else {
                   axios.post('http://localhost:3000/weplay/event', this.state)
-                    .then(() => console.log('Success posting event to database!'))
+                    .then(() => console.log('Success posting event to database! Owner is: ', this.state.owner))
                     .catch(err => console.log(err));
 
                   Alert.alert('Event successfully posted!');
