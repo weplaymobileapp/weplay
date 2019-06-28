@@ -3,6 +3,29 @@ import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity, Di
 import { ScrollView } from 'react-native-gesture-handler';
 import axios from 'axios';
 
+const pictures = {
+  'Basketball': require('../images/basketball.jpg'),
+  'Football': require('../images/football.jpg'),
+  'Baseball': require('../images/baseball.jpg'),
+  'Soccer': require('../images/soccer.jpg'),
+  'Hockey': require('../images/hockey.jpg'),
+  'Tennis': require('../images/tennis.jpg'),
+  'Water Polo': require('../images/waterpolo.jpg'),
+  'Volleyball': require('../images/volleyball.jpg'),
+  'Ultimate Frisbee': require('../images/ultimatefrisbee.jpg'),
+  'Softball': require('../images/softball.jpg'),
+  'Dodgeball': require('../images/dodgeball.jpg'),
+  'Lacrosse': require('../images/lacrosse.jpg'),
+  'Ping Pong': require('../images/pingpong.jpg'),
+  'Pickle Ball': require('../images/pickleball.jpg'),
+  'Hacky Sack': require('../images/hackysack.jpg'),
+  'Laser Tag': require('../images/lasertag.jpg'),
+  'Golf': require('../images/golf.jpg'),
+  'Mini Golf': require('../images/minigolf.jpg'),
+  'Rugby': require('../images/rugby.jpg'),
+  'Badminton': require('../images/badminton.jpg')
+}
+
 export default class Find2 extends Component {
   constructor(props) {
     super(props);
@@ -15,6 +38,7 @@ export default class Find2 extends Component {
   }
   render() {
     let { sport, zip, month, day, query, monthEnd, dayEnd } = this.props.navigation.state.params;
+    console.log(sport)
     console.log('query length: ', query.length)
     return (
       <View style={styles.outer}>
@@ -25,17 +49,17 @@ export default class Find2 extends Component {
           {monthEnd ?
             <View style={{ alignItems: 'center' }}>
               <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
-              <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
+              <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
             </View>
             :
             <View style={{ alignItems: 'center' }}>
-            <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
-            <Text style={{ fontSize: 15 }}>in area code: {zip}</Text>
-          </View>
+              <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
+              <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
+            </View>
           }
         </View>
         <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
-          {query.length === 0 ? <Text>No Results Found</Text> : null}
+          {query.length === 0 ? <Text style={{ top: 100, fontSize: 20 }}>No Results Found</Text> : null}
           <ScrollView>
             {query.map((item, index) => {
               //gather members and add to list
@@ -45,10 +69,10 @@ export default class Find2 extends Component {
                   this.props.navigation.navigate('Find3',
                     { sport, zip, month, day, item })
                 }}>
-                  <ImageBackground source={require('./basketball.jpg')} style={styles.backgroundImage}>
-                    <Text style={{ fontSize: 20, margin: 5 }}>{item.name}</Text>
-                    <Text style={{ fontSize: 14 }}>{item.currentPlayers}/{item.maxPlayers} Players</Text>
-                    <Text style={{ fontSize: 10, margin: 10, color: 'white' }}>{item.details.split('.')[0] + '.'}</Text>
+                  <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
+                    <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
+                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white',  textShadowColor: 'black', textShadowRadius: 5 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
+                    <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white',  textShadowColor: 'black', textShadowRadius: 5 }}>{item.details.split('.')[0] + '.'}</Text>
                   </ImageBackground>
                 </TouchableOpacity>
               )
@@ -106,7 +130,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     borderRadius: 5,
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
 

@@ -69,6 +69,7 @@ export default class Login extends Component {
         `&client_id=${FB_APP_ID}` +
         `&redirect_uri=${encodeURIComponent(redirectUrl)}`,
     });
+    console.log('test');
     this.callGraph(result.params.access_token);
   }
 

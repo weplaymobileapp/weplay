@@ -58,11 +58,11 @@ export default class Create extends React.Component {
     };
   }
 
-  componentDidMount(){
-    AsyncStorage.getItem('userData')
-    .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
-    .catch(err => console.log('error getting data from async storage'))
-  }
+  // componentDidMount(){
+  //   AsyncStorage.getItem('userData')
+  //   .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
+  //   .catch(err => console.log('error getting data from async storage'))
+  // }
 
   render() {
 
