@@ -74,8 +74,7 @@ Event.init({
   },
   owner: { //FOREIGN KEY
     type: Sequelize.STRING,
-    allowNull: true,
-    defaultValue: '65742'
+    allowNull: false
   },
   members: {
     type: Sequelize.ARRAY(Sequelize.INTEGER),

@@ -18,6 +18,7 @@ module.exports = {
   },
   profileUpdateOne: (req, res) => {
     const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = req.body;
+
     console.log(req.body);
     models.Profile.update({ name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events }, { where: { facebookID } }) 
       .then(() => res.status(201).send('successful update'))
@@ -91,7 +92,7 @@ module.exports = {
   eventPostOne: (req, res) => {
     let { name, sport, month, day, time, street, 
       city, state, zip, maxPlayersEnabled, minPlayersEnabled, 
-      maxPlayers, minPlayers, evenOnly, details } = req.body;
+      maxPlayers, minPlayers, evenOnly, details, members, owner } = req.body;
 
     let months = ['January', 'February', 'March',
     'April', 'May', 'June',
@@ -109,9 +110,24 @@ module.exports = {
 
     models.Event.create({name, sport, month, day, time, street, 
       city, state, zip, maxPlayersEnabled, minPlayersEnabled, 
-      maxPlayers, minPlayers, evenOnly, details})
+      maxPlayers, minPlayers, evenOnly, details, members, owner})
       .then( () => res.status(201).send('Success posting one event to database'))
       .catch(err => res.status(404).send(err));
+  },
+  eventPutOne: (req, res) => {
+    let { eventID, profileID } = req.body;
+    models.Event.findOne({ id: eventID })
+    .then(item => {
+      let { members, currentPlayers } = item;
+      console.log(members);
+      let updatedMembers = members;
+      updatedMembers.push(profileID);
+      console.log(updatedMembers);
+      models.Event.update({ members: updatedMembers, currentPlayers: currentPlayers+1 },{where: {id: eventID}})
+      .then(() => {
+        res.status(200).send('updated')
+      })
+    })
   },
   eventDeleteAll: (req, res) => {
     models.Event.deleteMany({}) 

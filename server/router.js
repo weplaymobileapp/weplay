@@ -10,6 +10,7 @@ router.route('/profile')
   router.route('/event')
   .get(controller.eventFindAll)
   .post(controller.eventPostOne)
+  .put(controller.eventPutOne)
 //   .delete(controller.eventDeleteAll);
 
   router.route('/members')
