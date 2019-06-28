@@ -41,7 +41,7 @@ export default class Find2 extends Component {
     console.log(sport)
     console.log('query length: ', query.length)
     return (
-      <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+      // <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
 
         <View style={styles.outer}>
           <View style={{ alignItems: 'left', marginLeft: 30}}>
@@ -93,7 +93,7 @@ export default class Find2 extends Component {
             <Text></Text>
           </View>
         </View>
-      </ImageBackground>
+      // </ImageBackground>
     );
   }
 }
