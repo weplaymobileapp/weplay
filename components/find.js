@@ -103,9 +103,9 @@ export default class Find extends Component {
 
               <Button
                 title="Search"
-                titleStyle={{ color: 'black' }}
-                buttonStyle={{ backgroundColor: 'white', width: 200,  borderRadius: 50 }}
-                containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
+                titleStyle={{ color: 'white' }}
+                buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200, borderRadius: 50 }}
+                containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 } }}
                 onPress={() => {
                   let { sport, zip, month, day, monthEnd, dayEnd } = this.state;
                   console.log('Start date: ', month, day, '\n', 'End date: ', monthEnd, dayEnd);

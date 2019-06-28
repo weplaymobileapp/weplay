@@ -134,7 +134,7 @@ export default class Find3 extends Component {
                 let newEventID = this.state.event.id;
                 let newMembers = this.state.event.members;
                 let allPlayers = this.state.event.currentPlayers;
-                if (!newMembers.includes(id)) {
+                if (!newMembers.includes(id) || this.state.event.currentPlayers === this.state.event.maxPlayers) {
                   newMembers.push(id);
                 } else {
                   Alert.alert('You are already a part of this event');
@@ -146,6 +146,7 @@ export default class Find3 extends Component {
                 console.log('NEW MEMBERS: ', newMembers);
                 axios.put('http://localhost:3000/weplay/joingame', { events: newEvents }, { params: { id } })
                   .then(something => {
+                    // AsyncStorage.setItem('@userData:events', newEvents)
                     console.log('Updated Profile');
                     axios.put('http://localhost:3000/weplay/joingame', { members: newMembers, currentPlayers: allPlayers }, { params: { id: newEventID } })
                     .then(something => {
@@ -182,13 +183,13 @@ export default class Find3 extends Component {
                     <View style={{ top: 50, alignItems: 'center' }}>
                       {this.state.members.map((item, index) => {
                         return (
-                          <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
+                          <Text style={{ fontSize: 25, color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
                         )
                       })}
                     </View>
                     <View style={{ top: 200, alignItems: 'center' }}>
                       <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Event Created By: </Text>
-                      <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
+                      <Text style={{ fontSize: 25, color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
                     </View>
                   </View>
 
