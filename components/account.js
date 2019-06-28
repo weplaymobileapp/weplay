@@ -25,7 +25,7 @@ export default class Account extends Component {
       { value: 'Pickle Ball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' },
       { value: 'Golf' }, { value: 'Mini Golf' }, { value: 'Rugby' }, { value: 'Badminton' }]
     };
-    
+
     this.handleChange = this.handleChange.bind(this);
     this.handleEditSwitch = this.handleEditSwitch.bind(this);
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
@@ -63,7 +63,7 @@ export default class Account extends Component {
           events,
         })
       })
-      .catch(err => console.log('error getting data from async storage'))
+      .catch(err => console.log('error getting data from async storage', err))
   }
 
   handleProfileUpdate() {
@@ -105,8 +105,7 @@ export default class Account extends Component {
 
   render() {
     return (
-      <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%', top: 0 }}>
-
+      <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' } }>
         <View style={styles.mainContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Account Info</Text>
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginLeft: 20,
     marginRight: 20,
-    flex: 1
+    marginTop: 90,
   },
   titleContainer: {
     alignItems: 'center',
