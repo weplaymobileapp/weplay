@@ -12,11 +12,15 @@ const FindStack = createStackNavigator({
   Find1,
   Find2,
   Find3
+}, {
+  headerMode: 'none'
 })
 
 const AccountStack = createStackNavigator({
   Account,
   EditAccount,
+}, {
+  headerMode: 'none'
 })
 
 
@@ -38,7 +42,6 @@ const TabNavigator = createBottomTabNavigator({
       fontWeight: 'bold',
     },
     style: {
-
       backgroundColor: 'lightgray',
     },
   },
