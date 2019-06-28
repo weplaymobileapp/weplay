@@ -16,26 +16,28 @@ const styles = StyleSheet.create({
 });
 
 export default class Logout extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleSignOut = this.handleSignOut.bind(this);
   }
 
-  handleSignOut(){
+  handleSignOut() {
     AsyncStorage.removeItem('userData')
-    .then(() => {
-      console.log('inside handlesignout')
-      this.props.navigation.navigate('Login')
-    })
-    .catch(err => console.log('error removing userdata from cache', err))
+      .then(() => {
+        console.log('inside handlesignout')
+        this.props.navigation.navigate('Login')
+      })
+      .catch(err => console.log('error removing userdata from cache', err))
   }
 
-  render(){
-    return(
-      <View style={styles.container}>
-        <Text style={{fontSize: 30, margin: 'auto'}}>Do You Want To Log Out?</Text>
-        <Button title="Log Out" style={{marginTop: 20}} onPress={this.handleSignOut}></Button>
-      </View>
+  render() {
+    return (
+      <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+        <View style={styles.container}>
+          <Text style={{ fontSize: 30, margin: 'auto' }}>Do You Want To Log Out?</Text>
+          <Button title="Log Out" style={{ marginTop: 20 }} onPress={this.handleSignOut}></Button>
+        </View>
+      </ImageBackground>
     )
   }
 }

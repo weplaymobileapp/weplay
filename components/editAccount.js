@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, ImageBackground } from 'react-native';
 import { Input, Button } from 'react-native-elements'
 import { Dropdown } from 'react-native-material-dropdown';
 
@@ -55,6 +55,8 @@ export default class EditAccount extends Component {
       { value: 12 }
     ]
     return (
+      <ImageBackground source={require('../images/background/background.png')} style={{height: '100%', width: '100%'}}>
+
       <ScrollView style={styles.mainContainer}>
         <Text style={styles.title}>Edit Account Info</Text>
         <Text style={{...styles.attribute, ...styles.topContainer}}>Name: </Text>
@@ -84,6 +86,7 @@ export default class EditAccount extends Component {
         ))}
         <Button title="Confirm Edit" style={styles.button}onPress={this.handleEditSubmit}/>
       </ScrollView>
+      </ImageBackground>
     )
   }
 }

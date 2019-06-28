@@ -95,7 +95,7 @@ export default class Create extends React.Component {
     { value: '10:00PM' }, { value: '10:30PM' }, { value: '11:00PM' },]
 
     return (
-      <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+      <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' }}>
 
         <View style={styles.container}>
           <ScrollView>
