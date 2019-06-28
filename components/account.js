@@ -133,6 +133,21 @@ export default class Account extends Component {
     this.setState({ [key]: text })
   }
 
+  handleRefresh() {
+      let eventObjects = [];
+      for (var i = 0; i < this.state.events.length; i++) {
+        axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
+          .then(item => {
+            // console.log(item.data.name);
+            eventObjects.push(item.data);
+            if (eventObjects.length === this.state.events.length) {
+              this.setState({ eventObjects })
+              // console.log('All events added')
+            }
+          })
+      }
+  }
+
   handleEditSwitch() {
     this.props.navigation.navigate('EditAccount', {
       name: this.state.name,
@@ -195,6 +210,21 @@ export default class Account extends Component {
             buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55,  borderRadius: 50 }}
             containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
             onPress={() => {
+              () => {
+                let eventObjects = [];
+                for (var i = 0; i < this.state.events.length; i++) {
+                  axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
+                    .then(item => {
+                      // console.log(item.data.name);
+                      eventObjects.push(item.data);
+                      if (eventObjects.length === this.state.events.length) {
+                        this.setState({ eventObjects })
+                        // console.log('All events added')
+                      }
+                    })
+                }
+    
+              }
               this.setState({ modalVisible: !this.state.modalVisible });
             }} />
 

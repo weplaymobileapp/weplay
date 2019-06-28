@@ -128,14 +128,16 @@ export default class Find3 extends Component {
               buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200,  borderRadius: 50 }}
               containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
               onPress={() => {
-                Alert.alert('Event Added!');
                 let id = this.state.profile.id;
                 let newEvents = this.state.profile.events;
                 let newEventID = this.state.event.id;
                 let newMembers = this.state.event.members;
                 let allPlayers = this.state.event.currentPlayers;
-                if (!newMembers.includes(id) || this.state.event.currentPlayers === this.state.event.maxPlayers) {
+                if (!newMembers.includes(id) && this.state.event.currentPlayers !== this.state.event.maxPlayers) {
                   newMembers.push(id);
+                  Alert.alert('Event Added!');
+                } else if(this.state.event.currentPlayers === this.state.event.maxPlayers){
+                  Alert.alert('This event is full');
                 } else {
                   Alert.alert('You are already a part of this event');
                 }
