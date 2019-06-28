@@ -52,10 +52,10 @@ export default class Login extends Component {
       }
     })
     .then(({ data }) => {
-      data = JSON.stringify(data[0]);
-      this.saveItem('userData', data);
+      const userData = JSON.stringify(data[0]);
+      this.saveItem('userData', userData);
       this.setState({ isSignedIn: true }, () => {
-        this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
+        this.props.navigation.navigate('Account', {isSignedIn: this.state.isSignedIn})
       }) 
     })
     .catch(err => console.log(err, 'error in get'))
