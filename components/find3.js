@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, Button, TouchableOpacity, Modal, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, TouchableOpacity, Modal, AsyncStorage, ImageBackground } from 'react-native';
 import axios from 'axios';
+import { Input, Button } from 'react-native-elements';
 
 const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December' }
+
+const pictures = {
+  'Basketball': require('../images/background/basketball.jpg'),
+  'Football': require('../images/background/football.jpg'),
+  'Baseball': require('../images/background/baseball.jpg'),
+  'Soccer': require('../images/background/soccer.jpg'),
+  'Hockey': require('../images/background/hockey.jpg'),
+  'Tennis': require('../images/background/tennis.jpeg'),
+  'Water Polo': require('../images/background/waterpolo.jpg'),
+  'Volleyball': require('../images/background/volleyball.jpg'),
+  'Ultimate Frisbee': require('../images/background/ultimatefrisbee.jpg'),
+  'Softball': require('../images/background/softball.jpg'),
+  'Dodgeball': require('../images/background/dodgeball.jpg'),
+  'Lacrosse': require('../images/background/lacrosse.jpg'),
+  'Ping Pong': require('../images/background/pingpong.jpg'),
+  'Pickle Ball': require('../images/background/pickleball.jpeg'),
+  'Hacky Sack': require('../images/background/hackysack.jpg'),
+  'Laser Tag': require('../images/background/lasertag.jpg'),
+  'Golf': require('../images/background/golf.jpg'),
+  'Mini Golf': require('../images/background/minigolf.jpg'),
+  'Rugby': require('../images/background/rugby.jpg'),
+  'Badminton': require('../images/background/badminton.jpg')
+}
 
 export default class Find3 extends Component {
   constructor(props) {
@@ -38,7 +62,7 @@ export default class Find3 extends Component {
     AsyncStorage.getItem('userData')
       .then(data => {
         // console.log('grabbed data from async storage', JSON.parse(data));
-        this.setState({profile: JSON.parse(data)})
+        this.setState({ profile: JSON.parse(data) })
       })
       .catch(err => console.log('error getting data from async storage'))
   }
@@ -49,93 +73,97 @@ export default class Find3 extends Component {
 
 
     return (
-      <View style={styles.outer}>
-        <View style={[styles.body, { flex: .5 }]}>
-          <Text style={{ fontSize: 40, top: 30 }}>Find an Event</Text>
-        </View>
-        <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
-          <Text style={{ fontSize: 13, top: 30 }}>Searching for {sport} Events on {month}/{day} in area code {zip}</Text>
-        </View>
-        {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
+      <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
+        <View style={styles.outer}>
+          <View style={[styles.body, { flex: .5 }]}>
+            <Text style={{ fontSize: 40, top: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Find an Event</Text>
+          </View>
+          <View style={[styles.body, { flex: .3, marginBottom: 20 }]}>
+            <Text style={{ fontSize: 13, top: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Searching for {sport} Events on {month}/{day} in area code {zip}</Text>
+          </View>
+          {/* <View style={[styles.body, styles.columns, { flex: .3 }]}>
           <Button onPress={() => this.props.navigation.goBack()} title="Back"></Button>
           <View></View>
           <View style={{flex: 2}}><Text></Text></View>
           <View></View>
           <View></View>
         </View> */}
-        <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
-          <Text style={{ fontSize: 25 }}>{item.name}</Text>
-          <Text>{sport}</Text>
-          <Text>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
-          {/* <Text>In Area code: {item.zip}</Text> */}
-          <Text>{item.street}</Text>
-          <Text>{item.city}, {item.state} {item.zip}</Text>
+          <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
+            <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{sport}</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
+            {/* <Text>In Area code: {item.zip}</Text> */}
+            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.street}</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
 
-          {item.maxPlayersEnabled ? <Button title={item.currentPlayers + '/' + item.maxPlayers + ' players'} onPress={() => {
-            this.setState({ modalVisible: !this.state.modalVisible })
-          }}></Button> : <Button title={'Current Players: ' + item.currentPlayers} onPress={() => {
-            this.setState({ modalVisible: !this.state.modalVisible })
-          }}></Button>}
+            {item.maxPlayersEnabled ? <Button style={{ borderRadius: 5, backgroundColor: 'rgba(0, 0, 0, .7)'}} type='outline' title={item.currentPlayers + '/' + item.maxPlayers + ' players'} onPress={() => {
+              this.setState({ modalVisible: !this.state.modalVisible })
+            }}></Button> : <Button style={{ borderRadius: 5, backgroundColor: 'rgba(0, 0, 0, .7)'}} type='outline' title={'Current Players: ' + item.currentPlayers} onPress={() => {
+              this.setState({ modalVisible: !this.state.modalVisible })
+            }}></Button>}
 
-          {item.minPlayersEnabled ? <Text>Minimum players: {item.minPlayers}</Text> : null}
-          {item.evenOnly ? <Text>Even Number Players Only</Text> : null}
-          <Text style={{ margin: 20 }}>{item.details}</Text>
+            {item.minPlayersEnabled ? <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Minimum players: {item.minPlayers}</Text> : null}
+            {item.evenOnly ? <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Even Number Players Only</Text> : null}
+            <Text style={{ margin: 20, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
 
-          <TouchableOpacity style={styles.button} onPress={() => {
-            console.log('Game added');
-            console.log(JSON.stringify(this.state.event))
-            //POST REQUEST TO PROFILE DB;
-            const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = this.state.profile;
-            events.push(this.state.event.id);
-            axios.put('http://localhost:3000/weplay/profile', { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID })
-            .then(() => {
-              this.props.navigation.navigate('Account');
-            })
-            .catch( err => {
-              console.log(err);
-            })
+            <Button title="Join Game"onPress={() => {
+              console.log('Game added');
+              console.log(JSON.stringify(this.state.event))
+              //POST REQUEST TO PROFILE DB;
+              const { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID } = this.state.profile;
+              events.push(this.state.event.id);
+              axios.put('http://localhost:3000/weplay/profile', { name, phone, heightFeet, heightInches, weight, age, favoriteSports1, favoriteSports2, favoriteSports3, events, facebookID })
+                .then(() => {
+                  this.props.navigation.navigate('Account');
+                })
+                .catch(err => {
+                  console.log(err);
+                })
 
-          }}>
-            <Text style={{ fontSize: 25 }}>Join Game</Text>
-          </TouchableOpacity>
-
-
-        </View>
-        <View style={styles.footer}>
-
-          <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert('Modal has been closed.');
             }}>
-            <View style={{ marginTop: 22, top: 20 }}>
-              <Button title='Return' style={{ left: 0 }}
-                onPress={() => {
-                  this.setState({ modalVisible: !this.state.modalVisible });
-                }}>
-              </Button>
-              <View style={{ alignItems: 'center' }}>
-                <Text style={{ top: 30, fontSize: 30 }}>Current Players: </Text>
-                <View style={{ top: 50 }}>
-                  {this.state.members.map((item, index) => {
-                    return (
-                      <Text>{item}</Text>
-                    )
-                  })}
-                </View>
-                <View style={{ top: 200, alignItems: 'center' }}>
-                  <Text style={{ fontSize: 20 }}>Event Created By: </Text>
-                  <Text>{this.state.owner}</Text>
-                </View>
-              </View>
+              {/* <Text style={{ fontSize: 25 }}>Join Game</Text> */}
+            </Button>
 
-            </View>
-          </Modal>
 
+          </View>
+          <View style={styles.footer}>
+
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+              }}>
+              <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
+                <View style={{ marginTop: 22, top: 20 }}>
+                  <Button title='Return' style={{ left: 0 }}
+                    onPress={() => {
+                      this.setState({ modalVisible: !this.state.modalVisible });
+                    }}>
+                  </Button>
+                  <View style={{ alignItems: 'center' }}>
+                    <Text style={{ top: 30, fontSize: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Current Players: </Text>
+                    <View style={{ top: 50 }}>
+                      {this.state.members.map((item, index) => {
+                        return (
+                          <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
+                        )
+                      })}
+                    </View>
+                    <View style={{ top: 200, alignItems: 'center' }}>
+                      <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Event Created By: </Text>
+                      <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
+                    </View>
+                  </View>
+
+                </View>
+              </ImageBackground>
+            </Modal>
+
+          </View>
         </View>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -143,7 +171,7 @@ export default class Find3 extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
     // borderWidth: 5,
@@ -168,6 +196,12 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'stretch'
+  },
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+    alignItems: 'center'
   },
 
 

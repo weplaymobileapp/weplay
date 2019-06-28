@@ -71,10 +71,14 @@ export default class Find extends Component {
               isFutureDate={true}
               width={290}
               onSelectionChange={(current, previous) => {
-                console.log('date start: ', previous, 'date end: ', current)
+
                 if(!previous) {
                   this.setState({ month: JSON.stringify(current.getMonth()+1), day: JSON.stringify(current.getDate()) })
+                } else if (previous.getTime() > current.getTime()) {
+                  console.log('date start: ', previous, 'date end: ', current)
+                  this.setState({ month: JSON.stringify(current.getMonth()+1), day: JSON.stringify(current.getDate()), monthEnd: '', dayEnd: '' })
                 } else {
+                  console.log('date start: ', previous, 'date end: ', current)
                   this.setState({
                     month: JSON.stringify(previous.getMonth()+1), day: JSON.stringify(previous.getDate()),
                     monthEnd: JSON.stringify(current.getMonth()+1), dayEnd: JSON.stringify(current.getDate())
@@ -86,7 +90,13 @@ export default class Find extends Component {
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in area code: {this.state.zip}</Text>
 
-            {this.state.monthEnd ? 
+              {/* 
+                between: monthend exists && monthend >= month && ((dayend > day && month === monthend) || monthend > month)
+
+                on: monthend doesnt exist || monthend < month || (dayend < day && month === monthend)
+              */}
+            
+            {(this.state.monthEnd && (Number(this.state.monthEnd) >= Number(this.state.month)) && ((Number(this.state.dayEnd) > Number(this.state.day) && this.state.month === this.state.monthEnd) || Number(this.state.monthEnd) > Number(this.state.month))      ) ? 
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>Between {this.state.month}/{this.state.day} and {this.state.monthEnd}/{this.state.dayEnd}</Text>
             :
             <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
