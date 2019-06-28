@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ImageBackground, Dimensions, Modal } from 'react-native';
 import { Button } from 'react-native-elements'
 import axios from 'axios';
 
@@ -8,6 +8,7 @@ export default class Account extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalVisible: false,
       name: '',
       phone: '',
       heightFeet: 0,
@@ -23,7 +24,9 @@ export default class Account extends Component {
       { value: 'Volleyball' }, { value: 'Ultimate Frisbee' }, { value: 'Softball' },
       { value: 'Dodgeball' }, { value: 'Lacrosse' }, { value: 'Ping Pong' },
       { value: 'Pickle Ball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' },
-      { value: 'Golf' }, { value: 'Mini Golf' }, { value: 'Rugby' }, { value: 'Badminton' }]
+      { value: 'Golf' }, { value: 'Mini Golf' }, { value: 'Rugby' }, { value: 'Badminton' }],
+      events: [],
+      eventObjects: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -103,10 +106,17 @@ export default class Account extends Component {
     })
   }
 
+  // handleEvents() {
+  //     axios.get('http://localhost:3000/weplay/myevents', {params: {events: this.state.events}})
+  //     .then(item => {
+  //       console.log(item.data)
+  //     })
+  // }
+
   render() {
     return (
 
-      <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' } }>
+      <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' }}>
         <View style={styles.mainContainer}>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>Account Info</Text>
@@ -137,8 +147,46 @@ export default class Account extends Component {
               <Text key={index} style={styles.attribute}>{index + 1}. {sport}</Text>
             ))}
           </View>
-          <Button title="Edit Profile Info" onPress={this.handleEditSwitch} />
+          <Button
+            title="Edit Profile Info"
+            titleStyle={{ color: '#004885' }}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+            onPress={this.handleEditSwitch} />
+          {/* <Button
+            title="My Events"
+            titleStyle={{ color: '#004885' }}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
+            containerStyle={{ marginTop: 30, shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+            onPress={() => {
+              this.setState({modalVisible: !this.state.modalVisible });
+            }} /> */}
+            
         </View>
+{/* 
+        <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {
+                Alert.alert('Modal has been closed.');
+              }}>
+              <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+                <View style={{ marginTop: 22, top: 20 }}>
+                  <Button title='Return' style={{ left: 0 }}
+                    onPress={() => {
+                      this.setState({ modalVisible: !this.state.modalVisible });
+                    }}>
+                  </Button>
+                  <View style={{ alignItems: 'center' }}>
+
+                  </View>
+
+
+                </View>
+              </ImageBackground>
+            </Modal> */}
+
       </ImageBackground>
     )
   }
@@ -149,6 +197,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     marginLeft: 20,
     marginRight: 20,
+    top: 40
   },
   titleContainer: {
     alignItems: 'center',

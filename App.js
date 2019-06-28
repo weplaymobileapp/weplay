@@ -32,17 +32,19 @@ const TabNavigator = createBottomTabNavigator({
 },
 {
 
-  initialRouteName: 'Account',
+  initialRouteName: 'Find',
   headerMode: 'screen',
   tabBarOptions: {
     activeTintColor: 'black',
     inactiveTintColor: 'white',
     labelStyle: {
       fontSize: 20,
+      top: 10,
       fontWeight: 'bold',
     },
     style: {
-      backgroundColor: 'lightgray',
+      backgroundColor: 'rgba(66, 164, 245,.9)',
+      height: 30
     },
   },
 }

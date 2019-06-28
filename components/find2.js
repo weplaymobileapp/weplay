@@ -44,6 +44,11 @@ export default class Find2 extends Component {
       <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
 
         <View style={styles.outer}>
+          <View style={{ alignItems: 'left', marginLeft: 30}}>
+          <Button title='Back' onPress={() => {
+            this.props.navigation.goBack()
+          }}></Button>
+          </View>
           <View style={[styles.body, { flex: .4 }]}>
             <Text style={{ fontSize: 40, top: 0 }}>Find an Event</Text>
           </View>
