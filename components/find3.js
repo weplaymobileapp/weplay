@@ -101,7 +101,12 @@ export default class Find3 extends Component {
             {item.evenOnly ? <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Even Number Players Only</Text> : null}
             <Text style={{ margin: 20, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
 
-            <Button title="Join Game"onPress={() => {
+            <Button 
+            title="Join Game"
+            titleStyle={{color: '#004885'}}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200}}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: {width: 2, height: 2}}}
+            onPress={() => {
               console.log('Game added');
               console.log(JSON.stringify(this.state.event))
               //POST REQUEST TO PROFILE DB;
@@ -138,17 +143,17 @@ export default class Find3 extends Component {
                     }}>
                   </Button>
                   <View style={{ alignItems: 'center' }}>
-                    <Text style={{ top: 30, fontSize: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Current Players: </Text>
-                    <View style={{ top: 50 }}>
+                    <Text style={{ top: 30, fontSize: 40, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Current Players: </Text>
+                    <View style={{ top: 50, alignItems: 'center' }}>
                       {this.state.members.map((item, index) => {
                         return (
-                          <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
+                          <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
                         )
                       })}
                     </View>
                     <View style={{ top: 200, alignItems: 'center' }}>
-                      <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Event Created By: </Text>
-                      <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
+                      <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Event Created By: </Text>
+                      <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
                     </View>
                   </View>
 

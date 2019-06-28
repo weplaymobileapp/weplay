@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, Picker, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Picker, AsyncStorage, Dimensions, ImageBackground } from 'react-native';
 import Calendar from 'react-native-day-picker';
 import data from '../data/eventsExample.json';
 import { Dropdown } from 'react-native-material-dropdown';
@@ -13,7 +13,7 @@ export default class Find extends Component {
       sport: 'All Sports',
       radius: '1',
       zip: '45678',
-      month: '5',
+      month: '6',
       day: '30',
       monthEnd: '',
       dayEnd: '',
@@ -41,6 +41,8 @@ export default class Find extends Component {
     { value: 'Golf' }, { value: 'Mini Golf' }, { value: 'Rugby' }, { value: 'Badminton' }];
     let miles = [{ value: '12345' }, { value: '23456' }, { value: '34567' }, { value: '45678' }, { value: '56789' }, { value: '67890' }];
     return (
+      <ImageBackground source={require('../images/background/background.jpg')} style={{height: '100%', width: '100%'}}>
+
       <View style={styles.outer}>
 
         <View style={[styles.body, { flex: .5 }]}>
@@ -49,7 +51,7 @@ export default class Find extends Component {
 
         <View style={[styles.body, styles.rows, { flex: 1.2, top: 0 }]}>
           <View style={[styles.row, { marginLeft: 30, marginRight: 30 }]}>
-            <Dropdown label='Sport' data={sports} onChangeText={(itemValue, itemIndex) => {
+            <Dropdown label='Sport' data={sports} fontSize={20} onChangeText={(itemValue, itemIndex) => {
               this.setState({ sport: itemValue })
             }} />
           </View>
@@ -62,14 +64,17 @@ export default class Find extends Component {
         </View>
 
         <View style={[styles.body, styles.rows, { flex: 3 }]}>
-          <View style={[styles.row, { flex: 2.4 }]}>
+          <View style={[styles.row, { flex: 2.4, opacity: .8 }]}>
             <Calendar
               monthsCount={2}
               startFormMonday={true}
               startDate={startDate}
+              dayDisabledTextColor='gray'
+              daySelectedBackColor='#ffa64d'
+              dayInRangeBackColor='#ffd9b3'
               // rangeSelect={false}
               isFutureDate={true}
-              width={290}
+              width={Dimensions.get('window').width}
               onSelectionChange={(current, previous) => {
 
                 if(!previous) {
@@ -88,7 +93,7 @@ export default class Find extends Component {
             />
           </View>
           <View style={[styles.row, { flex: .8, alignItems: 'center' }]}>
-            <Text style={{ top: 10, fontSize: 15, textAlign: 'center' }}>Look for {this.state.sport} events in zip code: {this.state.zip}</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Look for {this.state.sport} events in zip code: {this.state.zip}</Text>
 
               {/* 
                 between: monthend exists && monthend >= month && ((dayend > day && month === monthend) || monthend > month)
@@ -97,12 +102,17 @@ export default class Find extends Component {
               */}
             
             {(this.state.monthEnd && (Number(this.state.monthEnd) >= Number(this.state.month)) && ((Number(this.state.dayEnd) > Number(this.state.day) && this.state.month === this.state.monthEnd) || Number(this.state.monthEnd) > Number(this.state.month))      ) ? 
-            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>Between {this.state.month}/{this.state.day} and {this.state.monthEnd}/{this.state.dayEnd}</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>Between {this.state.month}/{this.state.day} and {this.state.monthEnd}/{this.state.dayEnd}</Text>
             :
-            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30 }}>On {this.state.month}/{this.state.day}</Text>
+            <Text style={{ top: 10, fontSize: 15, textAlign: 'center', marginBottom: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5  }}>On {this.state.month}/{this.state.day}</Text>
             }
             
-            <Button title="Search" onPress={() => {
+            <Button 
+            title="Search" 
+            titleStyle={{color: '#004885'}}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200}}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: {width: 2, height: 2}}}
+            onPress={() => {
               let { sport, zip, month, day, monthEnd, dayEnd } = this.state;
               console.log('Start date: ', month, day, '\n', 'End date: ', monthEnd, dayEnd);
               sport === 'All Sports' ?
@@ -126,6 +136,7 @@ export default class Find extends Component {
         <View style={styles.footer}>
         </View>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -133,7 +144,7 @@ export default class Find extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
     // borderWidth: 5,

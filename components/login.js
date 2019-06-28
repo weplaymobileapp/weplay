@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, TextInput, View, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, TextInput, View, AsyncStorage, ImageBackground } from 'react-native';
 import { AuthSession } from 'expo';
 import { FB_APP_ID } from '../config.js';
 import { Button } from 'react-native-elements';
@@ -8,7 +8,7 @@ import Axios from 'axios';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -51,14 +51,14 @@ export default class Login extends Component {
         name: obj.name
       }
     })
-    .then(({ data }) => {
-      data = JSON.stringify(data[0]);
-      // this.saveItem('userData', data);
-      this.setState({ isSignedIn: true }, () => {
-        this.props.navigation.navigate('Account', {userData: data, isSignedIn: this.state.isSignedIn})
-      }) 
-    })
-    .catch(err => console.log(err, 'error in get'))
+      .then(({ data }) => {
+        data = JSON.stringify(data[0]);
+        // this.saveItem('userData', data);
+        this.setState({ isSignedIn: true }, () => {
+          this.props.navigation.navigate('Account', { userData: data, isSignedIn: this.state.isSignedIn })
+        })
+      })
+      .catch(err => console.log(err, 'error in get'))
   };
 
   _handlePressAsync = async () => {
@@ -81,20 +81,22 @@ export default class Login extends Component {
   //     body: iParams
   //   })
   // }
-  
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={{fontSize: 50, fontStyle: 'italic'}}>WePlay</Text>
-        {this.state.isSignedIn ? 
-        (<View style={{marginTop: 20}}>
-          <Button title="Sign Out" onPress={this.signOut}></Button>
-        </View>) :
-        (<View style={{marginTop: 20}}>
-          <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
-        </View>)
-        }
-      </View>
+      <ImageBackground source={require('../images/background/background.jpg')} style={{height: '100%', width: '100%'}}>
+        <View style={styles.container}>
+          <Text style={{ fontSize: 50, fontStyle: 'italic' }}>WePlay</Text>
+          {this.state.isSignedIn ?
+            (<View style={{ marginTop: 20 }}>
+              <Button title="Sign Out" onPress={this.signOut}></Button>
+            </View>) :
+            (<View style={{ marginTop: 20 }}>
+              <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
+            </View>)
+          }
+        </View>
+      </ImageBackground>
     );
   }
 }

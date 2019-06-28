@@ -41,49 +41,52 @@ export default class Find2 extends Component {
     console.log(sport)
     console.log('query length: ', query.length)
     return (
-      <View style={styles.outer}>
-        <View style={[styles.body, { flex: .4 }]}>
-          <Text style={{ fontSize: 40, top: 0 }}>Find an Event</Text>
-        </View>
-        <View style={[styles.body, { flex: .2, marginBottom: 20 }]}>
-          {monthEnd ?
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
-              <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
-            </View>
-            :
-            <View style={{ alignItems: 'center' }}>
-              <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
-              <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
-            </View>
-          }
-        </View>
-        <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
-          {query.length === 0 ? <Text style={{ top: 100, fontSize: 20 }}>No Results Found</Text> : null}
-          <ScrollView>
-            {query.map((item, index) => {
-              //gather members and add to list
-              return (
+      <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
 
-                <TouchableOpacity key={index} style={styles.event} onPress={() => {
-                  this.props.navigation.navigate('Find3',
-                    { sport, zip, month, day, item })
-                }}>
-                  <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
-                    <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
-                    <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white',  textShadowColor: 'black', textShadowRadius: 5 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
-                    <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white',  textShadowColor: 'black', textShadowRadius: 5 }}>{item.details.split('.')[0] + '.'}</Text>
-                  </ImageBackground>
-                </TouchableOpacity>
-              )
-            })}
-          </ScrollView>
+        <View style={styles.outer}>
+          <View style={[styles.body, { flex: .4 }]}>
+            <Text style={{ fontSize: 40, top: 0 }}>Find an Event</Text>
+          </View>
+          <View style={[styles.body, { flex: .2, marginBottom: 20 }]}>
+            {monthEnd ?
+              <View style={{ alignItems: 'center' }}>
+                <Text style={{ fontSize: 15 }}>Searching for {sport} Events Between {month}/{day} and {monthEnd}/{dayEnd}</Text>
+                <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
+              </View>
+              :
+              <View style={{ alignItems: 'center' }}>
+                <Text style={{ fontSize: 15 }}>Searching for {sport} On {month}/{day}</Text>
+                <Text style={{ fontSize: 15 }}>in zip code: {zip}</Text>
+              </View>
+            }
+          </View>
+          <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
+            {query.length === 0 ? <Text style={{ top: 100, fontSize: 20 }}>No Results Found</Text> : null}
+            <ScrollView>
+              {query.map((item, index) => {
+                //gather members and add to list
+                return (
 
+                  <TouchableOpacity key={index} style={styles.event} onPress={() => {
+                    this.props.navigation.navigate('Find3',
+                      { sport, zip, month, day, item })
+                  }}>
+                    <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
+                      <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
+                      <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
+                      <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details.split('.')[0] + '.'}</Text>
+                    </ImageBackground>
+                  </TouchableOpacity>
+                )
+              })}
+            </ScrollView>
+
+          </View>
+          <View style={styles.footer}>
+            <Text></Text>
+          </View>
         </View>
-        <View style={styles.footer}>
-          <Text></Text>
-        </View>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -91,7 +94,7 @@ export default class Find2 extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
     // alignItems: 'center',
     top: 40,
     // borderWidth: 5,
