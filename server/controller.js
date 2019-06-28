@@ -163,5 +163,14 @@ module.exports = {
         })
         .catch(err => res.status(404).send(err))
     }
+  },
+  eventGetOne: (req, res) => {
+    let eventID = JSON.parse(req.query.eventID);
+    models.Event.findOne({where: { id: eventID }})
+    .then(item => {
+      console.log('ONE ITEM: ', item.name)
+      res.status(200).send(item);
+    })
+    .catch(err => res.status(400).send(err))
   }
 }
