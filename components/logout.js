@@ -34,7 +34,11 @@ export default class Logout extends Component {
       <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
         <View style={styles.container}>
           <Text style={{ fontSize: 30, margin: 'auto' }}>Do You Want To Log Out?</Text>
-          <Button title="Log Out" style={{ marginTop: 20 }} onPress={this.handleSignOut}></Button>
+          <Button 
+          titleStyle={{color: '#004885'}}
+          buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)'}}
+          containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: {width: 2, height: 2}}}
+          title="Log Out" style={{ marginTop: 20 }} onPress={this.handleSignOut}></Button>
         </View>
       </ImageBackground>
     )

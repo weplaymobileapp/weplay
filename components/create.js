@@ -24,10 +24,15 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginRight: 10,
     marginLeft: 8,
+    marginBottom: 15
   },
+  inputContainer: {
+    borderBottomColor: 'black',
+  },  
   dropdown: {
     marginRight: 20,
-    marginLeft: 18
+    marginLeft: 18,
+    marginTop: 10
   },
   button: {
     marginBottom: 15,
@@ -109,6 +114,8 @@ export default class Create extends React.Component {
               <Input
                 placeholder="Event Name"
                 placeholderTextColor='black'
+                containerStyle={{height: 30}}
+                inputStyle={{fontSize: 22}}
                 onChangeText={(name) => this.setState({ name })}
               />
             </View>
@@ -298,8 +305,8 @@ export default class Create extends React.Component {
                   axios.post('http://localhost:3000/weplay/event', this.state)
                     .then(() => console.log('Success posting event to database! Owner is: ', this.state.owner))
                     .catch(err => console.log(err));
-
                   Alert.alert('Event successfully posted!');
+                  this.props.navigation.navigate('Find');
                 }
               }}
               title="Post Event"

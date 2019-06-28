@@ -16,4 +16,8 @@ router.route('/profile')
   router.route('/members')
   .get(controller.findMembers)
 
+  router.route('/joingame')
+  .put(controller.updateEvent)
+
+
 module.exports = router;

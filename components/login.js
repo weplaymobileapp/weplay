@@ -52,14 +52,14 @@ export default class Login extends Component {
       }
     })
 
-    .then(({ data }) => {
-      const userData = JSON.stringify(data[0]);
-      this.saveItem('userData', userData);
-      this.setState({ isSignedIn: true }, () => {
-        this.props.navigation.navigate('Account', {isSignedIn: this.state.isSignedIn})
-      }) 
-    })
-    .catch(err => console.log(err, 'error in get'))
+      .then(({ data }) => {
+        const userData = JSON.stringify(data[0]);
+        this.saveItem('userData', userData);
+        this.setState({ isSignedIn: true }, () => {
+          this.props.navigation.navigate('Account', { isSignedIn: this.state.isSignedIn })
+        })
+      })
+      .catch(err => console.log(err, 'error in get'))
 
   };
 
@@ -86,7 +86,7 @@ export default class Login extends Component {
 
   render() {
     return (
-      <ImageBackground source={require('../images/background/background.jpg')} style={{height: '100%', width: '100%'}}>
+      <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
         <View style={styles.container}>
           <Text style={{ fontSize: 50, fontStyle: 'italic' }}>WePlay</Text>
           {this.state.isSignedIn ?
@@ -94,7 +94,11 @@ export default class Login extends Component {
               <Button title="Sign Out" onPress={this.signOut}></Button>
             </View>) :
             (<View style={{ marginTop: 20 }}>
-              <Button title="Sign In With Facebook" onPress={this._handlePressAsync} />
+              <Button
+                titleStyle={{ color: '#004885' }}
+                buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 250 }}
+                containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+                title="Sign In With Facebook" onPress={this._handlePressAsync} />
             </View>)
           }
         </View>
