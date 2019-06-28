@@ -157,9 +157,7 @@ const Sports = sequelize.define('sports', {
 
 Event.belongsTo(Profile, { as: 'Owner', sourceKey:'owner', foreignKey: 'id', constraints: false });
 Profile.hasMany(Event, {as: 'Events', sourceKey: 'events', foreignKey: 'id', constraints: false})
-//, { as: 'events', foreignKey: 'id', constraints: false }
 Event.hasMany(Profile, {as: 'Members', sourceKey: 'members', foreignKey: 'id', constraints: false})
-//, { as: 'members', foreignKey: 'id', constraints: false }
 const resetDB = () => {
   sequelize.sync({ force: true });
 }

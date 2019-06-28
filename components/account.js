@@ -25,7 +25,7 @@ export default class Account extends Component {
       { value: 'Pickle Ball' }, { value: 'Hacky Sack' }, { value: 'Laser Tag' },
       { value: 'Golf' }, { value: 'Mini Golf' }, { value: 'Rugby' }, { value: 'Badminton' }]
     };
-    this.handleInitialState = this.handleInitialState.bind(this);
+    
     this.handleChange = this.handleChange.bind(this);
     this.handleEditSwitch = this.handleEditSwitch.bind(this);
     this.handleProfileUpdate = this.handleProfileUpdate.bind(this);
@@ -64,38 +64,6 @@ export default class Account extends Component {
         })
       })
       .catch(err => console.log('error getting data from async storage'))
-  }
-
-
-  handleInitialState() {
-    // const {
-    //   name,
-    //   phone,
-    //   heightFeet,
-    //   heightInches,
-    //   weight,
-    //   age,
-    //   favoriteSports1,
-    //   favoriteSports2,
-    //   favoriteSports3,
-    //   events,
-    //   facebookID
-    // } = this.props.navigation.state.params.userData[0];
-    // console.log(this.props.navigation.state.params);
-
-    this.setState({
-      name,
-      phone: phone || '--',
-      heightFeet: heightFeet || '--',
-      heightInches: heightInches || '--',
-      weight: weight || '--',
-      age: age || '--',
-      favoriteSports1: favoriteSports1 || '--',
-      favoriteSports2: favoriteSports2 || '--',
-      favoriteSports3: favoriteSports3 || '--',
-      facebookID,
-      events,
-    })
   }
 
   handleProfileUpdate() {
