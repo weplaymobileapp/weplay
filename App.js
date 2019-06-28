@@ -35,15 +35,15 @@ const TabNavigator = createBottomTabNavigator({
   initialRouteName: 'Find',
   headerMode: 'screen',
   tabBarOptions: {
-    activeTintColor: 'black',
-    inactiveTintColor: 'white',
+    activeTintColor: 'orange',
+    inactiveTintColor: 'black',
     labelStyle: {
-      fontSize: 20,
+      fontSize: 15,
       top: 10,
-      fontWeight: 'bold',
+      fontWeight: 200,
     },
     style: {
-      backgroundColor: 'rgba(66, 164, 245,.9)',
+      backgroundColor: 'white',
       height: 30
     },
   },
