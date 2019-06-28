@@ -263,10 +263,10 @@ export default class Create extends React.Component {
               onChangeText={(details) => this.setState({ details })}
             />
             <Button
-              style={styles.button}
-              titleStyle={{color: '#004885'}}
-              buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55}}
-              containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: {width: 2, height: 2}}}
+              style={[styles.button, {alignSelf: 'center'}]}
+              titleStyle={{ color: 'white' }}
+              buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 250,  borderRadius: 50 }}
+              containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
               onPress={() => {
 
                 //Make sure inputs are present/valid

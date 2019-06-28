@@ -34,11 +34,11 @@ export default class Logout extends Component {
       <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
         <View style={styles.container}>
           <Text style={{ fontSize: 30, margin: 'auto' }}>Do You Want To Log Out?</Text>
-          <Button 
-          titleStyle={{color: '#004885'}}
-          buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)'}}
-          containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: {width: 2, height: 2}}}
-          title="Log Out" style={{ marginTop: 20 }} onPress={this.handleSignOut}></Button>
+          <Button
+            titleStyle={{ color: 'white' }}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200, borderRadius: 50 }}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 } }}
+            title="Log Out" style={{ marginTop: 20 }} onPress={this.handleSignOut}></Button>
         </View>
       </ImageBackground>
     )

@@ -185,15 +185,15 @@ export default class Account extends Component {
           </View>
           <Button
             title="Edit Profile Info"
-            titleStyle={{ color: '#004885' }}
-            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
-            containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+            titleStyle={{ color: 'white' }}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55,  borderRadius: 50 }}
+            containerStyle={{ marginBottom: 50,shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
             onPress={this.handleEditSwitch} />
           <Button
             title="My Events"
-            titleStyle={{ color: '#004885' }}
-            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
-            containerStyle={{ marginTop: 30, shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+            titleStyle={{ color: 'white' }}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55,  borderRadius: 50 }}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
             onPress={() => {
               this.setState({ modalVisible: !this.state.modalVisible });
             }} />
@@ -207,16 +207,18 @@ export default class Account extends Component {
             Alert.alert('Modal has been closed.');
           }}>
           <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+            <View style={{flex: .5, marginTop: 50}}>
               <Button title='Return' style={{ left: 0 }}
                 onPress={() => {
                   this.setState({ modalVisible: !this.state.modalVisible });
                 }}>
               </Button>
+            </View>
               <View style={{ alignItems: 'center', flex: 9 }}>
                 <ScrollView style={{height: '100%'}}>
                 {this.state.eventObjects.map((item) => {
                   return (
-                      <TouchableOpacity style={styles.event}>
+                      <View style={styles.event}>
                         <ImageBackground source={pictures[item.sport]} style={{
                           width: '100%',
                           height: '100%',
@@ -231,7 +233,7 @@ export default class Account extends Component {
                           <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
 
                         </ImageBackground>
-                      </TouchableOpacity>
+                      </View>
                   )
                 })}
                 </ScrollView>

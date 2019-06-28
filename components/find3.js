@@ -104,7 +104,7 @@ export default class Find3 extends Component {
 
           <View style={[styles.body, styles.rows, { flex: 4.7, alignItems: 'center' }]}>
             <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
-            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{sport}</Text>
+            <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.sport}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
             {/* <Text>In Area code: {item.zip}</Text> */}
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.street}</Text>
@@ -124,11 +124,11 @@ export default class Find3 extends Component {
 
             <Button
               title="Join Game"
-              titleStyle={{ color: '#004885' }}
-              buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200 }}
-              containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+              titleStyle={{ color: 'white' }}
+              buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200,  borderRadius: 50 }}
+              containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
               onPress={() => {
-
+                Alert.alert('Event Added!');
                 let id = this.state.profile.id;
                 let newEvents = this.state.profile.events;
                 let newEventID = this.state.event.id;

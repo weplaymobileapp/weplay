@@ -95,9 +95,9 @@ export default class Login extends Component {
             </View>) :
             (<View style={{ marginTop: 20 }}>
               <Button
-                titleStyle={{ color: '#004885' }}
-                buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 250 }}
-                containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
+                titleStyle={{ color: 'white' }}
+                buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200,  borderRadius: 50 }}
+                containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
                 title="Sign In With Facebook" onPress={this._handlePressAsync} />
             </View>)
           }
