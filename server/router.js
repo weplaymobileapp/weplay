@@ -19,5 +19,7 @@ router.route('/profile')
   router.route('/joingame')
   .put(controller.updateEvent)
 
+  router.route('/myevents')
+  .get(controller.eventGetOne)
 
 module.exports = router;

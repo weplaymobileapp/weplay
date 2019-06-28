@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, AsyncStorage, ImageBackground, Dimensions, Modal } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ImageBackground, Dimensions, Modal, TouchableOpacity, ScrollView } from 'react-native';
 import { Button } from 'react-native-elements'
 import axios from 'axios';
 
+const months = { 1: 'January', 2: 'February', 3: 'March', 4: 'April', 5: 'May', 6: 'June', 7: 'July', 8: 'August', 9: 'September', 10: 'October', 11: 'November', 12: 'December' }
+
+const pictures = {
+  'Basketball': require('../images/basketball.jpg'),
+  'Football': require('../images/football.jpg'),
+  'Baseball': require('../images/baseball.jpg'),
+  'Soccer': require('../images/soccer.jpg'),
+  'Hockey': require('../images/hockey.jpg'),
+  'Tennis': require('../images/tennis.jpg'),
+  'Water Polo': require('../images/waterpolo.jpg'),
+  'Volleyball': require('../images/volleyball.jpg'),
+  'Ultimate Frisbee': require('../images/ultimatefrisbee.jpg'),
+  'Softball': require('../images/softball.jpg'),
+  'Dodgeball': require('../images/dodgeball.jpg'),
+  'Lacrosse': require('../images/lacrosse.jpg'),
+  'Ping Pong': require('../images/pingpong.jpg'),
+  'Pickle Ball': require('../images/pickleball.jpg'),
+  'Hacky Sack': require('../images/hackysack.jpg'),
+  'Laser Tag': require('../images/lasertag.jpg'),
+  'Golf': require('../images/golf.jpg'),
+  'Mini Golf': require('../images/minigolf.jpg'),
+  'Rugby': require('../images/rugby.jpg'),
+  'Badminton': require('../images/badminton.jpg')
+}
 
 export default class Account extends Component {
   constructor(props) {
@@ -35,6 +59,7 @@ export default class Account extends Component {
   }
 
   componentDidMount() {
+
     AsyncStorage.getItem('userData')
       .then(data => JSON.parse(data))
       .then(data => {
@@ -64,7 +89,26 @@ export default class Account extends Component {
           favoriteSports3: favoriteSports3 || '--',
           facebookID,
           events,
-        })
+        },
+          //ADDED BY DUSTIN FOR EVENT LIST
+          () => {
+            let eventObjects = [];
+            for (var i = 0; i < this.state.events.length; i++) {
+              axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
+                .then(item => {
+                  // console.log(item.data.name);
+                  eventObjects.push(item.data);
+                  if (eventObjects.length === this.state.events.length) {
+                    this.setState({ eventObjects })
+                    // console.log('All events added')
+                  }
+                })
+            }
+
+          }
+          // END OF DUSTIN EDIT
+
+        )
       })
       .catch(err => console.log('error getting data from async storage', err))
   }
@@ -106,16 +150,8 @@ export default class Account extends Component {
     })
   }
 
-  // handleEvents() {
-  //     axios.get('http://localhost:3000/weplay/myevents', {params: {events: this.state.events}})
-  //     .then(item => {
-  //       console.log(item.data)
-  //     })
-  // }
-
   render() {
     return (
-
       <ImageBackground source={require('../images/background/background.png')} style={{ height: '100%', width: '100%' }}>
         <View style={styles.mainContainer}>
           <View style={styles.titleContainer}>
@@ -153,39 +189,58 @@ export default class Account extends Component {
             buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
             containerStyle={{ shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
             onPress={this.handleEditSwitch} />
-          {/* <Button
+          <Button
             title="My Events"
             titleStyle={{ color: '#004885' }}
             buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55 }}
             containerStyle={{ marginTop: 30, shadowColor: 'black', shadowRadius: 5, shadowOpacity: 1, shadowOffset: { width: 2, height: 2 } }}
             onPress={() => {
-              this.setState({modalVisible: !this.state.modalVisible });
-            }} /> */}
-            
+              this.setState({ modalVisible: !this.state.modalVisible });
+            }} />
+
         </View>
-{/* 
         <Modal
-              animationType="slide"
-              transparent={false}
-              visible={this.state.modalVisible}
-              onRequestClose={() => {
-                Alert.alert('Modal has been closed.');
-              }}>
-              <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
-                <View style={{ marginTop: 22, top: 20 }}>
-                  <Button title='Return' style={{ left: 0 }}
-                    onPress={() => {
-                      this.setState({ modalVisible: !this.state.modalVisible });
-                    }}>
-                  </Button>
-                  <View style={{ alignItems: 'center' }}>
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
+              <Button title='Return' style={{ left: 0 }}
+                onPress={() => {
+                  this.setState({ modalVisible: !this.state.modalVisible });
+                }}>
+              </Button>
+              <View style={{ alignItems: 'center', flex: 9 }}>
+                <ScrollView style={{height: '100%'}}>
+                {this.state.eventObjects.map((item) => {
+                  return (
+                      <TouchableOpacity style={styles.event}>
+                        <ImageBackground source={pictures[item.sport]} style={{
+                          width: '100%',
+                          height: '100%',
+                          borderRadius: 5,
+                          alignItems: 'center',
+                        }}>
+                          <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
+                          <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 10 }}>{months[item.month]} {item.day}</Text>
+                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 15 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
+                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>At {item.street} Blvd</Text>
+                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
+                          <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
 
-                  </View>
-
+                        </ImageBackground>
+                      </TouchableOpacity>
+                  )
+                })}
+                </ScrollView>
+              </View>
+                <View style={{height: 100, flex: .3}}>
 
                 </View>
-              </ImageBackground>
-            </Modal> */}
+          </ImageBackground>
+        </Modal>
 
       </ImageBackground>
     )
@@ -224,4 +279,14 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     borderBottomWidth: 0,
   },
+  event: {
+    height: 250,
+    borderWidth: 2,
+    borderColor: 'black',
+    alignItems: 'center',
+    margin: 3,
+    width: Dimensions.get('window').width - 10,
+    borderRadius: 5,
+    overflow: 'hidden'
+  }
 });
