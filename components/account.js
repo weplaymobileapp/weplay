@@ -32,24 +32,56 @@ export default class Account extends Component {
   }
 
   componentDidMount() {
-    this.handleInitialState()
+    AsyncStorage.getItem('userData')
+      .then(data => JSON.parse(data))
+      .then(data => {
+        const {
+          name,
+          phone,
+          heightFeet,
+          heightInches,
+          weight,
+          age,
+          favoriteSports1,
+          favoriteSports2,
+          favoriteSports3,
+          events,
+          facebookID
+        } = data;
+        
+        this.setState({
+          name,
+          phone: phone || '--',
+          heightFeet: heightFeet || '--',
+          heightInches: heightInches || '--',
+          weight: weight || '--',
+          age: age || '--',
+          favoriteSports1: favoriteSports1 || '--',
+          favoriteSports2: favoriteSports2 || '--',
+          favoriteSports3: favoriteSports3 || '--',
+          facebookID,
+          events,
+        })
+      })
+      .catch(err => console.log('error getting data from async storage'))
   }
 
 
   handleInitialState() {
-    const {
-      name,
-      phone,
-      heightFeet,
-      heightInches,
-      weight,
-      age,
-      favoriteSports1,
-      favoriteSports2,
-      favoriteSports3,
-      events,
-      facebookID
-    } = this.props.navigation.state.params.userData[0];
+    // const {
+    //   name,
+    //   phone,
+    //   heightFeet,
+    //   heightInches,
+    //   weight,
+    //   age,
+    //   favoriteSports1,
+    //   favoriteSports2,
+    //   favoriteSports3,
+    //   events,
+    //   facebookID
+    // } = this.props.navigation.state.params.userData[0];
+    // console.log(this.props.navigation.state.params);
 
     this.setState({
       name,
