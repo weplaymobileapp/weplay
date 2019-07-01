@@ -129,12 +129,12 @@ const styles = StyleSheet.create({
   },
   event: {
     height: 100,
-    borderWidth: 2,
-    borderColor: 'black',
+    // borderWidth: 2,
+    // borderColor: 'black',
     alignItems: 'center',
     margin: 3,
     width: Dimensions.get('window').width - 10,
-    borderRadius: 5,
+    borderRadius: 15,
   },
   backgroundImage: {
     width: '100%',
