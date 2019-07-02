@@ -8,7 +8,6 @@ import Axios from 'axios';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -27,7 +26,6 @@ export default class Login extends Component {
     this._handlePressAsync = this._handlePressAsync.bind(this);
     this.saveItem = this.saveItem.bind(this);
     this.callGraph = this.callGraph.bind(this);
-    //this.signOut = this.signOut.bind(this);
   }
 
   async saveItem(item, selectedValue) {
@@ -42,7 +40,6 @@ export default class Login extends Component {
     const response = await fetch(
       `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email,about,picture`
     );
-    //console.log(response);
     var responseJSON = JSON.stringify(await response.json());
     var obj = JSON.parse(responseJSON)
     Axios.get('http://localhost:3000/weplay/profile', {
@@ -74,16 +71,6 @@ export default class Login extends Component {
     console.log('test');
     this.callGraph(result.params.access_token);
   }
-
-  // signOut = async () => {
-  //   var iParams = token;
-  //   fetch(
-  //     `https://graph.facebook.com/User_id/permissions`,{
-  //     method : 'DELETE',
-  //     body: iParams
-  //   })
-  // }
-
   render() {
     return (
       <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>

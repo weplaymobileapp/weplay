@@ -22,12 +22,6 @@ export default class Find extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   AsyncStorage.getItem('userData')
-  //     .then(data => console.log('grabbed data from async storage', JSON.parse(data)))
-  //     .catch(err => console.log('error getting data from async storage'))
-  // }
-
   render() {
     var from = new Date();
     var to = new Date();
@@ -138,27 +132,18 @@ export default class Find extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
     top: 40,
-    // borderWidth: 5,
-    // justifyContent: 'space-between',
     overflow: 'visible'
   },
   body: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'red',
     alignItems: 'center'
   },
   footer: {
     flex: .4,
-    // borderWidth: 2,
-    // borderColor: 'yellow'
   },
   columns: {
     flexDirection: 'row',
-    // justifyContent: 'space-around',
   },
   rows: {
     flexDirection: 'column',
@@ -169,15 +154,9 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
-    // alignItems: 'center'
   },
   row: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
-    // alignItems: 'center'
   },
   input: {
     height: 40,
@@ -216,38 +195,3 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   }
 });
-//  let pic = { uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg' };
-//<Image source={pic} style={{ width: 193, height: 110 }} />
-
-
-/*
-
-            <Text style={{ top: 0, fontSize: 20 }}>Sport</Text>
-            <Picker itemStyle={{ height: 140, width: 180 }} selectedValue={this.state.sport} style={styles.input} onValueChange={(itemValue, itemIndex) => {
-              this.setState({ sport: itemValue }, () => this.updateQuery())
-            }
-            }>
-              <Picker.Item label="Ping Pong" value="Ping Pong" />
-              <Picker.Item label="Pickle Ball" value="Pickle Ball" />
-              <Picker.Item label="Basketball" value="Basketball" />
-              <Picker.Item label="Volleyball" value="Volleyball" />
-              <Picker.Item label="Hacky Sack" value="Hacky Sack" />
-              <Picker.Item label="Laser Tag" value="Laser Tag" />
-              <Picker.Item label="Mini Golf" value="Mini Golf" />
-            </Picker>
-
-            <Text style={{ top: 0, fontSize: 20 }}>Radius (Miles)</Text>
-                        <Picker itemStyle={{ height: 140, width: 100 }} selectedValue={this.state.radius} style={styles.input} onValueChange={(itemValue, itemIndex) => {
-              this.setState({ radius: itemValue })
-            }
-            }>
-              <Picker.Item label="1" value={1} />
-              <Picker.Item label="5" value={5} />
-              <Picker.Item label="10" value={10} />
-              <Picker.Item label="20" value={20} />
-              <Picker.Item label="30" value={30} />
-              <Picker.Item label="40" value={40} />
-              <Picker.Item label="50" value={50} />
-            </Picker>
-
-            */

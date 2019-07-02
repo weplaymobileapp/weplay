@@ -11,8 +11,6 @@ const styles = StyleSheet.create({
     marginTop: 90,
     marginLeft: 15,
     marginRight: 15,
-    // alignItems: 'center',
-    // justifyContent: 'center',
   },
   create: {
     fontSize: 50,

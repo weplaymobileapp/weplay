@@ -83,9 +83,6 @@ export default class Find3 extends Component {
   render() {
     let { sport, radius, month, day, item, zip } = this.props.navigation.state.params;
     console.log(this.state.profile);
-    // console.log(sport, radius, month, day, item);
-
-
     return (
 
       <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
@@ -106,7 +103,6 @@ export default class Find3 extends Component {
             <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.sport}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
-            {/* <Text>In Area code: {item.zip}</Text> */}
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.street}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
 
@@ -148,12 +144,10 @@ export default class Find3 extends Component {
                 console.log('NEW MEMBERS: ', newMembers);
                 axios.put('http://localhost:3000/weplay/joingame', { events: newEvents }, { params: { id } })
                   .then(something => {
-                    // AsyncStorage.setItem('@userData:events', newEvents)
                     console.log('Updated Profile');
                     axios.put('http://localhost:3000/weplay/joingame', { members: newMembers, currentPlayers: allPlayers }, { params: { id: newEventID } })
                     .then(something => {
                       console.log('Updated Event');
-                      //UPDATE THE PROFILE AND EVENT
                       this.refresh();
                       this.props.navigation.navigate('Find1');
                     })
@@ -210,22 +204,14 @@ export default class Find3 extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
     top: 40,
-    // borderWidth: 5,
-    // justifyContent: 'space-between',
   },
   body: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'red',
     alignItems: 'center'
   },
   footer: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'yellow'
   },
   columns: {
     flexDirection: 'row',
@@ -246,14 +232,10 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
     alignItems: 'center'
   },
   input: {
@@ -293,7 +275,5 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   }
 });
-//  let pic = { uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg' };
-//<Image source={pic} style={{ width: 193, height: 110 }} />
 
 

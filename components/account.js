@@ -90,24 +90,19 @@ export default class Account extends Component {
           facebookID,
           events,
         },
-          //ADDED BY DUSTIN FOR EVENT LIST
           () => {
             let eventObjects = [];
             for (var i = 0; i < this.state.events.length; i++) {
               axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
                 .then(item => {
-                  // console.log(item.data.name);
                   eventObjects.push(item.data);
                   if (eventObjects.length === this.state.events.length) {
                     this.setState({ eventObjects })
-                    // console.log('All events added')
                   }
                 })
             }
 
           }
-          // END OF DUSTIN EDIT
-
         )
       })
       .catch(err => console.log('error getting data from async storage', err))
@@ -134,18 +129,18 @@ export default class Account extends Component {
   }
 
   handleRefresh() {
-      let eventObjects = [];
-      for (var i = 0; i < this.state.events.length; i++) {
-        axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
-          .then(item => {
-            // console.log(item.data.name);
-            eventObjects.push(item.data);
-            if (eventObjects.length === this.state.events.length) {
-              this.setState({ eventObjects })
-              // console.log('All events added')
-            }
-          })
-      }
+    let eventObjects = [];
+    for (var i = 0; i < this.state.events.length; i++) {
+      axios.get('http://localhost:3000/weplay/myevents', { params: { eventID: this.state.events[i] } })
+        .then(item => {
+          // console.log(item.data.name);
+          eventObjects.push(item.data);
+          if (eventObjects.length === this.state.events.length) {
+            this.setState({ eventObjects })
+            // console.log('All events added')
+          }
+        })
+    }
   }
 
   handleEditSwitch() {
@@ -201,14 +196,14 @@ export default class Account extends Component {
           <Button
             title="Edit Profile Info"
             titleStyle={{ color: 'white' }}
-            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55,  borderRadius: 50 }}
-            containerStyle={{ marginBottom: 50,shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55, borderRadius: 50 }}
+            containerStyle={{ marginBottom: 50, shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 } }}
             onPress={this.handleEditSwitch} />
           <Button
             title="My Events"
             titleStyle={{ color: 'white' }}
-            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55,  borderRadius: 50 }}
-            containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
+            buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: Dimensions.get('window').width - 55, borderRadius: 50 }}
+            containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 } }}
             onPress={() => {
               () => {
                 let eventObjects = [];
@@ -223,7 +218,7 @@ export default class Account extends Component {
                       }
                     })
                 }
-    
+
               }
               this.setState({ modalVisible: !this.state.modalVisible });
             }} />
@@ -237,40 +232,40 @@ export default class Account extends Component {
             Alert.alert('Modal has been closed.');
           }}>
           <ImageBackground source={require('../images/background/background.jpg')} style={{ height: '100%', width: '100%' }}>
-            <View style={{flex: .5, marginTop: 50}}>
+            <View style={{ flex: .5, marginTop: 50 }}>
               <Button title='Return' style={{ left: 0 }}
                 onPress={() => {
                   this.setState({ modalVisible: !this.state.modalVisible });
                 }}>
               </Button>
             </View>
-              <View style={{ alignItems: 'center', flex: 9 }}>
-                <ScrollView style={{height: '100%'}}>
+            <View style={{ alignItems: 'center', flex: 9 }}>
+              <ScrollView style={{ height: '100%' }}>
                 {this.state.eventObjects.map((item) => {
                   return (
-                      <View style={styles.event}>
-                        <ImageBackground source={pictures[item.sport]} style={{
-                          width: '100%',
-                          height: '100%',
-                          borderRadius: 5,
-                          alignItems: 'center',
-                        }}>
-                          <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
-                          <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 10 }}>{months[item.month]} {item.day}</Text>
-                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 15 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
-                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>At {item.street} Blvd</Text>
-                          <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
-                          <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
+                    <View style={styles.event}>
+                      <ImageBackground source={pictures[item.sport]} style={{
+                        width: '100%',
+                        height: '100%',
+                        borderRadius: 5,
+                        alignItems: 'center',
+                      }}>
+                        <Text style={{ fontSize: 20, margin: 5, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 10 }}>{months[item.month]} {item.day}</Text>
+                        <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5, marginBottom: 15 }}>{item.currentPlayers}/{item.maxPlayers} Players | Time: {item.time}</Text>
+                        <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>At {item.street} Blvd</Text>
+                        <Text style={{ fontSize: 14, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
+                        <Text style={{ fontSize: 12, margin: 10, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.details}</Text>
 
-                        </ImageBackground>
-                      </View>
+                      </ImageBackground>
+                    </View>
                   )
                 })}
-                </ScrollView>
-              </View>
-                <View style={{height: 100, flex: .3}}>
+              </ScrollView>
+            </View>
+            <View style={{ height: 100, flex: .3 }}>
 
-                </View>
+            </View>
           </ImageBackground>
         </Modal>
 
