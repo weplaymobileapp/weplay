@@ -1,12 +1,25 @@
 # weplay
-an app for pickup game meetups
+an app for people to search for and create sporting events!
 
-Prerequisites: 
-PostgreSQL, NPM
+## Getting Started
+Make sure you have both PostgreSQL, Expo and NPM installed
 
-To Run:
+### Installation
+
+```
 npm install
+```
+```
 npm resetDB
+```
+
+```
 npm seed
+```
+```
 npm run server
+```
+```
 npm start
+```
+Then open IOS simulator and run the app!
