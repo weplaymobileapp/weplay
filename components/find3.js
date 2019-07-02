@@ -83,9 +83,6 @@ export default class Find3 extends Component {
   render() {
     let { sport, radius, month, day, item, zip } = this.props.navigation.state.params;
     console.log(this.state.profile);
-    // console.log(sport, radius, month, day, item);
-
-
     return (
 
       <ImageBackground source={pictures[item.sport]} style={styles.backgroundImage}>
@@ -106,7 +103,6 @@ export default class Find3 extends Component {
             <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.name}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.sport}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.time} on {months[JSON.parse(item.month)]} {item.day}</Text>
-            {/* <Text>In Area code: {item.zip}</Text> */}
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.street}</Text>
             <Text style={{ fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item.city}, {item.state} {item.zip}</Text>
 
@@ -128,14 +124,16 @@ export default class Find3 extends Component {
               buttonStyle={{ backgroundColor: 'rgba(66, 164, 245,.9)', width: 200,  borderRadius: 50 }}
               containerStyle={{ shadowColor: 'black', shadowRadius: 3, shadowOpacity: .7, shadowOffset: { width: 4, height: 4 }}}
               onPress={() => {
-                Alert.alert('Event Added!');
                 let id = this.state.profile.id;
                 let newEvents = this.state.profile.events;
                 let newEventID = this.state.event.id;
                 let newMembers = this.state.event.members;
                 let allPlayers = this.state.event.currentPlayers;
-                if (!newMembers.includes(id)) {
+                if (!newMembers.includes(id) && this.state.event.currentPlayers !== this.state.event.maxPlayers) {
                   newMembers.push(id);
+                  Alert.alert('Event Added!');
+                } else if(this.state.event.currentPlayers === this.state.event.maxPlayers){
+                  Alert.alert('This event is full');
                 } else {
                   Alert.alert('You are already a part of this event');
                 }
@@ -150,7 +148,6 @@ export default class Find3 extends Component {
                     axios.put('http://localhost:3000/weplay/joingame', { members: newMembers, currentPlayers: allPlayers }, { params: { id: newEventID } })
                     .then(something => {
                       console.log('Updated Event');
-                      //UPDATE THE PROFILE AND EVENT
                       this.refresh();
                       this.props.navigation.navigate('Find1');
                     })
@@ -182,13 +179,13 @@ export default class Find3 extends Component {
                     <View style={{ top: 50, alignItems: 'center' }}>
                       {this.state.members.map((item, index) => {
                         return (
-                          <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
+                          <Text style={{ fontSize: 25, color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{item}</Text>
                         )
                       })}
                     </View>
                     <View style={{ top: 200, alignItems: 'center' }}>
                       <Text style={{ fontSize: 30, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>Event Created By: </Text>
-                      <Text style={{ fontSize: 25, fontWeight: 'bold', color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
+                      <Text style={{ fontSize: 25, color: 'white', textShadowColor: 'black', textShadowRadius: 5 }}>{this.state.owner}</Text>
                     </View>
                   </View>
 
@@ -207,22 +204,14 @@ export default class Find3 extends Component {
 const styles = StyleSheet.create({
   outer: {
     flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
     top: 40,
-    // borderWidth: 5,
-    // justifyContent: 'space-between',
   },
   body: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'red',
     alignItems: 'center'
   },
   footer: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'yellow'
   },
   columns: {
     flexDirection: 'row',
@@ -243,14 +232,10 @@ const styles = StyleSheet.create({
 
   column: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
     alignItems: 'center'
   },
   row: {
     flex: 1,
-    // borderWidth: 2,
-    // borderColor: 'black',
     alignItems: 'center'
   },
   input: {
@@ -290,7 +275,5 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
   }
 });
-//  let pic = { uri: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Bananavarieties.jpg' };
-//<Image source={pic} style={{ width: 193, height: 110 }} />
 
 
