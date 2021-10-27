@@ -10,11 +10,11 @@ Make sure you have both PostgreSQL, Expo and NPM installed
 npm install
 ```
 ```
-npm resetDB
+npm run resetDB
 ```
 
 ```
-npm seed
+npm run seed
 ```
 ```
 npm run server
@@ -23,3 +23,6 @@ npm run server
 npm start
 ```
 Then open IOS simulator and run the app!
+
+
+expo originally used SDK 33.
